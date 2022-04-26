@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 5 Validación de supuestos | Modelos de Regresión</title>
+  <meta name="description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 5 Validación de supuestos | Modelos de Regresión" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 5 Validación de supuestos | Modelos de Regresión" />
+  
+  <meta name="twitter:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  
+
+<meta name="author" content="Sofía Villers Gómez" />
+<meta name="author" content="David Alberto Mateos Montes de Oca" />
+<meta name="author" content="Dulce María Reyes Varela" />
+<meta name="author" content="Carlos Fernando Vásquez Guerra" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pruebas-de-hipótesis.html"/>
+<link rel="next" href="introducción-1.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modelos no paramétricos y de Regresión</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos"><i class="fa fa-check"></i>Objetivos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#licencia"><i class="fa fa-check"></i>Licencia</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduccion</b></span></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html"><i class="fa fa-check"></i>Modelos lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#principios-de-la-modelización-estadística"><i class="fa fa-check"></i>Principios de la modelización estadística</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#identificar-y-caracterizar-variables"><i class="fa fa-check"></i>Identificar y Caracterizar Variables</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#tipos-de-variables-y-tipo-de-modelo"><i class="fa fa-check"></i>Tipos de variables y tipo de modelo</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#en-función-de-las-variables-explicativas"><i class="fa fa-check"></i>En función de las variables explicativas</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#en-función-de-la-variable-respuesta"><i class="fa fa-check"></i>En función de la variable respuesta</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#el-modelo-lineal-general"><i class="fa fa-check"></i>El modelo lineal general</a></li>
+</ul></li>
+<li class="part"><span><b>II Regresión Lineal Simple</b></span></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i>Introducción</a>
+<ul>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#objetivos-del-análisis-de-regresión"><i class="fa fa-check"></i>Objetivos del análisis de regresión</a></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#el-algorítmo-de-regresión-lineal"><i class="fa fa-check"></i>El algorítmo de regresión lineal</a></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#regresión-lineal-simple"><i class="fa fa-check"></i>Regresión lineal simple</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html"><i class="fa fa-check"></i><b>1</b> Modelo con intercepto</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo"><i class="fa fa-check"></i><b>1.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="1.2" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html#propiedades-de-los-estimadores"><i class="fa fa-check"></i><b>1.2</b> Propiedades de los estimadores</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html"><i class="fa fa-check"></i><b>2</b> Modelo sin intercepto</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-1"><i class="fa fa-check"></i><b>2.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="2.2" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#propiedades-de-los-estimadores-1"><i class="fa fa-check"></i><b>2.2</b> Propiedades de los estimadores</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#ejemplo-en-r-studio"><i class="fa fa-check"></i><b>2.2.1</b> Ejemplo en R-Studio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>3</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-beta_0"><i class="fa fa-check"></i><b>3.1</b> Intervalo para <span class="math inline">\(\beta_{0}\)</span></a></li>
+<li class="chapter" data-level="3.2" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-beta_1"><i class="fa fa-check"></i><b>3.2</b> Intervalo para <span class="math inline">\(\beta_{1}\)</span></a></li>
+<li class="chapter" data-level="3.3" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-sigma2"><i class="fa fa-check"></i><b>3.3</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="3.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-el-valor-esperado-y"><i class="fa fa-check"></i><b>3.4</b> Intervalo para el valor esperado <span class="math inline">\(y\)</span></a></li>
+<li class="chapter" data-level="3.5" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-de-predicción"><i class="fa fa-check"></i><b>3.5</b> Intervalo de predicción</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#ejemplo"><i class="fa fa-check"></i><b>3.5.1</b> Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html"><i class="fa fa-check"></i><b>4</b> Pruebas de hipótesis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#pruebas-para-beta_0"><i class="fa fa-check"></i><b>4.1</b> Pruebas para <span class="math inline">\(\beta_{0}\)</span></a></li>
+<li class="chapter" data-level="4.2" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#prueba-para-beta_1"><i class="fa fa-check"></i><b>4.2</b> Prueba para <span class="math inline">\(\beta_{1}\)</span></a></li>
+<li class="chapter" data-level="4.3" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#prueba-para-sigma2"><i class="fa fa-check"></i><b>4.3</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.4" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#análisis-de-la-varianza-anova"><i class="fa fa-check"></i><b>4.4</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="4.5" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#coeficiente-de-determinación"><i class="fa fa-check"></i><b>4.5</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="4.6" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#propiedades-de-r2"><i class="fa fa-check"></i><b>4.6</b> Propiedades de <span class="math inline">\(R^2\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#relación-r2-y-la-correlación-de-pearson"><i class="fa fa-check"></i><b>4.7</b> Relación <span class="math inline">\(R^2\)</span> y la correlación de Pearson</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#ejemplo-1"><i class="fa fa-check"></i><b>4.7.1</b> Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html"><i class="fa fa-check"></i><b>5</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#análisis-de-residuales"><i class="fa fa-check"></i><b>5.1</b> Análisis de residuales</a></li>
+<li class="chapter" data-level="5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-normalidad"><i class="fa fa-check"></i><b>5.2</b> Supuesto de normalidad</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#validación-del-supuesto-de-normalidad"><i class="fa fa-check"></i><b>5.2.1</b> Validación del supuesto de normalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>5.3</b> Supuesto de linealidad</a></li>
+<li class="chapter" data-level="5.4" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-homocedasticidad"><i class="fa fa-check"></i><b>5.4</b> Supuesto de homocedasticidad</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#prueba-de-breusch-pagan"><i class="fa fa-check"></i><b>5.4.1</b> Prueba de Breusch-Pagan</a></li>
+<li class="chapter" data-level="5.4.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#prueba-de-white"><i class="fa fa-check"></i><b>5.4.2</b> Prueba de White</a></li>
+<li class="chapter" data-level="5.4.3" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#ejemplo-2"><i class="fa fa-check"></i><b>5.4.3</b> Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-outlier-e-influyentes"><i class="fa fa-check"></i><b>5.5</b> Valores outlier e influyentes</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-outlier"><i class="fa fa-check"></i><b>5.5.1</b> Valores outlier</a></li>
+<li class="chapter" data-level="5.5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-influentes"><i class="fa fa-check"></i><b>5.5.2</b> Valores influentes</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Modelo de regresión lineal múltiple</b></span></li>
+<li class="chapter" data-level="" data-path="introducción-1.html"><a href="introducción-1.html"><i class="fa fa-check"></i>Introducción</a></li>
+<li class="chapter" data-level="6" data-path="modelo.html"><a href="modelo.html"><i class="fa fa-check"></i><b>6</b> Modelo</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="modelo.html"><a href="modelo.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-2"><i class="fa fa-check"></i><b>6.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="6.2" data-path="modelo.html"><a href="modelo.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Estimación por máxima verosimilitud</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html"><i class="fa fa-check"></i><b>7</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-beta_j"><i class="fa fa-check"></i><b>7.1</b> Intervalo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="7.2" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-sigma2-1"><i class="fa fa-check"></i><b>7.2</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="7.3" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-la-respuesta-media"><i class="fa fa-check"></i><b>7.3</b> Intervalos de la respuesta media</a></li>
+<li class="chapter" data-level="7.4" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-predicción"><i class="fa fa-check"></i><b>7.4</b> Intervalos de predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#región-de-rechazo-para-beta_j"><i class="fa fa-check"></i><b>8.1</b> Región de rechazo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="8.2" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#prueba-para-sigma2-1"><i class="fa fa-check"></i><b>8.2</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="8.3" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#análisis-de-la-varianza-anova-1"><i class="fa fa-check"></i><b>8.3</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="8.4" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#coeficiente-de-determinación-2"><i class="fa fa-check"></i><b>8.4</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="8.5" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#r2-ajustado"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(R^2\)</span> ajustado</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html"><i class="fa fa-check"></i><b>9</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#supuesto-de-multicolinealidad"><i class="fa fa-check"></i><b>9.1</b> Supuesto de multicolinealidad</a></li>
+<li class="chapter" data-level="9.2" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#detección-de-multicolinealidad"><i class="fa fa-check"></i><b>9.2</b> Detección de multicolinealidad</a></li>
+<li class="chapter" data-level="9.3" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#ejemplo-3"><i class="fa fa-check"></i><b>9.3</b> Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>10</b> Apéndice</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Hecho con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelos de Regresión</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="validación-de-supuestos" class="section level1" number="5">
+<h1><span class="header-section-number">Capítulo 5</span> Validación de supuestos</h1>
+<p>El modelo de regresión lineal es una buena herramienta de estimación, sin embargo, en dicho proceso se hace uso de diversos supuestos que deben cumplirse para que los resultados obtenidos sean acordes a la teoría desarrollada, que hasta el momento no se le había prestado gran atención. Estos supuestos los vimos en la <strong>definición 2.1</strong> para el caso de regresión lineal simple.
+A manera de resumen y de forma general los supuestos que deben cumplirse son: la esperanza de los errores <span class="math inline">\(\epsilon\)</span> tienen media cero, es decir, <span class="math inline">\(\mathbf{E}[\epsilon]=0\)</span>, varianza constante sobre los errores, es decir, <span class="math inline">\((Var(\epsilon)=\sigma^2)\)</span>, los errores no se encuentran correlacionados entre si, es decir, <span class="math inline">\((Cov(\epsilon_{i},\epsilon_{j})\forall i\neq j)\)</span>, por último, los errores tienen distribución normal con media cero y varianza <span class="math inline">\(\sigma^2\)</span>, es decir, <span class="math inline">\(\epsilon \sim \mathbf{N}(0,\sigma^2).\)</span></p>
+<p>Es por ello que analizaremos y verificaremos el cumplimiento de los supuestos, la mayoría de estas validaciones se basan bajo el principio del análisis de residuales.</p>
+<div id="análisis-de-residuales" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Análisis de residuales</h2>
+<p>Anteriormente definimos los residuales como <span class="math inline">\(e_{i}=y_{i}-\hat{y_{i}}\)</span>, el cual su nombre deriva de la obtención del residual o diferencia que existe entre la línea de regresión ajustada y los valores observados de la variable respuesta <span class="math inline">\(y_{i}\)</span>; esta cantidad residual es un buen ajuste debría ser cercana a cero, pues cuando esto sucede se tiene que <span class="math inline">\(y_{i} \approx \hat{y_{i}}\)</span> debido a ello se opta por trabajar con los residuales para verificar el cumplimiento de los supuestos.</p>
+<p>Muchas pruebas usan como base modificaciones o tipos específicos de residuos, es por esta razón que se indagará sobre los diversos tipos más conocidos.</p>
+<p><strong>residuales ordinarios</strong></p>
+<p>Los residuales ordinarios o simplemente residuales, miden la diferencia entre la línea de regresión y la variable respuesta <span class="math inline">\(y_{i}\)</span>, es por ello que se definen como:</p>
+<p><span class="math display">\[e_{i}=y_{i}-\hat{y_{i}}  \ \ \ \ \ \ \ \ i=1,2,\ldots ,n.\]</span>
+La desventaja que presentan estos residuales, es que depende de cada <span class="math inline">\(y_{i}\)</span> por lo que observaciones atípicas puede generar grandes residuales, ocasionando que pueda existir gran variabilidad al considerarse los errores en forma conjunta.</p>
+<p><strong>residuales estandarizados</strong></p>
+<p>Una forma de disminuir esta variabilidad consiste en dividir a los residuales <span class="math inline">\(e_{i}\)</span> entre la varianza global, es decir:</p>
+<p><span class="math display">\[d_{i}=\frac{e_{i}}{\sqrt{\sigma^2}}\]</span></p>
+<p>Una propiedad importante es que si <span class="math inline">\(e_{i}\)</span> sigue una distribución normal, entonces al dividirlo entre la desviación estándar, se tiene que los residuales estandarizados siguen una distribución normal estándar.</p>
+<p><strong>residuales estudentizados</strong></p>
+<p>Los residuales estudentizados se basan en la idea de involucrar la varianza de cada observación en el cálculo de los residuales, pues teóricamente los residuales no tiene varianza constante.</p>
+<p>Como se demostrará en el corolario A (ver <span class="math inline">\(Apéndice\)</span>), se sabe que <span class="math inline">\(e=(I-H)\underline{Y}\)</span>; en donde <span class="math inline">\(H=X(X&#39;X)^{-1}X&#39;\)</span> la definimos como <strong>matriz sombrero</strong>.
+De esta manera calculando la varianza de los errores se tiene:</p>
+<p><strong>Corolario 6</strong> Sea <span class="math inline">\(\underline{e}\)</span> los residuales del modelo entonces la varianza de <span class="math inline">\(\underline{e}\)</span> está dada por:</p>
+<p><span class="math display">\[Var(\underline{e})=\sigma^2(I-H)\]</span></p>
+<p><strong>Demostración:</strong></p>
+<p><span class="math display">\[Var(\underline{e})=Var((I-H)\underline{Y})\]</span></p>
+<p><span class="math display">\[Var(\underline{e})=(I-H)&#39;Var(\underline{Y})(I-H)\]</span>
+Sabemos que <span class="math inline">\((I-H)\)</span> es simétrica (ver <span class="math inline">\(apéndice\)</span>)</p>
+<p><span class="math display">\[Var(\underline{e})=(I-H)(I-H)Var(\underline{Y})\]</span>
+Sabemos quue <span class="math inline">\((I-H)\)</span> es idempotente (ver <span class="math inline">\(apéndice\)</span>)</p>
+<p><span class="math display">\[Var(\underline{e})=(I-H)Var(\underline{Y})\]</span>
+Por el <strong>teorema B</strong> (demostrado en <span class="math inline">\(apéndice\)</span>)</p>
+<p><strong>Teorema B</strong> Sea una variable de interés <span class="math inline">\(\underline{Y}\)</span>, llamada <strong>dependiente</strong>, relacionada con dos o más variables explicativas<span class="math inline">\(x_{1},x_{2},\ldots,x_{k}\)</span>,
+entonces:</p>
+<p><strong>a)</strong> <span class="math inline">\(\mathbf{E}[\underline{Y}]= \beta_{0}+\beta_{1}x_{1}+\beta_{2}x_{2}+ \ldots + \beta_{k}x_{k}.\)</span></p>
+<p><strong>b)</strong> <span class="math inline">\(Var(\underline{Y})= \sigma^2.\)</span></p>
+<p><span class="math display">\[\therefore Var(\underline{e})=\sigma^2(I-H). \blacksquare\]</span></p>
+<p>La varianza de cada residual no es constante para todas las observaciones es por ello que el resultado depende de la siguiente forma:</p>
+<p><span class="math display">\[Var(e_{i})=\sigma^2(1-h_{ii})\]</span>
+donde <span class="math inline">\(h_{ii}\)</span> correspondiente al <span class="math inline">\(i-ésimo\)</span> elemento de la diagonal de la matriz sombrero <span class="math inline">\(H\)</span>.</p>
+<p>Cada residual se divide entre su varianza obteniendo de esta forma lo que se conoce como <strong>residuales estudentizados</strong>, los cuales se definen como:</p>
+<p><span class="math display">\[r_{i}=\frac{e_{i}}{\sqrt{\hat{\sigma}^2(1-h_{ii})}}\]</span>
+Debido a la construcción de los <strong>residuales estudentizados</strong> se logra estandarizar de mejor manera a los residuales del modelo. Si se cumple que cada residual <span class="math inline">\(e_{i}\)</span> sigue una distribución normal entonces los residuales estudentizados siguen una distribución aproximada a una <span class="math inline">\(t-student\)</span> con <span class="math inline">\(n-k-1\)</span> grados de libertad.</p>
+</div>
+<div id="supuesto-de-normalidad" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Supuesto de normalidad</h2>
+<p>Como se mencionó, en el modelo de regresión lineal se tiene el supuesto de que los errores tienen distribución normal con media cero y varianza <span class="math inline">\(\sigma^2\)</span>. Debido a la construcción del modelo, este supuesto puede presentar desviaciones en la distribución, en la cual, serias desviaciones de ésta puede ocasionar que las estimaciones dadas sean erróneas, principalmente se pueden observar en la construcción de intervalos de confianza o pruebas de hipótesis, ya que las cantidades pivotales se basan en la premisa de normalidad en los errores, por lo que desviaciones significativas provocan una mala aproximación o cálculo; además que pruebas de hipótesis subsecuentes basadas en distribuciones como la <span class="math inline">\(t\)</span> de Student o la <span class="math inline">\(F\)</span> de Fisher presentan malas estadísticas para la toma de decisiones.</p>
+<div id="validación-del-supuesto-de-normalidad" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Validación del supuesto de normalidad</h3>
+<p>Para validar el supuesto de normalidad existen varios métodos, el primero de ellos es de forma visual, a través de las denominadas gráficas cuantil-cuantil, o también denominadas QQ-plot, ésta gráfica es muy usada para comprobar si una muestra sigue una determinada distribución. El procedimiento se basa en ordenar los residuales <span class="math inline">\((e_{i})\)</span> en orden ascendente los cuales se mostrarán en el eje horizontal <span class="math inline">\(X\)</span>, mientras que el eje vertical <span class="math inline">\(Y\)</span> se muestra al valor esperado de la estadística de orden de una distribución normal.
+El valor esperado se denota como:</p>
+<p><span class="math display">\[\mathbf{E}[e_{i}]=\phi^{-1}\left[\frac{i-\frac{1}{2}}{n}\right].\]</span></p>
+<p>Donde la función <span class="math inline">\(\phi^{-1}\)</span> es la distribución inversa de una normal. Si los resultados se comportaran de manera normal la gráfica de cuantiles de los errores pareciera que siguen una marcada línea de <span class="math inline">\(45^\circ\)</span>, por lo que valores fuera de la línea recta indicarían una distribución no normal.</p>
+<p><span class="math display">\[\mbox{Diversas distribuciones en gráficas QQ-plot}\]</span></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Lo que podemos observar, es que las dos muestras superiores siguen una distribución normal, sin embargo, la primera tiene pocas observaciones por lo que algunos puntos se encuentran cercanos a la recta azul, línea que representa la distribución normal ideal, pero pocas veces la muestra toca esta línea y las colas presentan mucha variabilidad, la gráfica de la derecha al tener tamaño de muestra mayor, se aprecia que muchos datos caen sobre la recta, presentando ligeras irregularidades en la cola, tanto superior como inferior, por lo que se puede asumir, que las muestras siguen una distribución normal.</p>
+<p>Por último, las gráficas inferiores, representan a una muestra con distribución gamma y exponencial, respectivamente, al no seguir una distribución normal, los datos salen completamente de la línea recta marcada, por lo que es evidente que no se comportan con normalidad.</p>
+<p>Otro procedimiento para validar el supuesto de normalidad, es mediante pruebas de bondad de ajuste, sin embargo hay que tener cuidado, ya que los errores no son independientes entre si, debido a que están correlacionados, mientras que las pruebas de bondad de ajuste asumen precisamente que las observaciones son independientes entre si. Windfried Stute demostró que pruebas como la Anderson-Darling convergen a la distribución teórica aunque la independencia de los errores no se cumpla, debido a que se basan en el proceso empírico. Sin embargo, las pruebas deben de usarse como una medida de aproximación y no como regla de decisión.</p>
+</div>
+</div>
+<div id="supuesto-de-linealidad" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Supuesto de linealidad</h2>
+<p>En la construcción del modelo de regresión lineal se asume que la relación entre <span class="math inline">\(X_{j}\)</span> y <span class="math inline">\(Y\)</span> es lineal, para cada <span class="math inline">\(j \in 1,\ldots,k\)</span>, con <span class="math inline">\(k\)</span> el número de variables regresoras con el que fue ajustado el modelo.</p>
+<p>Sin embargo, la anterior afirmación no siempre se cumple, es por ello que se valida este supuesto de manera gráfica. Debido a lo complejo que es una gráfica en más de tres dimensiones, se verá que en el modelo de regresión múltiple con <span class="math inline">\(k\)</span> regresores se ajusta un hiperplano de dimensión <span class="math inline">\(k\)</span>.</p>
+<p>Cuando <span class="math inline">\(k\geq 4\)</span> se recomienda realizar gráficas individuales para comprobar la linealidad de la variable explicativa <span class="math inline">\(X_{j}\)</span> y la variable del interés <span class="math inline">\(Y\)</span>.</p>
+<p>Aunque este método proporciona una buena aproximación para saber si dos variables son lineales o no, este tipo de análisis puede proporcionar conclusiones erróneas cuando los coeficientes tienen magnitudes distintas ya que se analiza la relación marginal de la variable respuesta con cada variable explicativa. Es por ello que se opta trabajar mediante un análisis de residuales, en este análisis se grafican los errores estandarizados contra los valores observados de cada variable explicativa, en el cual el cumplimiento de la hipótesis daría como resultado ruido blanco con media 0 y varianza <span class="math inline">\(\sigma^2.\)</span></p>
+<p>Cuando se detecte problemas de linealidad entre variables explicativas y la variable de interés, el ajuste del modelo es malo, debido a que la varianza presenta problemas en la estimación y por consecuencia estadísticas, se usa <span class="math inline">\(\sigma^2\)</span> en su desarrollo lo cual hereda errores en sus cálculos.</p>
+</div>
+<div id="supuesto-de-homocedasticidad" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Supuesto de homocedasticidad</h2>
+<p>Se dice que una muestra es homocedástica cuando la varianza es constante a lo largo de todas las observaciones, es decir, no varia conforme se presentan nuevas observaciones. Mientras una muestra heterocedástica se presenta cuando hay variaciones de la varianza conforme se presentan nuevas observaciones.</p>
+<p>Las desviaciones en el supuesto de homocedasticidad pueden observarse mediante gráficas, la más óptima para el análisis es realizar una gráfica de dispersión en el que se muestre la relación entre los valores ajustados <span class="math inline">\(\underline{\hat{Y}}\)</span> contra los residuales estandarizados <span class="math inline">\(d_{i}\)</span>. Si la varianza es constante entonces la gráfica fluctuará entre el eje horizontal de manera simétrica, asemejando a una distribución uniforme, y sin seguir algún tipo de patrón, ya que típicamente se considera que la mayor parte de los errores deben estar contenidos en franjas horizontales delimitados por el eje vertical entre <span class="math inline">\(y=-2\)</span> y <span class="math inline">\(y=2\)</span>.</p>
+<p><span class="math display">\[\mbox{Muestra homocedástica y una Muestra heterocedástica}\]</span></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /><img src="_main_files/figure-html/unnamed-chunk-35-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Como estamos observando, la primera imagen corresponde a una muestra homocedástica pues los errores se distribuyen a lo largo del eje horizontal, además que éstos fluctúan entre <span class="math inline">\(y=-2\)</span> y <span class="math inline">\(y=2\)</span> distribuidos de una manera simétrica. Mientras que la segunda gráfica muestra que los errores fluctúan entre -2 y 2, sin embargo los resultados siguen un patrón de tender hacia a la media conforme se presentan nuevas observaciones, simulando un megáfono, por lo que se dice que la muestra sigue una tendencia heterocedástica.</p>
+<p>Por último las gráficas ubicadas en la parte inferior, muestran como conforme se presentan nuevas observaciones los errores se alejan de la media, por lo que son muestras heterocedásticas.</p>
+<p>Existen métodos más formales para probar homocedasticidad mediante pruebas de hipótesis, una de las que se desarrollarán a continuación.</p>
+<div id="prueba-de-breusch-pagan" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Prueba de Breusch-Pagan</h3>
+<p>La prueba de Breusch-Pagan fue desarrollada en 1979 por los estadísticos Trevor Breusch y Adrian Pagan, se utiliza para determinar si una muestra presenta problemas de homocedasticidad o heterocedasticidad en un modelo de regresión lineal. El método consiste en analizar si la varianza estimada de los residuales de una regresión depende directamente de los valores obtenidos de las variables independientes, uno de los supuestos de esta prueba es que los errores deben comportarse con normalidad.</p>
+<p>La prueba de Breusch-Pagan contrasta como hipótesis nula el cumplimiento de homocedasticidad, por lo que se tiene la siguiente prueba de hipótesis.</p>
+<p><span class="math display">\[\textbf{H}_0: \ \mbox{Muestra homocedástica  i.e.} \ \ \ \sigma^2_{j}=\sigma^2 \ \ \ \ vs  \ \ \ \
+\textbf{H}_a:  \ \mbox{Muestra Heterocedástica  i.e.} \ \ \ \sigma^2_{j} \neq \sigma^2 \ \ \ \ \forall  \ \ j = 1,\ldots,n.\]</span></p>
+<p>El procedimiento se basa en calcular los residuales estandarizados al cuadrado <span class="math inline">\(\left( \tilde{e}^2_{j}=\frac{e^2_{j}}{\sigma^2}\right)\)</span>; Con ello se realiza una regresión lineal tomando como variable respuesta a cada <span class="math inline">\(\tilde{e}_{j}\)</span> al cuadrado y con variables explicativas dentro del conjunto de variables exógenas Z:</p>
+<p><span class="math display">\[\tilde{e}_{j}^{2}=\gamma_{0}+\gamma_{1}Z_{1}+ \ldots + \gamma_{n}Z_{n}\]</span></p>
+<p>Después se procede a calcular la suma de cuadrados de la regresión del modelo con los errores estandarizados divididos entre 2, <span class="math inline">\(\frac{SC_{reg}}{2},\)</span> donde <span class="math inline">\(SC_{reg}=\underline{Y}&#39;(H-\frac{1}{n}J)\underline{Y}&#39;\)</span>; Breusch-Pagan descubrieron que este estadístico sigue asintóticamente una distribución ji-cuadrada con <span class="math inline">\(k\)</span> grados de libertad, siendo <span class="math inline">\(k\)</span> el número de variables del modelo. Por lo que la región de rechazo para <span class="math inline">\(H_0\)</span> sucede cuando la estadística <span class="math inline">\(\frac{SC_{reg}}{2}\)</span> es mayor al cuantil de una ji-cuadrada con <span class="math inline">\(k\)</span> grados de libertad con un nivel de significancia <span class="math inline">\(\alpha\)</span>, es decir:</p>
+<p><span class="math display">\[\frac{SC_{reg}}{2}&gt; \chi^{2(\alpha)}_{k}.\]</span>
+En otro caso no se tiene evidencia sificiente para rechazar la hipótesis nula.</p>
+<p>En <span class="math inline">\(R\)</span> la prueba de Breusch-Pagan puede ser fácilmente implementada, suponga que se tiene una muestra en el que se ha implementado el procedimiento de regresión lineal en <span class="math inline">\(R \ (lm(Y \sim X))\)</span>, por lo que aplicándo el siguiente código se tiene:</p>
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  modelo1
+BP = 0.026689, df = 1, p-value = 0.8702</code></pre>
+<p>Se observa que en el anterior caso particular, la prueba supone como válida la hipótesis nula; la homocedasticidad de muestra debido a que el <span class="math inline">\(p-value\)</span> es alto, (de 0.8702), lo que conlleva a que no se rechace la hipótesis nula con un nivel de significancia <span class="math inline">\(\alpha=0.05\)</span>, por lo que se acepta que la muestra se comporta con homocedasticidad.</p>
+</div>
+<div id="prueba-de-white" class="section level3" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Prueba de White</h3>
+<p>La prueba de White es similar a la prueba de Breusch-Pagan, sin embargo, se considera que ésta prueba es más general pues no requiere que los errores sigan una distribución normal.</p>
+<p>La prueba de White fue propuesta por Hilbert White en 1980, como alternativa a la prueba de Breusch-Pagan, el procedimiento es similar, se analiza si la varianza estimada de los residuos de una regresión depende directamente de los valores obtenidos.</p>
+<p>El test contrasta como hipótesis nula el cumplimiento de homocedasticidad, por lo que se tiene la siguiente prueba de hipótesis.</p>
+<p><span class="math display">\[\textbf{H}_0: \  \mbox{Muestra homocedástica  i.e.}  \ \ \  \sigma^2_{j}=\sigma^2 \ \ \ \ vs  \ \ \ \
+\textbf{H}_a: \  \mbox{Muestra Heterocedástica i.e.}  \ \ \  \sigma^2_{j} \neq \sigma^2  \ \ \ \ \forall  \ j = 1,\ldots,n.\]</span></p>
+<p>El procedimiento se basa en calcular los residuales estandarizados al cuadrado <span class="math inline">\(\left( \tilde{e}^2_{j}=\frac{e^2_{j}}{\sigma^2}\right)\)</span>; Con ello se realiza una regresión lineal tomando como variable respuesta a cada <span class="math inline">\(\tilde{e}_{j}\)</span> al cuadrado y el producto cruzado de variables explicativas dentro del conjunto de variables exógenas Z:</p>
+<p><span class="math display">\[\tilde{e}_{j}^{2}=\gamma_{0}+\gamma_{1}Z_{1i}+ \ldots + \gamma_{k}Z_{ki}+\gamma_{k+1}Z^2_{1k}+\ldots + \gamma_{k+k}Z_{1k}Z_{ki}+\gamma{k+k+1}Z_{2k}Z_{1k}+\ldots + \gamma{tk}Z^2_{kk}+\epsilon\]</span>
+Del anterior ajuste de regresión se procede a calcular el coeficiente de determinación <span class="math inline">\(R^2=\frac{SC_{reg}}{SC_{T}}\)</span> y sea n el tamaño de la muestra, entonces la estadística <span class="math inline">\(nR^2\)</span> sigue asintóticamente una distribución ji-cuadrada con <span class="math inline">\(k\)</span> grados de libertad, siendo <span class="math inline">\(k\)</span> el número de variables del modelo original.Por lo que la región de rechazo para <span class="math inline">\(H_0\)</span> sucede cuando la estadística <span class="math inline">\(nR^2\)</span> es mayor al cuantil de una ji-cuadrada con <span class="math inline">\(k\)</span> grados de libertad con un nivel de significancia <span class="math inline">\(\alpha\)</span>, es decir:</p>
+<p><span class="math display">\[nR^2&gt;\chi^{2(\alpha}_{k}).\]</span>
+En otro caso no se tiene evidencia suficiente para rechazar la hipótesis nula.</p>
+<p>Se observa que en el anterior caso particular la prueba de White supone como válida la hipótesis nula la homocedasticidad de la muestra, debido a que el <span class="math inline">\(p-value\)</span> es alto, (de 0.5244), lo que conlleva a que no se rechace la hipótesis nula con un nivel de significancia <span class="math inline">\(\alpha=0.05\)</span>, por lo que se acepta que la muestra se comporta con homocedasticidad.</p>
+</div>
+<div id="ejemplo-2" class="section level3" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Ejemplo</h3>
+<p>En las secciones anteriores tomamos los datos de <strong>CALLCENT</strong> y comenzamos a resolver el problema que el gerente nos planteó de poder
+predecir, de alguna manera, el tiempo promedio que tardarían en procesar un número dado de facturas.</p>
+<p>Se ha recolectado, durante un periodo de 30 días, la información sobre el número de facturas procesadas (en nuestrio caso definimos como nuestra variable <span class="math inline">\(x\)</span>) y el tiempo que tardan las mismas (que hemos definido como nuestra variable <span class="math inline">\(y\)</span>).</p>
+<p>Verificamos gráficamente que hubiera una relación lineal entre las variables, estimamos los parámetros del modelo de regresión lineal simple con intercepto y sin intercepto. Luego construimos intervalos de confianza para los parámetros estimados, para el valor esperado y la predicción. Realizamos pruebas de hipótesis sobre los estimadores de los parámetros. Calculamos el coeficiente de determinación y realizamos un análisis de varianza sobre el modelo seleccionado.</p>
+<p>Como se mencionó en nuestro capítulo debemos verificar que los supuestoshechos para ajustar este modelo de regresión lineal simple se cumplen.</p>
+<p>Esta vez vamos a ocupar la función en R para el modelo de regresión que es <strong>lm()</strong>.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="validación-de-supuestos.html#cb39-1" aria-hidden="true" tabindex="-1"></a>M1<span class="ot">=</span><span class="fu">lm</span>(Tiempo<span class="sc">~</span>Facturas)</span>
+<span id="cb39-2"><a href="validación-de-supuestos.html#cb39-2" aria-hidden="true" tabindex="-1"></a>M1</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = Tiempo ~ Facturas)
+
+Coefficients:
+(Intercept)     Facturas  
+    0.64171      0.01129  </code></pre>
+<p><strong>Residuales</strong></p>
+<p>Entonces primero calcularemos los diferentes residuales vistos. Se presentaran solamente los primeros 6 residuos de las 30 observaciones y un diagrama de dispersión.</p>
+<ul>
+<li><span class="math inline">\(\textbf{Los residuales ordinarios}\)</span></li>
+</ul>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="validación-de-supuestos.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(M1<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>         1          2          3          4          5          6 
+-0.2241648  0.4807915 -0.4645390 -0.1014177 -0.2113303 -0.2966252 </code></pre>
+<p><img src="_main_files/figure-html/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><span class="math inline">\(\textbf{Los residuales estandarizados}\)</span></li>
+</ul>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="validación-de-supuestos.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">rstandard</span>(M1))</span></code></pre></div>
+<pre><code>         1          2          3          4          5          6 
+-0.6921686  1.5065958 -1.4483299 -0.3248760 -0.6625061 -0.9303669 </code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="validación-de-supuestos.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rstandard</span>(M1),<span class="at">col=</span><span class="st">&quot;deeppink4&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Residuales estandarizados&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Observaciones&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li><span class="math inline">\(\textbf{Los residuales estudentizados}\)</span></li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="validación-de-supuestos.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">rstudent</span>(M1))</span></code></pre></div>
+<pre><code>         1          2          3          4          5          6 
+-0.6855868  1.5433247 -1.4786993 -0.3196249 -0.6557278 -0.9280596 </code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="validación-de-supuestos.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rstudent</span>(M1),<span class="at">col=</span><span class="st">&quot;deeppink4&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Residuales estudentizados&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Observaciones&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><strong>Validación de supuesto de normalidad</strong></p>
+<p>Para validar gráficamente la normalidad de los errores debemos graficar los errores contra los cuantiles de la distribución normal. Para esto aplicaremos la función en R <strong>qqnorm()</strong> y con <strong>qqline()</strong> obtenemos la recta diagonal que nos servirá para ver que tan lejos o cerca de la distribución normal están cayendo los residuales del modelo.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="validación-de-supuestos.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">rstandard</span>(M1),<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>),<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb49-2"><a href="validación-de-supuestos.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">rstandard</span>(M1),<span class="at">distribution =</span> qnorm,<span class="at">col=</span><span class="st">&quot;deeppink4&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Podemos observar que la parte central de la distribución si se ajusta a una distribución normal, sin embargo, en los extremos los residuales ya no se comportan como una distribución normal.</p>
+<p>Podemos aplicar la prueba de bondad de ajuste <strong>Lilliefors para normalidad</strong> vista en Bondad de Ajuste:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="validación-de-supuestos.html#cb50-1" aria-hidden="true" tabindex="-1"></a>nortest<span class="sc">::</span><span class="fu">ad.test</span>(<span class="fu">rstandard</span>(M1))</span></code></pre></div>
+<pre><code>
+    Anderson-Darling normality test
+
+data:  rstandard(M1)
+A = 0.2675, p-value = 0.6615</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="validación-de-supuestos.html#cb52-1" aria-hidden="true" tabindex="-1"></a>nortest<span class="sc">::</span><span class="fu">lillie.test</span>(<span class="fu">rstandard</span>(M1))</span></code></pre></div>
+<pre><code>
+    Lilliefors (Kolmogorov-Smirnov) normality test
+
+data:  rstandard(M1)
+D = 0.088454, p-value = 0.7946</code></pre>
+<p>Como el valor del <span class="math inline">\(p-value\)</span> es mayor al nivel de significancia <span class="math inline">\(\alpha=0.05\)</span> entonces no rechazamos <span class="math inline">\(H_{0}\)</span>, es decir nuestros residuales tienen distribución normal.</p>
+<p><strong>Supuesto de linealidad</strong></p>
+<p>El supuesto de linealidad lo verificamos gráficamente haciendo el diagrama de dispersión entre las variables como lo hicimos anteriormente.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Como lo mencionamos en su tiempo al observar nuestros datos nos grita que existe una relación lineal entre las variable facturas y tiempo empleado en ellas.</p>
+<p>Como mencionamos en el capítulo, también se pueden graficar los errores estandarizados contra los valores observados de la variable explicativa.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>En la gráfica anterior se observa un patrón aleatorio de los residuales estandarizados, esto indica que el modelo lineal es adecuado.</p>
+<p>Un punto igual de importante es que no hay presencia de datos atípicos, ya que ningún residual está fuera de las bandas superior e inferior. Datos influyentes tampoco están presentes, pues no hay residuales que estén en alguna dirección lejana a los demás.</p>
+<p><strong>Supuesto de Homocedasticidad</strong></p>
+<p>Se dice que una muestra es homocedástica cuando la varianza es constante a lo largo de todas las observaciones, es decir, no varia conforme se presentan nuevas observaciones.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Si la varianza es constante entonces la gráfica fluctuaráentre el eje horizontal de manera simétrica, y sin seguir algún patrón, y se espera que la mayor parte de los errores estén contenidos en franjas horizontales delimitados por el eje entre -2 y 2. En éste ejemplo la dispersión regular de los residuales dentro de las Bandas superior e inferior y que no haya residuales que se alejen tanto de la Banda 0, indican varianza constante.</li>
+</ul>
+<p>Adicionalmente aplicaremos las pruebas vistas en el capítulo para tener certeza estadística de la validez del supuesto de homocedasticidad.</p>
+<p><strong>Prueba de Breusch-Pagan</strong></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="validación-de-supuestos.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(M1)</span></code></pre></div>
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  M1
+BP = 0.13226, df = 1, p-value = 0.7161</code></pre>
+<p>El valor del <span class="math inline">\(p-value\)</span> es mayor, por lo que la hipótesis de homocedasticidad no se rechaza.</p>
+<p><strong>Prueba White</strong></p>
+<pre><code>[1] &quot;Dia&quot;      &quot;Facturas&quot; &quot;Tiempo&quot;  </code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="validación-de-supuestos.html#cb57-1" aria-hidden="true" tabindex="-1"></a>dataset<span class="ot">=</span><span class="fu">data.frame</span>(x, y)</span>
+<span id="cb57-2"><a href="validación-de-supuestos.html#cb57-2" aria-hidden="true" tabindex="-1"></a>model1<span class="ot">=</span> <span class="fu">VAR</span>(dataset, <span class="at">p =</span> <span class="dv">1</span>)</span>
+<span id="cb57-3"><a href="validación-de-supuestos.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co">#whites.htest(model1)</span></span></code></pre></div>
+<p>El <span class="math inline">\(p-value\)</span> es mayor, por lo que la hipótesis de homocedasticidad no se rechaza.</p>
+<p><strong>Supuesto de No Correlación</strong></p>
+<p>El estadístico de Durbin-Watson es una estadística de prueba que se utiliza para detectar la presencia de autocorrelación (una relación entre los valores separados el uno del otro por un intervalo de tiempo dado) en los residuales de un análisis de la regresión.</p>
+<p>Las hipótesis que se plantean en la prueba de Durbin-Watson es:</p>
+<p><span class="math display">\[\textbf{H}_0: \mbox{La autocorrelación de los residuales es igual a } 0 \ \ \  vs \ \ \  \textbf{H}_a: \mbox{La autocorrelación de los residuales es} \neq 0\]</span></p>
+<p>En R se puede hacer la prueba de Durbin Watson con el comando <strong>dwtest()</strong>.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="validación-de-supuestos.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dwtest</span>(M1)</span></code></pre></div>
+<pre><code>
+    Durbin-Watson test
+
+data:  M1
+DW = 1.7604, p-value = 0.2558
+alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+<p>De acuerdo con el <span class="math inline">\(p-value\)</span> los residuales no están correlacionados.</p>
+<p><strong>Conclusiones</strong></p>
+<p>Los supuestos hechos sobre los residuales se cumplen, por lo tanto el modelo propuesto es <strong>totalmente adecuado</strong> para <strong>predecir</strong> el tiempo promedio que tomará procesar un número de facturas dado:</p>
+<p><span class="math display">\[\mbox{Tiempo promedio estimado}=0.6417+0.01129* \mbox{Número de Facturas Procesadas} \]</span>
+* <span class="math inline">\(\textbf{Puntos importantes}\)</span></p>
+<ol style="list-style-type: decimal">
+<li><p>El gerente del departamento de ventas de <strong>CALLCENT</strong> podrá predecir el tiempo promedio en el que se procesará un número de facturas dado utilizando el modelo ajustado. Se sugiere realizar estimaciones dentro del rango de la dispersión de los datos, de lo contrario la variabilidad aumenta y podría tenerse estimaciones no tan precisas.</p></li>
+<li><p>La ausencia de datos atípicos e influyentes indica que no hay factores que estén afectando el proceso de facturas y su tiempo empleado.</p></li>
+<li><p>La cantidad de horas en la que tardarían en procesar una factura oscila en el intervalo (0.0096 hrs, 0.01296 hrs) a una confianza del 95%. Puntualmente se estima que las horas requeridas para procesar una factura es 0.01129 hrs.</p></li>
+</ol>
+<p>4.- En este caso, el valor de <span class="math inline">\(\hat{\beta_{0}}\)</span> (intercepto) no tiene una interpretación de acuerdo al contexto del problema.</p>
+</div>
+</div>
+<div id="valores-outlier-e-influyentes" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Valores outlier e influyentes</h2>
+<p>Una vez que se ha verificado el cumplimiento de los supuestos en el modelo de regresión, se procede a examinar puntualmente cada observación en búsqueda de valores atípicos o de gran influencia en el modelo.</p>
+<div id="valores-outlier" class="section level3" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> Valores outlier</h3>
+<p>Los valores atípicos, también conocidos por la terminología inglesa <span class="math inline">\(outlier\)</span>, son observaciones de la muestra aleatoria que no se comportan como el resto de los elementos que conforman el conjunto de datos, gráficamente, la observación con valor atípico no sigue la tendencia que de manera general sigue la muestra aleatoria, lo veremos en la siguiente figura, en el cual el punto rojo sobresale de toda la muestra marcada por puntos azules, por lo que la observación puede ser catalogada como un outlier o valor atípico.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Otra manera de detectar a los posibles valores atípicos es por medio de un análisis de residuales. Dicho análisis consiste en obtener los residuales, ya sean los estandarizados o estudentizados y observar si éstos son mayores o menores a comparación de un punto crítico con nivel de significancia <span class="math inline">\(\alpha\)</span>. Si se escoge trabajar con los residuales estandarizados sigue una distribución normal con media 0 y varianza <span class="math inline">\(\sigma^2\)</span>. Por lo que los residuales superiores o inferiores del punto crítico <span class="math inline">\(\pm Z_{1-\alpha/2}\)</span> son considerados como un posible <span class="math inline">\(outlier\)</span> con un nivel de significancia <span class="math inline">\(\alpha\)</span>. Por otra parte, si se decide trabajar con los residuales estudentizados entonces el punto crítico está determinado por los residuales que se encuentren por arriba o por abajo de la banda determinada por el cuantil <span class="math inline">\(\pm \ t_{1-\alpha/2,n-k-1}.\)</span> Es decir, se tiene evidencia de un valor atípico con nivel de significancia <span class="math inline">\(\alpha\)</span> cuando suceda alguna de las siguientes dos desigualdades:</p>
+<p><span class="math display">\[\mid d_{i} \mid \geq Z_{1-\alpha/2}\]</span>
+<span class="math display">\[\mid r_{i}\mid  \geq t_{1-\alpha/2,n-k-1}\]</span></p>
+<p>Continuando con el ejemplo anterior, los posibles valores atípicos pueden ser visualizados en la siguiente figura, con un nivel de confianza del 99%, y usando los residuales estandarizados para el análisis.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Como se mencionó, es más que evidente que el punto atípico corresponde a la observación 40 la cual contrasta y sale de las bandas marcadas por el cuantil de la normal.</p>
+<p>Generalmente se procede a eliminar observaciones atípicas, sin embargo, se recomienda realizar un análisis de influencia de las observaciones que presentan problemas de <span class="math inline">\(outlier\)</span>, ya que aunque se trata de puntos atípicos, puede resultar beneficioso para el modelo ya que puede que sean significativas para el modelo, por lo que eliminar estas observaciones puede ocasionar conflictos o desviaciones en la estimación.</p>
+</div>
+<div id="valores-influentes" class="section level3" number="5.5.2">
+<h3><span class="header-section-number">5.5.2</span> Valores influentes</h3>
+<p>Los valores influentes, son observaciones que tienen una gran influencia en el ajuste del modelo, es decir, remover estas observaciones ocasionaría un cambio drástico en el modelo de regresión, ya que dichas observaciones tienen gran influencia en el cálculo de los estimadores de los parámetros o en las predicciones.</p>
+<p>Es por esta propiedad por lo que se busca analizar estos puntos para medir su impacto en el modelo, para identificar si el <span class="math inline">\(outlier\)</span> encontrado puede ser eliminado o no de la muestra.</p>
+<p>Por ejemplo, imagine que tiene una muestra aleatoria conformada por 8 observaciones, en la cual 6 elementos son iguales y dos con diferente valor, tal como se muestra a continuación:</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>El modelo tiene asociado una línea de regresión, sin embargo, si se quitan los extremos o valores atípicos, el modelo cambiaría rotundamente.</p>
+<p>Un método para identificar la influencia del modelo es a través de los puntos palanca o leverage. El método consiste en examinar la medida entre el punto y el punto medio de los datos, a este punto también se le conoce como <span class="math inline">\(centroide\)</span>. Para ello se observa cuales son las observaciones influyentes examinando la matriz <span class="math inline">\(H\)</span>, o matriz sombrero, en el cual se pondrá especial atención a los elementos de la diagonal de la matriz <span class="math inline">\(H\)</span>, se denotará como <span class="math inline">\(h_{ii}\)</span> al i-ésimo elemento de la diagonal <span class="math inline">\(H\)</span>, este último elemento se le denomina como el término de punto palanca o leverage.</p>
+<p>Dado que el promedio de los valores leverage es <span class="math inline">\(\frac{\sum_{i=1}^{n}h_{ii}}{n},\)</span> entonces cuando un punto sea mayor que el doble de la media de los puntos palanca, es decir, cuando se cumpla que:</p>
+<p><span class="math display">\[h_{ii} \geq  2 \ \frac{\sum_{i=1}^{n}h_{ii}}{n}\]</span></p>
+<p>Se puede concluir que dicha observación tiene un punto palanca muy grande. Por lo que se puede concluir que hay evidencia de que se trate de un punto influyente, sin embargo, para afirmar la anterior premisa es necesario el uso de otros métodos estadísticos, uno de ellos es la llamada distancia <strong>Cook</strong>.</p>
+<p>La estadística de <strong>Cook</strong> propone calcular la distancia cuadrática entre el modelo ajustado y el modelo ajustado sin la <span class="math inline">\(i-ésima\)</span> observación. La cual puede expresarse como:</p>
+<p><span class="math display">\[C_{i}=\frac{\left(\underline{\hat{Y}}-\underline{\hat{Y}}_{(i)}\right)\left(\underline{\hat{Y}}-\underline{\hat{Y}}_{(i)}\right)}{CM_{error}\sum_{i=1}^{n}h_{ii}} \ \ \ \ \  \forall \ i \in [1,n].\]</span></p>
+<p>Donde <span class="math inline">\(\underline{\hat{Y}}\)</span> hace referencia al modelo ajustado de la forma <span class="math inline">\(X\underline{\hat{\beta}}\)</span> mientras que <span class="math inline">\(\underline{\hat{Y}}_{(i)}\)</span> hace referencia al modelo ajustado sin la i-ésima observación de forma <span class="math inline">\(X\underline{\hat{\beta}}_{(i)}\)</span>.</p>
+<p>De esta manera, se calcula la distancia de <span class="math inline">\(Cook\)</span> para cada observación, con la finalidad de evaluar el cambio del modelo sin la i-ésima observación. Se considera que una observación es influyente si el cambio del modelo con y sin observación varía mucho entre si, aunque no hay una medida establecida, (Hair, Tatham,Anderson y Black, 1998) sugiere que si la distancia de <span class="math inline">\(Cook\)</span> de la i-ésima observación es mayor o igual a 1 se tiene evidencia de que la observación analizada tiene gran influencia en el modelo, mientras que para otros autores como (Bollen y Jackman, 1985) mencionan que las distancias mayores que <span class="math inline">\(\frac{4}{n}\)</span> presenta indicios de influencia en el modelo.</p>
+
+</div>
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pruebas-de-hipótesis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introducción-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "github", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

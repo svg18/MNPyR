@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 7 Intervalos de confianza | Modelos de Regresión</title>
+  <meta name="description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 7 Intervalos de confianza | Modelos de Regresión" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 7 Intervalos de confianza | Modelos de Regresión" />
+  
+  <meta name="twitter:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  
+
+<meta name="author" content="Sofía Villers Gómez" />
+<meta name="author" content="David Alberto Mateos Montes de Oca" />
+<meta name="author" content="Dulce María Reyes Varela" />
+<meta name="author" content="Carlos Fernando Vásquez Guerra" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="modelo.html"/>
+<link rel="next" href="pruebas-de-hipótesis-1.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modelos no paramétricos y de Regresión</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos"><i class="fa fa-check"></i>Objetivos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#licencia"><i class="fa fa-check"></i>Licencia</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduccion</b></span></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html"><i class="fa fa-check"></i>Modelos lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#principios-de-la-modelización-estadística"><i class="fa fa-check"></i>Principios de la modelización estadística</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#identificar-y-caracterizar-variables"><i class="fa fa-check"></i>Identificar y Caracterizar Variables</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#tipos-de-variables-y-tipo-de-modelo"><i class="fa fa-check"></i>Tipos de variables y tipo de modelo</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#en-función-de-las-variables-explicativas"><i class="fa fa-check"></i>En función de las variables explicativas</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#en-función-de-la-variable-respuesta"><i class="fa fa-check"></i>En función de la variable respuesta</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#el-modelo-lineal-general"><i class="fa fa-check"></i>El modelo lineal general</a></li>
+</ul></li>
+<li class="part"><span><b>II Regresión Lineal Simple</b></span></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i>Introducción</a>
+<ul>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#objetivos-del-análisis-de-regresión"><i class="fa fa-check"></i>Objetivos del análisis de regresión</a></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#el-algorítmo-de-regresión-lineal"><i class="fa fa-check"></i>El algorítmo de regresión lineal</a></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#regresión-lineal-simple"><i class="fa fa-check"></i>Regresión lineal simple</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html"><i class="fa fa-check"></i><b>1</b> Modelo con intercepto</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo"><i class="fa fa-check"></i><b>1.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="1.2" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html#propiedades-de-los-estimadores"><i class="fa fa-check"></i><b>1.2</b> Propiedades de los estimadores</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html"><i class="fa fa-check"></i><b>2</b> Modelo sin intercepto</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-1"><i class="fa fa-check"></i><b>2.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="2.2" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#propiedades-de-los-estimadores-1"><i class="fa fa-check"></i><b>2.2</b> Propiedades de los estimadores</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#ejemplo-en-r-studio"><i class="fa fa-check"></i><b>2.2.1</b> Ejemplo en R-Studio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>3</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-beta_0"><i class="fa fa-check"></i><b>3.1</b> Intervalo para <span class="math inline">\(\beta_{0}\)</span></a></li>
+<li class="chapter" data-level="3.2" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-beta_1"><i class="fa fa-check"></i><b>3.2</b> Intervalo para <span class="math inline">\(\beta_{1}\)</span></a></li>
+<li class="chapter" data-level="3.3" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-sigma2"><i class="fa fa-check"></i><b>3.3</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="3.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-el-valor-esperado-y"><i class="fa fa-check"></i><b>3.4</b> Intervalo para el valor esperado <span class="math inline">\(y\)</span></a></li>
+<li class="chapter" data-level="3.5" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-de-predicción"><i class="fa fa-check"></i><b>3.5</b> Intervalo de predicción</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#ejemplo"><i class="fa fa-check"></i><b>3.5.1</b> Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html"><i class="fa fa-check"></i><b>4</b> Pruebas de hipótesis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#pruebas-para-beta_0"><i class="fa fa-check"></i><b>4.1</b> Pruebas para <span class="math inline">\(\beta_{0}\)</span></a></li>
+<li class="chapter" data-level="4.2" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#prueba-para-beta_1"><i class="fa fa-check"></i><b>4.2</b> Prueba para <span class="math inline">\(\beta_{1}\)</span></a></li>
+<li class="chapter" data-level="4.3" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#prueba-para-sigma2"><i class="fa fa-check"></i><b>4.3</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.4" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#análisis-de-la-varianza-anova"><i class="fa fa-check"></i><b>4.4</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="4.5" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#coeficiente-de-determinación"><i class="fa fa-check"></i><b>4.5</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="4.6" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#propiedades-de-r2"><i class="fa fa-check"></i><b>4.6</b> Propiedades de <span class="math inline">\(R^2\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#relación-r2-y-la-correlación-de-pearson"><i class="fa fa-check"></i><b>4.7</b> Relación <span class="math inline">\(R^2\)</span> y la correlación de Pearson</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#ejemplo-1"><i class="fa fa-check"></i><b>4.7.1</b> Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html"><i class="fa fa-check"></i><b>5</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#análisis-de-residuales"><i class="fa fa-check"></i><b>5.1</b> Análisis de residuales</a></li>
+<li class="chapter" data-level="5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-normalidad"><i class="fa fa-check"></i><b>5.2</b> Supuesto de normalidad</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#validación-del-supuesto-de-normalidad"><i class="fa fa-check"></i><b>5.2.1</b> Validación del supuesto de normalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>5.3</b> Supuesto de linealidad</a></li>
+<li class="chapter" data-level="5.4" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-homocedasticidad"><i class="fa fa-check"></i><b>5.4</b> Supuesto de homocedasticidad</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#prueba-de-breusch-pagan"><i class="fa fa-check"></i><b>5.4.1</b> Prueba de Breusch-Pagan</a></li>
+<li class="chapter" data-level="5.4.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#prueba-de-white"><i class="fa fa-check"></i><b>5.4.2</b> Prueba de White</a></li>
+<li class="chapter" data-level="5.4.3" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#ejemplo-2"><i class="fa fa-check"></i><b>5.4.3</b> Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-outlier-e-influyentes"><i class="fa fa-check"></i><b>5.5</b> Valores outlier e influyentes</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-outlier"><i class="fa fa-check"></i><b>5.5.1</b> Valores outlier</a></li>
+<li class="chapter" data-level="5.5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-influentes"><i class="fa fa-check"></i><b>5.5.2</b> Valores influentes</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Modelo de regresión lineal múltiple</b></span></li>
+<li class="chapter" data-level="" data-path="introducción-1.html"><a href="introducción-1.html"><i class="fa fa-check"></i>Introducción</a></li>
+<li class="chapter" data-level="6" data-path="modelo.html"><a href="modelo.html"><i class="fa fa-check"></i><b>6</b> Modelo</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="modelo.html"><a href="modelo.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-2"><i class="fa fa-check"></i><b>6.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="6.2" data-path="modelo.html"><a href="modelo.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Estimación por máxima verosimilitud</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html"><i class="fa fa-check"></i><b>7</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-beta_j"><i class="fa fa-check"></i><b>7.1</b> Intervalo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="7.2" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-sigma2-1"><i class="fa fa-check"></i><b>7.2</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="7.3" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-la-respuesta-media"><i class="fa fa-check"></i><b>7.3</b> Intervalos de la respuesta media</a></li>
+<li class="chapter" data-level="7.4" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-predicción"><i class="fa fa-check"></i><b>7.4</b> Intervalos de predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#región-de-rechazo-para-beta_j"><i class="fa fa-check"></i><b>8.1</b> Región de rechazo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="8.2" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#prueba-para-sigma2-1"><i class="fa fa-check"></i><b>8.2</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="8.3" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#análisis-de-la-varianza-anova-1"><i class="fa fa-check"></i><b>8.3</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="8.4" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#coeficiente-de-determinación-2"><i class="fa fa-check"></i><b>8.4</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="8.5" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#r2-ajustado"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(R^2\)</span> ajustado</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html"><i class="fa fa-check"></i><b>9</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#supuesto-de-multicolinealidad"><i class="fa fa-check"></i><b>9.1</b> Supuesto de multicolinealidad</a></li>
+<li class="chapter" data-level="9.2" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#detección-de-multicolinealidad"><i class="fa fa-check"></i><b>9.2</b> Detección de multicolinealidad</a></li>
+<li class="chapter" data-level="9.3" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#ejemplo-3"><i class="fa fa-check"></i><b>9.3</b> Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>10</b> Apéndice</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Hecho con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelos de Regresión</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="intervalos-de-confianza-1" class="section level1" number="7">
+<h1><span class="header-section-number">Capítulo 7</span> Intervalos de confianza</h1>
+<p>En las secciones anteriores se obtuvieron, de manera puntual, las estimaciones de los parámetros desconocidos del modelo de regresión lineal múltiple. Sin embargo, a continuación se mostrará que se pueden realizar intervalos con un nivel de confianza <span class="math inline">\(\alpha\)</span> en donde los parámetros desconocidos tengan una alta probabilidad de pertenecer a este conjunto.</p>
+<div id="intervalo-para-beta_j" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Intervalo para <span class="math inline">\(\beta_{j}\)</span></h2>
+<p>Para la construcción del intervalo de confianza para el parámetro desconocido <span class="math inline">\(\beta_{j}\)</span>, con <span class="math inline">\(j=0,1,\ldots,n\)</span> se mantiene la hipótesis de que los errores se distribuyen como variables aleatorias normales con media cero y varianza <span class="math inline">\(I_{n}\sigma^2\)</span>, como consecuencia <span class="math inline">\(\underline{Y}\)</span> se distribuye de forma normal, con media <span class="math inline">\(X\underline{\beta}\)</span> y varianza <span class="math inline">\(\sigma^2 I_{n}\)</span>, es decir:</p>
+<p><span class="math display">\[\underline{Y} \sim \mathbf{N}(X\underline{\beta},\sigma^2 I_{n})\]</span></p>
+<p>De acuerdo con (Montgomery, Peck y Vining, 2012), el estimador <span class="math inline">\(\underline{\hat{\beta}}\)</span> por mínimos cuadrados es una combinación lineal de las observaciones, el cual también se distribuye con normalidad, con el vector medio <span class="math inline">\(\underline{\beta}\)</span> y varianza <span class="math inline">\(\sigma^2(X&#39;X)^{-1}\)</span>, lo cual vimos en el teorema 3.4, al igual que pudimos demostrar que el estimador es insesgado <span class="math inline">\(\mathbf{E}[\underline{\hat{\beta}}]=\underline{\beta}\)</span> y varianza <span class="math inline">\(Var(\underline{\beta})=\sigma^2(X&#39;X)^{-1}\)</span> por lo que de manera conjunta <span class="math inline">\(\underline{\hat{\beta}}\)</span> se distribuye con normalidad de la forma:</p>
+<p><span class="math display">\[\underline{\hat{\beta}} \sim \mathbf{N}(\underline{\beta},\sigma^2(X&#39;X)^{-1})\]</span>
+Esto implica que la distribución marginal de cualquier coeficiente de la regresión <span class="math inline">\(\hat{\beta}_{j}\)</span> asimismo se distribuye normal, con media <span class="math inline">\(\beta_{j}\)</span> y varianza <span class="math inline">\(\sigma^2 C_{(j+1)(j+1)}\)</span> donde <span class="math inline">\(C_{(j+1)(j+1)}\)</span> es el j-ésimo elemento de la diagonal de la matriz <span class="math inline">\((X&#39;X)^{-1}\)</span>, es decir, <span class="math inline">\(\hat{\beta_{j}}\)</span> tiene una distribución normal asociada de la forma:</p>
+<p><span class="math display">\[\hat{\beta_{j}} \sim \mathbf{N}(\beta_{j}, \sigma^2C_{(j+1)(j+1)}\]</span></p>
+<p>Normalizando se tiene que:</p>
+<p><span class="math display">\[\frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\sigma^2C_{(j+1)(j+1)}}}\sim \mathbf{N}(0,1)\]</span>
+Como <span class="math inline">\(\frac{(n-k-1)}{\sigma^2}\hat{\sigma}^2 \sim \chi^2_{n-k-1}\)</span>, tenemos:</p>
+<p><span class="math display">\[\frac{\frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\sigma^2C_{(j+1)(j+1)}}}}{\sqrt{\frac{\frac{(n-k-1)\hat{\sigma}^2}{\sigma^2}}{n-k-1}}} \sim t_{n-k-1}\]</span></p>
+<p>De esta forma se obtiene la cantidad pivotal para <span class="math inline">\(\beta_{j}\)</span> sl simplificar la ecuación anterior</p>
+<p><span class="math display">\[\frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}}\sim t_{n-k-1}\]</span></p>
+<p>donde <span class="math inline">\(\hat{\sigma}^2=\frac{SC_{error}}{n-k-1}\)</span>. Por lo tanto el intervalo de confianza <span class="math inline">\(1-\alpha\)</span> para <span class="math inline">\(\beta_{j}\)</span> es:</p>
+<p><span class="math display">\[\mathbf{P} \left[-t^{\alpha/2}_{n-k-1} &lt; \frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} &lt; t^{\alpha/2}_{n-k-1} \right]= 1- \alpha\]</span></p>
+<p><span class="math display">\[\mathbf{P} \left[-t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} &lt; \hat{\beta_{j}}-\beta_{j} &lt; t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} \  \right]= 1- \alpha\]</span></p>
+<p><span class="math display">\[\mathbf{P} \left[-t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} &lt; \beta_{j}-\hat{\beta_{j}} &lt; t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}}  \ \right]= 1- \alpha\]</span></p>
+<p><span class="math display">\[\mathbf{P} \left[\hat{\beta_{j}}-t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} &lt; \beta_{j} &lt; \hat{\beta_{j}}+t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}}  \ \right]= 1- \alpha\]</span></p>
+<p>Por lo tanto el intervalo de confianza <span class="math inline">\(1-\alpha\)</span> para <span class="math inline">\(\beta_{j}\)</span> es:</p>
+<p><span class="math display">\[\beta_{j} \in \left(\hat{\beta_{j}}-t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} \ \ , \ \ \hat{\beta_{j}}+t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} \ \right)\]</span></p>
+<p>A manera de ejemplo, para j=1 se tiene el siguiente intervalo de confianza para <span class="math inline">\(\beta_1\)</span></p>
+<p><span class="math display">\[\beta_{1} \in \left(\hat{\beta_{j}}-t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{22}}} \ \ , \ \ \hat{\beta_{j}}+t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{22}}} \  \right).\]</span>
+Y así sucesivamente para <span class="math inline">\(j \in \mathbf{N}\)</span> tal que <span class="math inline">\(j \in [0,k]\)</span> donde <span class="math inline">\(k\)</span> es el número total de variables explicativas con la que se ajustó el modelo de regresión múltiple.</p>
+</div>
+<div id="intervalo-para-sigma2-1" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Intervalo para <span class="math inline">\(\sigma^2\)</span></h2>
+<p>Para hacer inferencias sobre <span class="math inline">\(\sigma^2\)</span> se hace notar la siguiente cantidad pivotal:</p>
+<p><span class="math display">\[\frac{(n-k-1)\hat{\sigma}^2}{\sigma^2}=\frac{SC_{error}}{\sigma^2} \sim \chi^2_{n-k-1}\]</span></p>
+<p>De esta manera, el intervalo de confianza <span class="math inline">\(1-\alpha\)</span> queda definido de la siguiente manera:</p>
+<p><span class="math display">\[\mathbf{P}\left[ \chi^{2(\alpha/2)}_{n-k-1}&lt;\frac{SC_{error}}{\sigma^2}&lt;\chi^{2(1-\alpha/2)}_{n-k-1}\right]=1-\alpha\]</span>
+<span class="math display">\[\mathbf{P}\left[ \frac{1}{\chi^{2(\alpha/2)}_{n-k-1}}&gt;\frac{\sigma^2}{SC_{error}}&gt;\frac{1}{\chi^{2(1-\alpha/2)}_{n-k-1}}\right]=1-\alpha\]</span>
+<span class="math display">\[\mathbf{P}\left[ \frac{SC_{error}}{\chi^{2(1-\alpha/2)}_{n-k-1}}&lt;\sigma^2&lt;\frac{SC_{error}}{\chi^{2(\alpha/2)}_{n-k-1}}\right]=1-\alpha\]</span></p>
+<p>Por lo tanto, el intervalo de confianza <span class="math inline">\(1-\alpha\)</span> para <span class="math inline">\(\sigma^2\)</span> es:</p>
+<p><span class="math display">\[\sigma^2 \in \left(\frac{SC_{error}}{\chi^{2(1-\alpha/2)}_{n-k-1}}\ \ , \ \ \frac{SC_{error}}{\chi^{2(\alpha/2)}_{n-k-1}}\right).\]</span></p>
+</div>
+<div id="intervalos-de-la-respuesta-media" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Intervalos de la respuesta media</h2>
+<p>La estimación del valor de <span class="math inline">\(Y\)</span> a través de una <span class="math inline">\(X\)</span> dada, se le conoce como <strong>respuesta media</strong> en un determinado punto, es decir, si se conocen los valores de las variables explicativas <span class="math inline">\(x_{1},x_{2}, \ldots , x_{k}\)</span> en determinado punto, entonces se puede calcular la estimación del valor <span class="math inline">\(Y\)</span> en ese punto, para ello se define al vector de valores conocidos <span class="math inline">\(x^*\)</span> como:</p>
+<p><span class="math display">\[x^*= \left( 1 \ \ x_{1} \ \ x_{2} \ \ \ldots \ \ x_{k}\right).\]</span></p>
+<p>De esta forma el valor ajustado de <span class="math inline">\(Y\)</span> dado <span class="math inline">\(X=x^*\)</span> es:</p>
+<p><span class="math display">\[\mathbf{E}[ \ Y \mid X=x^*]=x^*\underline{\beta}\]</span></p>
+<p>Al suponer que <span class="math inline">\(\underline{\beta}\)</span> es un valor desconocido, se propone como estimador de <span class="math inline">\(\underline{\beta}\)</span> al obtenido por máxima verosimilitud, así el valor estimado de <span class="math inline">\(Y\)</span> sería:</p>
+<p><span class="math display">\[\mathbf{E}\left[\widehat{Y \mid X =} x^*\right]=x^*\underline{\hat{\beta}}\]</span></p>
+<p>El valor ajustado de <span class="math inline">\(Y\)</span> dado <span class="math inline">\(X=x^*,\mathbf{E}\left[ \widehat{Y \mid X=} x^*\right],\)</span> se denota por <span class="math inline">\(\hat{Y^*}\)</span> para facilitar su tratamiento; además se observa que la esperanza y varianza están determinados por las siguientes igualdades, las cuales se demostrarán a continuación:</p>
+<p><span class="math display">\[\mathbf{E}[\hat{Y^*}]= x^*\underline{\beta} \ \ \ \ \ \ \ Var(\hat{Y^*})=\sigma^2 x^{*&#39;}(X&#39;X)^{-1}x^*\]</span></p>
+<p><strong>Teorema 3.8</strong> Sea <span class="math inline">\(\hat{Y^*}\)</span>, el valor de la respuesta media de <span class="math inline">\(Y\)</span> en un determinado punto, de forma que <span class="math inline">\(\hat{Y^*}=x^*\underline{\hat{\beta}}\)</span>, entonces se cumple que:</p>
+<p><strong>a)</strong> <span class="math inline">\(\mathbf{E}[\hat{Y^*}]= x^*\underline{\beta}.\)</span></p>
+<p><strong>b)</strong> <span class="math inline">\(\textbf{Var}(\hat{Y^*})=\sigma^2 x^{*&#39;}(X&#39;X)^{-1}x^*.\)</span></p>
+<p><strong>Demostración:</strong></p>
+<p><strong>a)</strong> Para demostrar la esperanza del valor esperado, se observa que:</p>
+<p>Por hipótesis</p>
+<p><span class="math display">\[\mathbf{E}[\hat{Y^*}]=\mathbf{E}[x^*\underline{\hat{\beta}}]\]</span>
+Por linealidad de la esperanza</p>
+<p><span class="math display">\[\mathbf{E}[\hat{Y^*}]=x^*\mathbf{E}[\underline{\hat{\beta}}]\]</span>
+Ya que <span class="math inline">\(\underline{\hat{\beta}}\)</span> es insesgado</p>
+<p><span class="math display">\[\therefore \mathbf{E}[\hat{Y^*}]= x^*\underline{\beta}.\blacksquare\]</span></p>
+<p><strong>b)</strong> Para la varianza se tiene:</p>
+<p>Por hipótesis</p>
+<p><span class="math display">\[Var(\hat{Y^*})=Var(x^*\underline{\hat{\beta}})\]</span></p>
+<p><span class="math display">\[Var(\hat{Y^*})=x^*Var(\underline{\hat{\beta}})x^{*&#39;}\]</span>
+Por el <strong>Teorema 3.4</strong></p>
+<p><span class="math display">\[Var(\hat{Y^*})=x^*\sigma^2(X&#39;X)^{-1}x^{*&#39;}\]</span>
+<span class="math display">\[\therefore Var(\hat{Y^*})=\sigma^2 x^{*&#39;}(X&#39;X)^{-1}x^*.\blacksquare\]</span></p>
+<p>Bajo el supuesto de normalidad se tiene que la respuesta media de <span class="math inline">\(Y\)</span> en un determinado punto, sigue una distribución normal con parámetros:</p>
+<p><span class="math display">\[\hat{Y^*} \sim \mathbf{N}_{n}\left(x^*\underline{\beta} ,\sigma^2 x^{*&#39;}(X&#39;X)^{-1}x^*\right).\]</span></p>
+<p>Al estandarizar para obtener la cantidad pivotal se obtiene:</p>
+<p><span class="math display">\[\frac{\hat{Y^*}-x^*\underline{\beta}}{\sqrt{\sigma^2 x^{*&#39;}(X&#39;X)^{-1}x^*}}\sim \mathbf{N}(0,1)\]</span>
+Como <span class="math inline">\(\frac{(n-k-1)}{\sigma^2}\hat{\sigma}^2 \sim \chi^2_{n-k-1}\)</span>, al dividir una distribución normal con una distribución <span class="math inline">\(\chi^2\)</span>, se obtiene una distribución <span class="math inline">\(t-Student\)</span></p>
+<p><span class="math display">\[\frac{\frac{\hat{Y^*}-x^*\underline{\beta}}{\sqrt{\sigma^2 x^{*&#39;}(X&#39;X)^{-1}x^*}}}{\sqrt{\frac{\hat{\sigma}^2}{\sigma^2}}} \sim t_{n-k-1}.\]</span></p>
+<p>Simplificando la ecuación anterior se obtiene la cantidad pivotal deseada:</p>
+<p><span class="math display">\[\frac{\hat{Y^*}-x^*\underline{\beta}}{\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*}}\sim t_{n-k-1.}\]</span></p>
+<p>donde <span class="math inline">\(\hat{\sigma}^2=\frac{SC_{error}}{n-k-1}.\)</span> Por lo tanto, sustituyendo a <span class="math inline">\(\hat{Y^*}\)</span> por <span class="math inline">\(x^*\underline{\hat{\beta}}\)</span>, el intervalo de confianza <span class="math inline">\(1-\alpha\)</span> para <span class="math inline">\(\mathbf{E}[Y \mid X=x^*]\)</span> es:</p>
+<p><span class="math display">\[\mathbf{P}\left[ -t^{\alpha/2}_{n-k-1}&lt;\frac{\hat{Y^*}-x^*\underline{\beta}}{\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*}}  &lt;t^{\alpha/2}_{n-k-1}\right]=1-\alpha\]</span></p>
+<p><span class="math display">\[\mathbf{P}\left[ -t^{\alpha/2}_{n-k-1}&lt;\frac{x^*\underline{\hat{\beta}}-x^*\underline{\beta}}{\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*}}  &lt;t^{\alpha/2}_{n-k-1}\right]=1-\alpha\]</span></p>
+<p><span class="math display">\[\mathbf{P}\left[ -t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*}&lt;x^*\underline{\hat{\beta}}-x^*\underline{\beta}  &lt;t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*} \ \right]=1-\alpha\]</span></p>
+<p><span class="math display">\[\mathbf{P}\left[ -t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*}&lt;x^*\underline{\beta}-x^*\underline{\hat{\beta}}  &lt;t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*} \ \right]=1-\alpha\]</span></p>
+<p><span class="math display">\[\mathbf{P}\left[ x^*\underline{\hat{\beta}}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*}&lt;x^*\underline{\beta}  &lt;x^*\underline{\hat{\beta}}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*} \ \right]=1-\alpha\]</span></p>
+<p>Por lo tanto, el intervalo de confianza <span class="math inline">\(1-\alpha\)</span> para <span class="math inline">\(\mathbf{E}[Y \mid X=x^*]=x^*\underline{\beta}\)</span> es:</p>
+<p><span class="math display">\[x^*\underline{\beta} \in \left(x^*\underline{\hat{\beta}}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*} \ \ , \ \ x^*\underline{\hat{\beta}}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*&#39;}(X&#39;X)^{-1}x^*} \ \right).\]</span></p>
+</div>
+<div id="intervalos-de-predicción" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Intervalos de predicción</h2>
+<p>La diferencia entre los intervalos de respuesta media y el intervalo de confianza para el valor esperado <span class="math inline">\(Y\)</span>, es que en el intervalo del valor esperado se desea hallar el valor que en promedio se debería obtener al conocer el vector <span class="math inline">\(x^*(x^*\underline{\beta})\)</span>, es decir, se busca el valor de la regresión en el punto <span class="math inline">\(x^*\)</span>, mientras que en un intervalo de predicción se “predice” un valor <span class="math inline">\(Y\)</span> dado que se conocen los valores de las variables explicativas, reflejadas en el vector <span class="math inline">\(x_{o}\)</span>.</p>
+<p>De esta manera se desea estimar la observación <span class="math inline">\(Y=x_{0}\underline{\beta}+\epsilon\)</span>, por medio de <span class="math inline">\(\hat{Y}_{x}=x_{0}\underline{\hat{\beta}}+\epsilon\)</span>, donde <span class="math inline">\(\epsilon \sim \mathbf{N} (0, \sigma^2).\)</span></p>
+<p>Para ello se define al vector de valores conocidos <span class="math inline">\(x_{0}\)</span> como:</p>
+<p><span class="math inline">\(x_{0}=\left( 1 \ \ x_{1} \ \ x_{2} \ \ \ldots \ \ x_{k} \right).\)</span></p>
+<p>Donde <span class="math inline">\(x_{i}\)</span> es el valor de la variable explicativa <span class="math inline">\(i \in 1, \ldots,k\)</span> en un determinado momento o punto. Así la varianza de un valor de predicción considera la varianza de la <strong>respuesta media</strong> en un punto dado en el cual además se añade la varianza del modelo es decir:</p>
+<p><span class="math display">\[Var(\hat{Y}_{x})=Var(\hat{Y^*})+Var(Y).\]</span></p>
+<p>Por lo que sustituyendo los valores se tiene que:</p>
+<p><span class="math display">\[Var(\hat{Y}_{x})=\sigma^2x&#39;_{0}(X&#39;X)^{-1}x_{0}+\sigma^2\]</span></p>
+<p><span class="math display">\[Var(\hat{Y}_{x})=\sigma^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right).\]</span></p>
+<p>El valor esperado de <span class="math inline">\(\hat{Y}_{x}\)</span> es igual a la esperanza de <span class="math inline">\(\hat{Y^*}\)</span>, de esta manera:</p>
+<p><span class="math display">\[\mathbf{E}[\hat{Y}_{x}]=x_{0}\underline{\beta}.\]</span></p>
+<p><strong>Teorema 3.9</strong> Sea <span class="math inline">\(x_{0}\)</span> el vector que contiene los valores observados de las variables explicativas <span class="math inline">\(x_{i}\)</span>, <span class="math inline">\(i \in 1,\ldots,k\)</span> en un determinado punto y sea <span class="math inline">\(\hat{Y}_{x}\)</span> la predicción de un valor <span class="math inline">\(Y\)</span> evaluado en el vector <span class="math inline">\(x_{0}\)</span> de la forma <span class="math inline">\(\hat{Y}_{x}=x_{0}\underline{\hat{\beta}}+\epsilon\)</span>, en donde <span class="math inline">\(\epsilon \sim \mathbf{N}(0,\sigma^2)\)</span>, entonces se cumple que:</p>
+<p><strong>a)</strong> <span class="math inline">\(\mathbf{E}[\hat{Y}_{x}]=x_{0}\underline{\beta}\)</span></p>
+<p><strong>b)</strong> <span class="math inline">\(\textbf{Var}(\hat{Y}_{x})=\sigma^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)\)</span></p>
+<p><strong>Demostración:</strong></p>
+<p><strong>a)</strong> Para demostrar la esperanza del valor de predicción, se observa que:</p>
+<p>Por hipótesis</p>
+<p><span class="math display">\[\mathbf{E}[\hat{Y}_{x}]=\mathbf{E}[x_{0}\underline{\hat{\beta}}+\epsilon]\]</span></p>
+<p>Por linealidad de la esperanza</p>
+<p><span class="math display">\[\mathbf{E}[\hat{Y}_{x}]=x_{0}\mathbf{E}[\underline{\hat{\beta}}]+\mathbf{E}[\epsilon]\]</span></p>
+<p>Tenemos que <span class="math inline">\(\hat{\beta}\)</span> es insesgado y por hipótesis</p>
+<p><span class="math display">\[\mathbf{E}[\hat{Y}_{x}]=x_{0}\underline{\beta}+0\]</span></p>
+<p><span class="math display">\[\therefore \mathbf{E}[\hat{Y}_{x}]=x_{0}\underline{\beta}. \blacksquare\]</span></p>
+<p><strong>b)</strong> Para la varianza se tiene:</p>
+<p>Por hipótesis</p>
+<p><span class="math display">\[Var(\hat{Y}_{x})=Var(x_{0}\underline{\hat{\beta}}+\epsilon)\]</span></p>
+<p><span class="math display">\[Var(\hat{Y}_{x})=x_{0}Var(\underline{\hat{\beta}})x&#39;_{0}+Var(\epsilon)+2x_{0}Cov(\underline{\hat{\beta}},\epsilon)\]</span></p>
+<p>Por el <strong>teorema 3.4</strong> e independencia de <span class="math inline">\(\epsilon\)</span></p>
+<p><span class="math display">\[Var(\hat{Y}_{x})=x_{0}\sigma^2(X&#39;X)^{-1}x&#39;_{0}+\sigma^2+0\]</span></p>
+<p><span class="math display">\[\therefore Var(\hat{Y}_{x})=\sigma^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right). \blacksquare\]</span></p>
+<p>Bajo el supuesto de normalidad se tiene que la predicción de <span class="math inline">\(Y\)</span> en un determinado punto, sigue una distribución normal con parámetros:</p>
+<p><span class="math display">\[\hat{Y}_{x} \sim \mathbf{N}_{n} \left( x_{0}\underline{\beta}, \sigma^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)\right).\]</span></p>
+<p>De esta manera al suponer normalidad, estandarizando y dividiendo entre <span class="math inline">\(\frac{(n-k-1)}{\sigma^2}\hat{\sigma}^2 \sim \chi^2_{n-k-1}\)</span> se obtiene la cantidad pivotal deseada:</p>
+<p><span class="math display">\[\frac{\hat{Y}_{x}-x_{0}\underline{\beta}}{\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)}} \sim t_{n-k-1}.\]</span></p>
+<p>Por lo tanto, el intervalo de confianza <span class="math inline">\(1-\alpha\)</span> para la predicción de <span class="math inline">\(Y\)</span> es:</p>
+<p><span class="math display">\[\mathbf{P}\left[-t^{\alpha/2}_{n-k-1}&lt;\frac{\hat{Y}_{x}-x_{0}\underline{\beta}}{\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)}}&lt;t^{\alpha/2}_{n-k-1}\right]=1-\alpha\]</span>
+<span class="math display">\[\mathbf{P}\left[-t^{\alpha/2}_{n-k-1}&lt;\frac{x_{0}\underline{\hat{\beta}}+\epsilon-x_{0}\underline{\beta}}{\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)}}&lt;t^{\alpha/2}_{n-k-1}\right]=1-\alpha\]</span>
+<span class="math display">\[\mathbf{P}\left[-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)}&lt;x_{0}\underline{\hat{\beta}}+\epsilon-x_{0}\underline{\beta}&lt;t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)} \ \right]=1-\alpha\]</span>
+<span class="math display">\[\mathbf{P}\left[-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)}&lt;x_{0}\underline{\beta}-x_{0}\underline{\hat{\beta}}-\epsilon&lt;t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)} \ \right]=1-\alpha\]</span></p>
+<p><span class="math display">\[\mathbf{P}\left[-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)}&lt;x_{0}\underline{\beta}-\epsilon-x_{0}\underline{\hat{\beta}}&lt;t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)} \ \right]=1-\alpha\]</span></p>
+<p><span class="math display">\[\mathbf{P}\left[x_{0}\underline{\hat{\beta}}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)}&lt;x_{0}\underline{\beta}-\epsilon&lt;x_{0}\underline{\hat{\beta}}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)} \ \right]=1-\alpha\]</span></p>
+<p>Dado que <span class="math inline">\(\epsilon\)</span> es una variable aleatoria simétrica y de media 0 entonces se puede sustituir <span class="math inline">\(-\epsilon\)</span> por <span class="math inline">\(\epsilon\)</span>, así:</p>
+<p><span class="math display">\[\mathbf{P}\left[x_{0}\underline{\hat{\beta}}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)}&lt;x_{0}\underline{\beta}+\epsilon&lt;x_{0}\underline{\hat{\beta}}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)} \ \right]=1-\alpha\]</span></p>
+<p>Por lo tanto el intervalo de confianza para la predicción de <span class="math inline">\(Y\)</span> dado el vector <span class="math inline">\(x_{0}\)</span>, con un nivel de significancia <span class="math inline">\(\alpha\)</span> es:</p>
+<p><span class="math display">\[x_{0}\underline{\beta}+\epsilon \in\left(x_{0}\underline{\hat{\beta}}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)} \ \ , \ \ x_{0}\underline{\hat{\beta}}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)} \ \right)\]</span></p>
+<p><span class="math display">\[x_{0}\underline{\beta}+\epsilon \in \left(\hat{Y}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)} \ \ , \ \ \hat{Y}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x&#39;_{0}(X&#39;X)^{-1}x_{0}\right)} \ \right).\]</span></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modelo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pruebas-de-hipótesis-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "github", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
