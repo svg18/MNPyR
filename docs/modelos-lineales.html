@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Modelos lineales | Modelos de Regresión</title>
+  <meta name="description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Modelos lineales | Modelos de Regresión" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Modelos lineales | Modelos de Regresión" />
+  
+  <meta name="twitter:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  
+
+<meta name="author" content="Sofía Villers Gómez" />
+<meta name="author" content="David Alberto Mateos Montes de Oca" />
+<meta name="author" content="Dulce María Reyes Varela" />
+<meta name="author" content="Carlos Fernando Vásquez Guerra" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="introducción.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modelos no paramétricos y de Regresión</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos"><i class="fa fa-check"></i>Objetivos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#licencia"><i class="fa fa-check"></i>Licencia</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduccion</b></span></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html"><i class="fa fa-check"></i>Modelos lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#principios-de-la-modelización-estadística"><i class="fa fa-check"></i>Principios de la modelización estadística</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#identificar-y-caracterizar-variables"><i class="fa fa-check"></i>Identificar y Caracterizar Variables</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#tipos-de-variables-y-tipo-de-modelo"><i class="fa fa-check"></i>Tipos de variables y tipo de modelo</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#en-función-de-las-variables-explicativas"><i class="fa fa-check"></i>En función de las variables explicativas</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#en-función-de-la-variable-respuesta"><i class="fa fa-check"></i>En función de la variable respuesta</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#el-modelo-lineal-general"><i class="fa fa-check"></i>El modelo lineal general</a></li>
+</ul></li>
+<li class="part"><span><b>II Regresión Lineal Simple</b></span></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i>Introducción</a>
+<ul>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#objetivos-del-análisis-de-regresión"><i class="fa fa-check"></i>Objetivos del análisis de regresión</a></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#el-algorítmo-de-regresión-lineal"><i class="fa fa-check"></i>El algorítmo de regresión lineal</a></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#regresión-lineal-simple"><i class="fa fa-check"></i>Regresión lineal simple</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html"><i class="fa fa-check"></i><b>1</b> Modelo con intercepto</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo"><i class="fa fa-check"></i><b>1.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="1.2" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html#propiedades-de-los-estimadores"><i class="fa fa-check"></i><b>1.2</b> Propiedades de los estimadores</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html"><i class="fa fa-check"></i><b>2</b> Modelo sin intercepto</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-1"><i class="fa fa-check"></i><b>2.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="2.2" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#propiedades-de-los-estimadores-1"><i class="fa fa-check"></i><b>2.2</b> Propiedades de los estimadores</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#ejemplo-en-r-studio"><i class="fa fa-check"></i><b>2.2.1</b> Ejemplo en R-Studio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>3</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-beta_0"><i class="fa fa-check"></i><b>3.1</b> Intervalo para <span class="math inline">\(\beta_{0}\)</span></a></li>
+<li class="chapter" data-level="3.2" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-beta_1"><i class="fa fa-check"></i><b>3.2</b> Intervalo para <span class="math inline">\(\beta_{1}\)</span></a></li>
+<li class="chapter" data-level="3.3" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-sigma2"><i class="fa fa-check"></i><b>3.3</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="3.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-el-valor-esperado-y"><i class="fa fa-check"></i><b>3.4</b> Intervalo para el valor esperado <span class="math inline">\(y\)</span></a></li>
+<li class="chapter" data-level="3.5" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-de-predicción"><i class="fa fa-check"></i><b>3.5</b> Intervalo de predicción</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#ejemplo"><i class="fa fa-check"></i><b>3.5.1</b> Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html"><i class="fa fa-check"></i><b>4</b> Pruebas de hipótesis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#pruebas-para-beta_0"><i class="fa fa-check"></i><b>4.1</b> Pruebas para <span class="math inline">\(\beta_{0}\)</span></a></li>
+<li class="chapter" data-level="4.2" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#prueba-para-beta_1"><i class="fa fa-check"></i><b>4.2</b> Prueba para <span class="math inline">\(\beta_{1}\)</span></a></li>
+<li class="chapter" data-level="4.3" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#prueba-para-sigma2"><i class="fa fa-check"></i><b>4.3</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.4" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#análisis-de-la-varianza-anova"><i class="fa fa-check"></i><b>4.4</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="4.5" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#coeficiente-de-determinación"><i class="fa fa-check"></i><b>4.5</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="4.6" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#propiedades-de-r2"><i class="fa fa-check"></i><b>4.6</b> Propiedades de <span class="math inline">\(R^2\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#relación-r2-y-la-correlación-de-pearson"><i class="fa fa-check"></i><b>4.7</b> Relación <span class="math inline">\(R^2\)</span> y la correlación de Pearson</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#ejemplo-1"><i class="fa fa-check"></i><b>4.7.1</b> Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html"><i class="fa fa-check"></i><b>5</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#análisis-de-residuales"><i class="fa fa-check"></i><b>5.1</b> Análisis de residuales</a></li>
+<li class="chapter" data-level="5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-normalidad"><i class="fa fa-check"></i><b>5.2</b> Supuesto de normalidad</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#validación-del-supuesto-de-normalidad"><i class="fa fa-check"></i><b>5.2.1</b> Validación del supuesto de normalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>5.3</b> Supuesto de linealidad</a></li>
+<li class="chapter" data-level="5.4" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-homocedasticidad"><i class="fa fa-check"></i><b>5.4</b> Supuesto de homocedasticidad</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#prueba-de-breusch-pagan"><i class="fa fa-check"></i><b>5.4.1</b> Prueba de Breusch-Pagan</a></li>
+<li class="chapter" data-level="5.4.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#prueba-de-white"><i class="fa fa-check"></i><b>5.4.2</b> Prueba de White</a></li>
+<li class="chapter" data-level="5.4.3" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#ejemplo-2"><i class="fa fa-check"></i><b>5.4.3</b> Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-outlier-e-influyentes"><i class="fa fa-check"></i><b>5.5</b> Valores outlier e influyentes</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-outlier"><i class="fa fa-check"></i><b>5.5.1</b> Valores outlier</a></li>
+<li class="chapter" data-level="5.5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-influentes"><i class="fa fa-check"></i><b>5.5.2</b> Valores influentes</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Modelo de regresión lineal múltiple</b></span></li>
+<li class="chapter" data-level="" data-path="introducción-1.html"><a href="introducción-1.html"><i class="fa fa-check"></i>Introducción</a></li>
+<li class="chapter" data-level="6" data-path="modelo.html"><a href="modelo.html"><i class="fa fa-check"></i><b>6</b> Modelo</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="modelo.html"><a href="modelo.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-2"><i class="fa fa-check"></i><b>6.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="6.2" data-path="modelo.html"><a href="modelo.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Estimación por máxima verosimilitud</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html"><i class="fa fa-check"></i><b>7</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-beta_j"><i class="fa fa-check"></i><b>7.1</b> Intervalo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="7.2" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-sigma2-1"><i class="fa fa-check"></i><b>7.2</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="7.3" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-la-respuesta-media"><i class="fa fa-check"></i><b>7.3</b> Intervalos de la respuesta media</a></li>
+<li class="chapter" data-level="7.4" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-predicción"><i class="fa fa-check"></i><b>7.4</b> Intervalos de predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#región-de-rechazo-para-beta_j"><i class="fa fa-check"></i><b>8.1</b> Región de rechazo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="8.2" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#prueba-para-sigma2-1"><i class="fa fa-check"></i><b>8.2</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="8.3" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#análisis-de-la-varianza-anova-1"><i class="fa fa-check"></i><b>8.3</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="8.4" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#coeficiente-de-determinación-2"><i class="fa fa-check"></i><b>8.4</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="8.5" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#r2-ajustado"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(R^2\)</span> ajustado</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html"><i class="fa fa-check"></i><b>9</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#supuesto-de-multicolinealidad"><i class="fa fa-check"></i><b>9.1</b> Supuesto de multicolinealidad</a></li>
+<li class="chapter" data-level="9.2" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#detección-de-multicolinealidad"><i class="fa fa-check"></i><b>9.2</b> Detección de multicolinealidad</a></li>
+<li class="chapter" data-level="9.3" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#ejemplo-3"><i class="fa fa-check"></i><b>9.3</b> Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>10</b> Apéndice</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Hecho con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelos de Regresión</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelos-lineales" class="section level1 unnumbered">
+<h1>Modelos lineales</h1>
+<p>Los modelos lineales son una de las herramientas más importantes del análisis cuantitativo. En forma general, estos modelos se utilizan cuando se busca predecir o explicar una variable dependiente a partir de una o más variables independientes. Dependiendo de las características de las variables disponibles, la herramienta estadística más a apropiada para construir el modelo puede variar. Es por esta razón que cuando se construye un modelo estadístico es necesario tener en cuenta los principios de modelización y las caracteristicas de las variables.</p>
+<div id="principios-de-la-modelización-estadística" class="section level2 unnumbered">
+<h2>Principios de la modelización estadística</h2>
+<ul>
+<li><p>Dado un conjunto de variables, cada una de las cuales es un vector de lecturas de un rasgo específico de las muestras en un experimento.</p></li>
+<li><p><strong>Problema:</strong> ¿De qué manera una variable <span class="math inline">\(Y\)</span> depende de otras variables <span class="math inline">\(X_1,...,X_n\)</span> en el estudio?</p></li>
+<li><p>Un <strong>modelo estadístico</strong> define una relación matemática entre los <span class="math inline">\(X_i\)</span> y <span class="math inline">\(Y\)</span>. El modelo es una representación del real <span class="math inline">\(Y\)</span> que pretende reemplazarlo en la medida de lo posible. Al menos el modelo debería capturar la dependencia de <span class="math inline">\(Y\)</span> de los <span class="math inline">\(X_i\)</span>.</p></li>
+</ul>
+</div>
+<div id="identificar-y-caracterizar-variables" class="section level2 unnumbered">
+<h2>Identificar y Caracterizar Variables</h2>
+<p>Este es el primer paso en el modelado:</p>
+<ul>
+<li><p>Qué variable es la variable de respuesta;</p></li>
+<li><p>Qué variables son las variables explicativas;</p></li>
+<li><p>¿Son las variables explicativas continuas, categóricas o una mezcla de ambas?</p></li>
+<li><p>¿Cuál es la naturaleza de la variable de respuesta? ¿Es una medición contínua, un conteo, una proporción, una categoría o un tiempo hasta un evento?</p></li>
+</ul>
+</div>
+<div id="tipos-de-variables-y-tipo-de-modelo" class="section level2 unnumbered">
+<h2>Tipos de variables y tipo de modelo</h2>
+<div id="en-función-de-las-variables-explicativas" class="section level3 unnumbered">
+<h3>En función de las variables explicativas</h3>
+<table>
+<colgroup>
+<col width="58%" />
+<col width="41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Variables Explicativas</th>
+<th align="center">Modelo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Todas las variables <br>explicativas continuas</td>
+<td align="center">Regresión</td>
+</tr>
+<tr class="even">
+<td align="center">Todas las variables <br>explicativas categóricas</td>
+<td align="center">Análisis de Varianza (ANOVA)</td>
+</tr>
+<tr class="odd">
+<td align="center">Variables explicativas <br>tanto continuas como categóricas</td>
+<td align="center">Regresión, Análisis de Covarianza (ANCOVA)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="en-función-de-la-variable-respuesta" class="section level3 unnumbered">
+<h3>En función de la variable respuesta</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Variable de respuesta</th>
+<th align="center">Tipo de modelo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Continua</td>
+<td align="center">Regresión normal, ANOVA, ANCOVA</td>
+</tr>
+<tr class="even">
+<td align="center">Proporción</td>
+<td align="center">Regresión logística</td>
+</tr>
+<tr class="odd">
+<td align="center">Conteos</td>
+<td align="center">Modelo log-lineal (regresión Poisson)</td>
+</tr>
+<tr class="even">
+<td align="center">Binario</td>
+<td align="center">Regresión logística binaria</td>
+</tr>
+<tr class="odd">
+<td align="center">Tiempo hasta evento</td>
+<td align="center">Análisis de supervivencia</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="el-modelo-lineal-general" class="section level2 unnumbered">
+<h2>El modelo lineal general</h2>
+<p>Como se mencionó, un modelo lineal, es un modelo para el <strong>análisis de regresión</strong>, que tiene como objetivo determinar una función matemática que describa el comportamiento de una variable dados los valores de otra u otras variables.</p>
+<p>En particular el <strong>análisis de regresión simple</strong>, pretende estudiar y explicar el comportamiento de una variable que notamos <span class="math inline">\(y\)</span>, y que llamaremos <strong>variable respuesta</strong>, <strong>variable dependiente</strong> o <strong>variable de interés</strong>, a partir de otra variable, que notamos <span class="math inline">\(x\)</span>, y que llamamos <strong>variable explicativa</strong>, <strong>variable independiente</strong>, <strong>covariable</strong> o <strong>regresor</strong>.</p>
+<p>El principal objetivo de la regresión es encontrar la función que mejor explique la relación entre la variable dependiente y las independientes.</p>
+<ul>
+<li>Una forma muy general para el modelo sería</li>
+</ul>
+<p><span class="math display">\[
+      y = f(x_1,x_2,...,x_p) + \epsilon,
+\]</span></p>
+<p>donde <span class="math inline">\(f\)</span> es una función desconocida y <span class="math inline">\(\epsilon\)</span> es el error en esta representación.
+Puesto que normalmente no tenemos suficientes datos para intentar estimar <span class="math inline">\(f\)</span> directamente, normalmente tenemos que asumir que tiene alguna forma restringida.</p>
+<ul>
+<li>La forma más simple y común es el <strong>modelo lineal (LM)</strong>.</li>
+</ul>
+<p><span class="math display">\[
+    y = \beta_0 + \beta_1 x_1 + \beta_2 x_z + \epsilon,
+\]</span></p>
+<p>donde <span class="math inline">\(\beta_i\)</span> <span class="math inline">\(i=0,1,2\)</span> son parámetros <em>desconocidos</em>.</p>
+<p><span class="math inline">\(\beta_0\)</span> se llama el término de intercepción. Por lo tanto, el problema se reduce a la estimación de cuatro valores en lugar de los complicados e infinitos <span class="math inline">\(f\)</span> dimensionales.</p>
+<ul>
+<li>Un modelo lineal simple con una sola variable exploratoria se define como:</li>
+</ul>
+<p><span class="math display">\[
+         \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x
+\]</span></p>
+<p>donde <span class="math inline">\(\hat y\)</span> son los valores ajustados para <span class="math inline">\(\hat{\beta}_0\)</span> (intercepto) y <span class="math inline">\(\hat{\beta}_1\)</span> (pendiente). Luego por un <span class="math inline">\(x_i\)</span> dado obtenemos un <span class="math inline">\(\hat{y}_i\)</span> que se aproxima a <span class="math inline">\(y_i\)</span>.</p>
+<p>Es posible apreciar que el tema de modelos lineales es bastante amplio y en este curso sólo nos enfocaremos en los modelos de regresión normal múltiple, análisis de varianza y modelos dinámicos.</p>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introducción.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "github", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
