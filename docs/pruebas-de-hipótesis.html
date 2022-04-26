@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 4 Pruebas de hipótesis | Modelos de Regresión</title>
+  <meta name="description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 4 Pruebas de hipótesis | Modelos de Regresión" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 4 Pruebas de hipótesis | Modelos de Regresión" />
+  
+  <meta name="twitter:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  
+
+<meta name="author" content="Sofía Villers Gómez" />
+<meta name="author" content="David Alberto Mateos Montes de Oca" />
+<meta name="author" content="Dulce María Reyes Varela" />
+<meta name="author" content="Carlos Fernando Vásquez Guerra" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intervalos-de-confianza.html"/>
+<link rel="next" href="validación-de-supuestos.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modelos no paramétricos y de Regresión</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos"><i class="fa fa-check"></i>Objetivos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#licencia"><i class="fa fa-check"></i>Licencia</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduccion</b></span></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html"><i class="fa fa-check"></i>Modelos lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#principios-de-la-modelización-estadística"><i class="fa fa-check"></i>Principios de la modelización estadística</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#identificar-y-caracterizar-variables"><i class="fa fa-check"></i>Identificar y Caracterizar Variables</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#tipos-de-variables-y-tipo-de-modelo"><i class="fa fa-check"></i>Tipos de variables y tipo de modelo</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#en-función-de-las-variables-explicativas"><i class="fa fa-check"></i>En función de las variables explicativas</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#en-función-de-la-variable-respuesta"><i class="fa fa-check"></i>En función de la variable respuesta</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#el-modelo-lineal-general"><i class="fa fa-check"></i>El modelo lineal general</a></li>
+</ul></li>
+<li class="part"><span><b>II Regresión Lineal Simple</b></span></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i>Introducción</a>
+<ul>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#objetivos-del-análisis-de-regresión"><i class="fa fa-check"></i>Objetivos del análisis de regresión</a></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#el-algorítmo-de-regresión-lineal"><i class="fa fa-check"></i>El algorítmo de regresión lineal</a></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#regresión-lineal-simple"><i class="fa fa-check"></i>Regresión lineal simple</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html"><i class="fa fa-check"></i><b>1</b> Modelo con intercepto</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo"><i class="fa fa-check"></i><b>1.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="1.2" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html#propiedades-de-los-estimadores"><i class="fa fa-check"></i><b>1.2</b> Propiedades de los estimadores</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html"><i class="fa fa-check"></i><b>2</b> Modelo sin intercepto</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-1"><i class="fa fa-check"></i><b>2.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="2.2" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#propiedades-de-los-estimadores-1"><i class="fa fa-check"></i><b>2.2</b> Propiedades de los estimadores</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#ejemplo-en-r-studio"><i class="fa fa-check"></i><b>2.2.1</b> Ejemplo en R-Studio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>3</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-beta_0"><i class="fa fa-check"></i><b>3.1</b> Intervalo para <span class="math inline">\(\beta_{0}\)</span></a></li>
+<li class="chapter" data-level="3.2" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-beta_1"><i class="fa fa-check"></i><b>3.2</b> Intervalo para <span class="math inline">\(\beta_{1}\)</span></a></li>
+<li class="chapter" data-level="3.3" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-sigma2"><i class="fa fa-check"></i><b>3.3</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="3.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-el-valor-esperado-y"><i class="fa fa-check"></i><b>3.4</b> Intervalo para el valor esperado <span class="math inline">\(y\)</span></a></li>
+<li class="chapter" data-level="3.5" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-de-predicción"><i class="fa fa-check"></i><b>3.5</b> Intervalo de predicción</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#ejemplo"><i class="fa fa-check"></i><b>3.5.1</b> Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html"><i class="fa fa-check"></i><b>4</b> Pruebas de hipótesis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#pruebas-para-beta_0"><i class="fa fa-check"></i><b>4.1</b> Pruebas para <span class="math inline">\(\beta_{0}\)</span></a></li>
+<li class="chapter" data-level="4.2" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#prueba-para-beta_1"><i class="fa fa-check"></i><b>4.2</b> Prueba para <span class="math inline">\(\beta_{1}\)</span></a></li>
+<li class="chapter" data-level="4.3" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#prueba-para-sigma2"><i class="fa fa-check"></i><b>4.3</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.4" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#análisis-de-la-varianza-anova"><i class="fa fa-check"></i><b>4.4</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="4.5" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#coeficiente-de-determinación"><i class="fa fa-check"></i><b>4.5</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="4.6" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#propiedades-de-r2"><i class="fa fa-check"></i><b>4.6</b> Propiedades de <span class="math inline">\(R^2\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#relación-r2-y-la-correlación-de-pearson"><i class="fa fa-check"></i><b>4.7</b> Relación <span class="math inline">\(R^2\)</span> y la correlación de Pearson</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#ejemplo-1"><i class="fa fa-check"></i><b>4.7.1</b> Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html"><i class="fa fa-check"></i><b>5</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#análisis-de-residuales"><i class="fa fa-check"></i><b>5.1</b> Análisis de residuales</a></li>
+<li class="chapter" data-level="5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-normalidad"><i class="fa fa-check"></i><b>5.2</b> Supuesto de normalidad</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#validación-del-supuesto-de-normalidad"><i class="fa fa-check"></i><b>5.2.1</b> Validación del supuesto de normalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>5.3</b> Supuesto de linealidad</a></li>
+<li class="chapter" data-level="5.4" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-homocedasticidad"><i class="fa fa-check"></i><b>5.4</b> Supuesto de homocedasticidad</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#prueba-de-breusch-pagan"><i class="fa fa-check"></i><b>5.4.1</b> Prueba de Breusch-Pagan</a></li>
+<li class="chapter" data-level="5.4.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#prueba-de-white"><i class="fa fa-check"></i><b>5.4.2</b> Prueba de White</a></li>
+<li class="chapter" data-level="5.4.3" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#ejemplo-2"><i class="fa fa-check"></i><b>5.4.3</b> Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-outlier-e-influyentes"><i class="fa fa-check"></i><b>5.5</b> Valores outlier e influyentes</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-outlier"><i class="fa fa-check"></i><b>5.5.1</b> Valores outlier</a></li>
+<li class="chapter" data-level="5.5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-influentes"><i class="fa fa-check"></i><b>5.5.2</b> Valores influentes</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Modelo de regresión lineal múltiple</b></span></li>
+<li class="chapter" data-level="" data-path="introducción-1.html"><a href="introducción-1.html"><i class="fa fa-check"></i>Introducción</a></li>
+<li class="chapter" data-level="6" data-path="modelo.html"><a href="modelo.html"><i class="fa fa-check"></i><b>6</b> Modelo</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="modelo.html"><a href="modelo.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-2"><i class="fa fa-check"></i><b>6.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="6.2" data-path="modelo.html"><a href="modelo.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Estimación por máxima verosimilitud</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html"><i class="fa fa-check"></i><b>7</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-beta_j"><i class="fa fa-check"></i><b>7.1</b> Intervalo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="7.2" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-sigma2-1"><i class="fa fa-check"></i><b>7.2</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="7.3" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-la-respuesta-media"><i class="fa fa-check"></i><b>7.3</b> Intervalos de la respuesta media</a></li>
+<li class="chapter" data-level="7.4" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-predicción"><i class="fa fa-check"></i><b>7.4</b> Intervalos de predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#región-de-rechazo-para-beta_j"><i class="fa fa-check"></i><b>8.1</b> Región de rechazo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="8.2" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#prueba-para-sigma2-1"><i class="fa fa-check"></i><b>8.2</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="8.3" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#análisis-de-la-varianza-anova-1"><i class="fa fa-check"></i><b>8.3</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="8.4" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#coeficiente-de-determinación-2"><i class="fa fa-check"></i><b>8.4</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="8.5" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#r2-ajustado"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(R^2\)</span> ajustado</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html"><i class="fa fa-check"></i><b>9</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#supuesto-de-multicolinealidad"><i class="fa fa-check"></i><b>9.1</b> Supuesto de multicolinealidad</a></li>
+<li class="chapter" data-level="9.2" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#detección-de-multicolinealidad"><i class="fa fa-check"></i><b>9.2</b> Detección de multicolinealidad</a></li>
+<li class="chapter" data-level="9.3" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#ejemplo-3"><i class="fa fa-check"></i><b>9.3</b> Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>10</b> Apéndice</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Hecho con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelos de Regresión</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pruebas-de-hipótesis" class="section level1" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Pruebas de hipótesis</h1>
+<p>El objetivo de la pruebas de hipótesis es poder escoger, a través de métodos estadísticos, la hipótesis capaz de retratar de mejor manera la realidad que se observa en la muestra.</p>
+<p><strong>Definición 2.5</strong> Una prueba de hipótesis es una regla de decisión que, cuando se ha obtenido los valores de la muestra observada, lleva a una decisión de aceptar o rechazar la hipótesis nula bajo una cierta consideración.</p>
+<p>La hipótesis nula, la sentencia que se pone a prueba es denotada como <span class="math inline">\(H_0\)</span>, la hipótesis alternativa, el complemento de la hipótesis nula, es denotada como <span class="math inline">\(H_a.\)</span></p>
+<p>En el modelo de regresión lineal simple, se desea realizar dos pruebas de hipótesis de gran importancia.</p>
+<ul>
+<li><p><span class="math inline">\(\textbf{H}_0: \hat{\beta_{1}}=0 \ vs. \  \textbf{H}_a:\hat{\beta_{1}} \neq 0\)</span></p></li>
+<li><p><span class="math inline">\(\textbf{H}_0: \hat{\beta_{0}}=0 \ vs. \  \textbf{H}_a:\hat{\beta_{0}} \neq 0\)</span></p></li>
+</ul>
+<p>Estas pruebas son de gran importancia, ya que la primera de ellas es probar si <span class="math inline">\(\beta_{1}\)</span> es igual a cero, es decir, que el modelo no tenga pendiente y sea constante a través del tiempo, con un gran nivel de significancia dado. Si la prueba se rechaza entonces establece que el valor esperado de <span class="math inline">\(y\)</span> depende de <span class="math inline">\(x\)</span>.</p>
+<p>La segunda prueba de hipótesis analiza la posibilidad de que <span class="math inline">\(\beta_{0}=0\)</span>, si la prueba es aceptada implica que el modelo de regresión simple se comporta sin intercepto. Mientras que si se rechaza la hipótesis nula entonces <span class="math inline">\(\beta_{0}\neq 0,\)</span> por lo cual el mejor ajuste para la muestra es un modelo de regresión simple con intercepto.</p>
+<div id="pruebas-para-beta_0" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Pruebas para <span class="math inline">\(\beta_{0}\)</span></h2>
+<p>Como se observó, la cantidad pivotal para <span class="math inline">\(\beta_{0}\)</span> está determinado por <span class="math inline">\(t^{\alpha/2}_{(n-2)}\)</span> con el estadístico:</p>
+<p><span class="math display">\[t^*=\frac{\hat{\beta_{0}}-b_{0}}{\sqrt{\left(\frac{1}{n}+\frac{\overline{x}^2}{S_{xx}}\right)\hat{\sigma}^2}},\]</span></p>
+<p>donde:</p>
+<p><span class="math display">\[\hat{\sigma}^2=\frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.\]</span>
+Entonces las pruebas de hipótesis para <span class="math inline">\(\beta_{0},\)</span> en sus tres casos, que el valor de <span class="math inline">\(\beta_{0}\)</span> sea igual, inferior o superior al punto crítico deseado (<span class="math inline">\(b_{0}\)</span>) tienen las siguientes reglas de decisión, con un nivel de significancia <span class="math inline">\(\alpha\)</span>.</p>
+<p><span class="math display">\[
+\begin{array}{|c|c|}
+\hline
+Hipótesis &amp; Región\ de\ rechazo: \\
+\hline
+H_0:\beta_{0}=b_{0} \ vs. \ H_a:\beta_{0} \neq b_{0} &amp; |t^*|&gt;t^{\alpha/2}_{(n-2)} \\
+\hline
+H_0:\beta_{0}\leq b_{0} \ vs. \ H_a:\beta_{0} &gt; b_{0} &amp; t^*&gt;t^{\alpha}_{(n-2)} \\
+\hline
+H_0:\beta_{0}\geq b_{0} \ vs. \ H_a:\beta_{0} &lt; b_{0} &amp; t^*&lt;t^{1-\alpha}_{(n-2)} \\
+\hline
+\end{array}
+\]</span></p>
+<p><strong>Para ejemplificar</strong></p>
+<p>Suponga que se quiere ajustar un modelo con intercepto o sin intercepto. En éste caso, conviene realizar una prueba de hipótesis de dos colas sobre <span class="math inline">\(\beta_{0}\)</span> valuando el punto crítico <span class="math inline">\(b_{0}=0\)</span>, es decir, se desea probar que <span class="math inline">\(\beta_{0}=0\)</span>, ya que si, con un nivel de significancia <span class="math inline">\(\alpha\)</span>, se rechaza <span class="math inline">\(H_0\)</span> se tiene evidencia de que el modelo a ajustar debería ser el modelo con intercepto. Detallando la prueba, en este caso en particular, tenemos:</p>
+<p><span class="math display">\[\textbf{H}_0: \hat{\beta_{0}}=0 \ \ \ \ vs. \ \ \ \ \textbf{H}_a:\hat{\beta_{0}}\neq 0\]</span></p>
+<p>La regla de decisión es rechazar <span class="math inline">\(H_0\)</span> cuando el estadístico <span class="math inline">\(t^*=\frac{\hat{\beta_{0}}-b_{0}}{\sqrt{\left(\frac{1}{n}+\frac{\overline{x}^2}{S_{xx}}\right)\hat{\sigma}^2}}\)</span> esté contenida en la región de rechazo. En este caso en particular, se tiene lo siguiente:</p>
+<p><span class="math display">\[t^*=\frac{\hat{\beta_{0}}}{\sqrt{\left(\frac{1}{n}+\frac{\overline{x}^2}{S_{xx}}\right)\hat{\sigma}^2}}.\]</span></p>
+<p>Por lo que se rechaza <span class="math inline">\(H_0\)</span> cuando <span class="math inline">\(t^*&lt;-t^{\alpha/2}_{(n-2)}\)</span> o si <span class="math inline">\(t^*&gt;t^{\alpha/2}_{(n-2)}\)</span>. Si se rechaza <span class="math inline">\(H_0\)</span> entonces <span class="math inline">\(\beta_{0} \neq 0\)</span> por lo que convendría realizar un modelo con intercepto; si no se rechaza la hipótesis nula con un nivel de significancia <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_{0}=0,\)</span> entonces el modelo sin intercepto sería el más óptimo para el conjunto de datos que se examina.</p>
+</div>
+<div id="prueba-para-beta_1" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Prueba para <span class="math inline">\(\beta_{1}\)</span></h2>
+<p>Similar al caso anterior, <span class="math inline">\(\beta_{1}\)</span> está determinado por <span class="math inline">\(t^{\alpha/2}_{(n-2)}\)</span> con el estadístico:</p>
+<p><span class="math display">\[t^*=\frac{\hat{\beta_{1}}-b_{1}}{\sqrt{\frac{\hat{\sigma}^2}{S_{xx}}}},\]</span></p>
+<p>donde:</p>
+<p><span class="math display">\[\hat{\sigma}^2=\frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.\]</span></p>
+<p>Por lo tanto tenemos la prueba de hipótesis para <span class="math inline">\(\beta_{1}\)</span> en sus tres casos, que el valor de <span class="math inline">\(\beta_{1}\)</span> sea igual, inferior o superior al punto crítico deseado (<span class="math inline">\(b_{1}\)</span>) y sus respectivas regiones de rechazo con un nivel de significancia <span class="math inline">\(\alpha.\)</span>
+<span class="math display">\[
+\begin{array}{|c|c|}
+\hline
+Hipótesis &amp; Región\ de\ rechazo: \\
+\hline
+\hline
+H_0:\beta_{1}=b_{1} \ vs. \ H_a:\beta_{1} \neq b_{1} &amp; |t^*|&gt;t^{\alpha/2}_{(n-2)} \\
+\hline
+H_0:\beta_{1}\leq b_{1} \ vs. \ H_a:\beta_{1} &gt; b_{1} &amp; t^*&gt;t^{\alpha}_{(n-2)} \\
+\hline
+H_0:\beta_{1}\geq b_{1} \ vs. \ H_a:\beta_{1} &lt; b_{1} &amp; t^*&lt;t^{1-\alpha}_{(n-2)} \\
+\hline
+\end{array}
+\]</span></p>
+<p>Para ejemplificar, suponga que quiere ajustar un modelo de regresión lineal simple, sin embargo, duda si realmente la variable respuesta <span class="math inline">\(y\)</span> depende de la variable regresora <span class="math inline">\(x\)</span>, es decir, sospecha que <span class="math inline">\(\beta_{1}=0.\)</span> Para ello se raliza la siguiente prueba de hipótesis valuando <span class="math inline">\(\beta_{1}\)</span> en el punto crítico de interés <span class="math inline">\(b_{1}=0:\)</span></p>
+<p><span class="math display">\[\textbf{H}_0: \hat{\beta_{1}}=0 \ \ \ \ vs. \ \ \ \ \textbf{H}_a:\hat{\beta_{1}} \neq 0\]</span></p>
+<p>La regla de decisión es rechazar <span class="math inline">\(H_0\)</span> cuando el estadístico <span class="math display">\[t^*=\frac{\hat{\beta_{1}}}{\sqrt{\frac{\hat{\sigma}^2}{S_{xx}}}}\]</span></p>
+<p>Esté contenida en la región de rechazo.Por lo que se rechaza <span class="math inline">\(H_0\)</span> cuando <span class="math inline">\(t^*&lt;-t^{\alpha/2}_{(n-2)}\)</span> o si <span class="math inline">\(t^*&gt;t^{\alpha/2}_{(n-2)}\)</span>.
+Si se rechaza <span class="math inline">\(H_0\)</span> entonces <span class="math inline">\(\beta_{1} \neq 0\)</span> por lo que la variable respuesta <span class="math inline">\(y\)</span> depende de la variable regresora <span class="math inline">\(x\)</span>; si no se rechaza <span class="math inline">\(H_0\)</span> con un nivel de significancia <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_{1}=0\)</span>, entonces la variable respuesta <span class="math inline">\(y\)</span> no depende de la variable regresora <span class="math inline">\(x\)</span>, debido a ello un modelo de regresión no sería viable con esas variables.</p>
+</div>
+<div id="prueba-para-sigma2" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Prueba para <span class="math inline">\(\sigma^2\)</span></h2>
+<p>Para <span class="math inline">\(\sigma^2\)</span> se tiene las siguientes reglas de decisión con un nivel de significancia <span class="math inline">\(\alpha:\)</span></p>
+<p><span class="math display">\[
+\begin{array}{|c|c|}
+\hline
+Hipótesis &amp; Región\ de\ rechazo: \\
+\hline
+\hline
+H_0:\sigma^2 = s \ vs. \ H_a:\sigma^2\neq s &amp; t^*&gt;\chi^{1-\alpha/2}_{(n-2)} \ \ ó \ \ t^*&lt;\chi^{\alpha/2}_{(n-2)}  \\
+\hline
+H_0:\sigma^2 \leq s \ vs. \ H_a:\sigma^2 &gt; s &amp; t^*&gt;\chi^{\alpha}_{(n-2)} \\
+\hline
+H_0:\sigma^2\geq s \ vs. \ H_a:\sigma^2 &lt; s &amp; t^*&lt;\chi^{1-\alpha}_{(n-2)} \\
+\hline
+\end{array}
+\]</span>
+donde el estadístico <span class="math inline">\(t^*:\)</span></p>
+<p><span class="math display">\[t^*=\frac{(n-2)\hat{\sigma}^2}{s}\]</span>
+Con:
+<span class="math display">\[\hat{\sigma}^2=\frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.\]</span></p>
+</div>
+<div id="análisis-de-la-varianza-anova" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Análisis de la varianza (ANOVA)</h2>
+<p>El análisis de la varianza, también llamado ANOVA por sus siglas en ingles (Analysis of Variance), mide la asociación lineal entre la variable respuesta <span class="math inline">\(y\)</span> y la variable regresora <span class="math inline">\(x\)</span>.</p>
+<p>La asociación lineal se logra cuando <span class="math inline">\(\beta_{1}\neq 0\)</span>, ya que en caso contrario, la estimación de <span class="math inline">\(y\)</span> sería la media muestral <span class="math inline">\(\overline{y}\)</span>, y la variable regresora <span class="math inline">\(x\)</span> no aportaría información. Entonces, al suponer <span class="math inline">\(\beta_{1}=0\)</span>, el ajuste de <span class="math inline">\(y\)</span> estaría dado de la siguiente manera:</p>
+<p><span class="math display">\[\hat{y}=\hat{\beta_{0}}+\hat{\beta_{1}}x_{i}.\]</span>
+Con <span class="math inline">\(\hat{\beta_{1}}=0:\)</span></p>
+<p><span class="math display">\[\hat{y}=\hat{\beta_{0}}.\]</span></p>
+<p>Por el <strong>teorema 2.2</strong> se sustituye la estimación de <span class="math inline">\(\hat{\beta_{0}}:\)</span></p>
+<p><span class="math display">\[\hat{y}=\overline{y}-\overline{x}\hat{\beta_{1}}.\]</span></p>
+<p>como <span class="math inline">\(\hat{\beta_{1}}=0:\)</span></p>
+<p><span class="math display">\[\hat{y}=\overline{y}.\]</span>
+Es decir, no hay asociación lineal entre la variable respuesta <span class="math inline">\(y\)</span> con la variable regresora <span class="math inline">\(x\)</span>. Es por ello que se desea demostrar que <span class="math inline">\(\beta_{1}\neq 0,\)</span> mediante la siguiente prueba de hipótesis:</p>
+<p><span class="math display">\[\textbf{H}_0:\hat{\beta_{1}}=0 \ \ \ vs. \ \ \ \textbf{H}_a:\hat{\beta_{1}} \neq 0\]</span>
+Se puede usar el estadístico de prueba de hipótesis para <span class="math inline">\(\beta_{1},\)</span> con <span class="math inline">\(b1=0\)</span>. Y se tiene lo siguiente:</p>
+<p><span class="math display">\[t^*=\frac{\hat{\beta_{1}}-b_{1}}{\sqrt{\frac{\hat{\sigma}^2}{S_{xx}}}} \sim t_{(n-2)}\]</span>
+De esta manera se rechaza la hipótesis nula y se supone que <span class="math inline">\(\beta_{1}\neq 0\)</span> cuando <span class="math inline">\(|t^*|&gt;t^{\alpha/2}_{(n-2)}\)</span>.</p>
+<p>Sin embargo, en el análisis de la varianza, lo que se busca construir es otro estadístico que pueda ser usado cuando se tenga más de una variable explicativa. Es por ello que el matemático y biológo Ronald Fisher (1920), analizó la siguiente igualdad:</p>
+<p><span class="math display">\[y_{i}-\overline{y}=(\hat{y_{i}}-\overline{y})+(y_{i}-\hat{y_{i}})\]</span></p>
+<p>Lo que busca es fraccionar la distancia del valor observado respecto a la media, por la suma de la distancia del valor estimado a la media más la distancia del valor observado al valor estimado.</p>
+<p>Obteniendo el cuadrado de la ecuación anterior:</p>
+<p><span class="math display">\[(y_{i}-\overline{y})^2=(\hat{y_{i}}-\overline{y})^2+(y_{i}-\hat{y_{i}})^2+2(\hat{y_{i}}-\overline{y})(y_{i}-\hat{y_{i}})\]</span>
+Sumando sobre todos los valores:</p>
+<p><span class="math display">\[\sum_{i=1}^{n}(y_{i}-\overline{y})^2=\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})^2+\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2+2\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})(y_{i}-\hat{y_{i}})\]</span>
+Resolviendo la ecuación:</p>
+<p><span class="math display">\[2\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})(y_{i}-\hat{y_{i}})=2\sum_{i=1}^{n}\hat{y_{i}}(y_{i}-\hat{y_{i}})-2\overline{y}\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.\]</span></p>
+<p>Por la <strong>definición 2.2</strong>, se tiene <span class="math inline">\((y_{i}-\hat{y_{i}})=e_{i}\)</span>:</p>
+<p><span class="math display">\[2\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})(y_{i}-\hat{y_{i}})=2\sum_{i=1}^{n}\hat{y_{i}}e_{i}-2\overline{y}\sum_{i=1}^{n}e_{i}.\]</span></p>
+<p>Por el <strong>teorema 2.3</strong>, se sabe que <span class="math inline">\(\sum_{i=1}^{n}e_{i}=0\)</span></p>
+<p><span class="math display">\[2\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})(y_{i}-\hat{y_{i}})=2\sum_{i=1}^{n}\hat{y_{i}}e_{i}\]</span>
+Por el <strong>corolario 2</strong>, <span class="math inline">\(\sum_{i=1}^{n}\hat{y_{i}}e_{i}=0\)</span>, por lo tanto tenemos:</p>
+<p><span class="math display">\[\sum_{i=1}^{n}(y_{i}-\overline{y})^2=\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})^2+\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.\]</span></p>
+<p>De esta manera se construye la <strong>ANOVA</strong>, generalmente se hace un cambio de notación:</p>
+<ul>
+<li><p><span class="math inline">\(SC_{T}\)</span> es la suma de cuadrados, mide la variabilidad de las observaciones del total corregido por la media y es denotado por <span class="math inline">\(SC_{T}=\sum_{i=1}^{n}(y_{i}-\overline{y})^2.\)</span></p></li>
+<li><p><span class="math inline">\(SC_{reg}\)</span> es la suma de cuadrados de la regresión, mide la variabilidad de las observaciones <span class="math inline">\(y_{i}\)</span> y la línea de regresión ajustada, es denotado por <span class="math inline">\(SC_{reg}=\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})^2.\)</span></p></li>
+<li><p><span class="math inline">\(SC_{error}\)</span> es la suma de cuadrados del error, es decir mide la variación residual que queda sin explicar por la línea de regresión, es denotado por <span class="math inline">\(SC_{error}=\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.\)</span></p></li>
+</ul>
+<p>De esta forma se tiene la siguiente igualdad:</p>
+<p><span class="math display">\[SC_{T}=SC_{reg}+SC_{error}\]</span></p>
+<p>Además se observa que:</p>
+<ul>
+<li><p><span class="math inline">\(SC_{T}\)</span> tiene <span class="math inline">\(n-1\)</span> grados de libertad, ya que la suma <span class="math inline">\(\sum_{i=1}^{n}(y_{i}-\overline{y})^2\)</span> es el núcleo de <span class="math inline">\((n-1)S^2=\frac{\sum_{i=1}^{n}(y_{i}-\overline{y})^2}{n-1}\)</span> en el cual al estimar <span class="math inline">\(\mu\)</span> con <span class="math inline">\(\overline{y}\)</span> se pierde un grado de libertad.</p></li>
+<li><p><span class="math inline">\(SC_{reg}\)</span> tiene 1 grado de libertad, ya que la regresión sólo tiene una variable indepediente <span class="math inline">\((x).\)</span></p></li>
+<li><p><span class="math inline">\(SC_{error}\)</span> tiene <span class="math inline">\(n-2\)</span> grados de libertad, ya que la regresión <span class="math inline">\(SC_{error}=SC_{T}-SC_{reg},\)</span> en el cual se ha visto que <span class="math inline">\(SC_{T}\)</span> y <span class="math inline">\(SC_{reg}\)</span> tienen <span class="math inline">\(n-1\)</span> y <span class="math inline">\(1\)</span> grado de libertad, respectivamente, así los grados de libertad de <span class="math inline">\(SC_{error}=n-1-1,\)</span> entonces <span class="math inline">\(SC_{error}\)</span> tienen n-2 grados de libertad.
+Sabemos que el modelo de Regresión Lineal con errores normales tiene las siguientes propiedades:</p></li>
+<li><p><span class="math inline">\(\frac{SC_{reg}}{\sigma^2}\sim \chi^2_{(1)}.\)</span></p></li>
+<li><p><span class="math inline">\(\frac{(n-2)\hat{\sigma}^2}{\sigma^2}=\frac{SC_{error}}{\sigma^2}\sim\chi^2_{(n-2)}.\)</span></p></li>
+<li><p>Además <span class="math inline">\(SC_{reg}\)</span> es independiente a <span class="math inline">\(SC_{error}.\)</span></p></li>
+</ul>
+<p>Debido a un resultado de probabilidad se sabe que si <span class="math inline">\(x \sim \chi^2_{(n)}\)</span> y <span class="math inline">\(y \sim \chi^2_{(m)}\)</span> y si <span class="math inline">\(x\)</span> es independiente a <span class="math inline">\(y\)</span> entonces:</p>
+<p><span class="math display">\[\frac{x/n}{y/m}\sim F_{(n,m)}\]</span></p>
+<p>De esta forma se puede aplicar la prueba <span class="math inline">\(F\)</span> de Fisher en el análisis de varianza para probar las hipótesis. La prueba <span class="math inline">\(F\)</span> consiste en dividir <span class="math inline">\(SC_{reg}\)</span> entre sus grados de libertad y éste dividirlo entre <span class="math inline">\(SC_{error}\)</span> que a su vez está dividida entre sus grados de libertad, de esta manera:</p>
+<p><span class="math display">\[F=\frac{\frac{SC_{reg}}{1}}{\frac{SC_{error}}{n-2}}\]</span></p>
+<p>Aplicando el resultado:</p>
+<p><span class="math display">\[F=\frac{\frac{SC_{reg}}{1}}{\frac{SC_{error}}{n-2}} \sim F_{(1,n-2)}\]</span>
+Ahora se ocupará el <strong>Cuadrado Medio</strong> denotado como <strong>CM</strong>, la cual corresponde a la Suma de Cuadrados entre los grados de libertad. Así, se define al cuadrado medio de la regresión <span class="math inline">\(CM_{reg}\)</span> y al cuadrado medio del error <span class="math inline">\(CM_{error}\)</span> como:</p>
+<p><span class="math display">\[
+\begin{array}{c c c}
+CM_{reg}=\frac{SC_{reg}}{1} &amp; y &amp; CM_{error}=\frac{SC_{error}}{n-2}. \\
+\end{array}
+\]</span></p>
+<p>De igual manera, haciendo el ajuste, la prueba <span class="math inline">\(F\)</span> queda definida como:</p>
+<p><span class="math display">\[F=\frac{CM_{reg}}{CM_{error}}.\]</span>
+Observamos que <span class="math inline">\(SC_{reg}=\hat{\beta_{1}}S_{xy}\)</span> entonces:</p>
+<p><span class="math display">\[F=\frac{\hat{\beta_{1}}S_{xy}}{CM_{error}}.\]</span>
+De esta manera, la región de rechazo para la prueba de hipótesis <span class="math inline">\(H_0:\beta_{1}=0\)</span> es:</p>
+<p><span class="math display">\[\frac{\hat{\beta_{1}}S_{xy}}{CM_{error}}&gt;(t^{\alpha/2}_{(n-2)})^2\]</span>
+La cual es equivalente a la prueba t.</p>
+<p><span class="math display">\[\frac{|\hat{\beta_{1}}|}{\sqrt{Var(\hat{\beta_{1}})}} &gt; t^{\alpha/2}_{(n-2)}.\]</span></p>
+<p>Ya que si <span class="math inline">\(x \sim t_{(n-1)}\)</span> entonces <span class="math inline">\(x^2 \sim F_{(1,n-2)}.\)</span></p>
+<p>El siguiente cuadro resume la información anterior, mejor conocida como <strong>Tabla ANOVA:</strong></p>
+<p><span class="math display">\[
+\begin{array}{|c| c| c| c| c|}
+\hline
+&amp;Grados\ de\ libertad &amp; Suma\ de\ Cuadrados &amp; Cuadrado\ Medio &amp; Prueba\ F \\
+\hline
+\hline
+Regresión &amp; 1   &amp; \sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})^2=\hat{\beta_{1}}S_{xy} &amp; SC_{reg} &amp; \frac{CM_{reg}}{CM_{error}} \\
+\hline
+Error     &amp; n-2 &amp; \sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2=SC_{T}-\hat{\beta_{1}}S_{xy} &amp; \frac{SC_{error}}{n-2} &amp; -\\
+\hline 
+Total     &amp; n-1 &amp; \sum_{i=1}^{n}(y_{i}-\overline{y})^2 &amp; - &amp; - \\
+\hline
+\end{array}
+\]</span></p>
+</div>
+<div id="coeficiente-de-determinación" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Coeficiente de determinación</h2>
+<p>El coeficiente de determinación, con frecuencia se le asocia a la proporción de la variación explicada por el regresor <span class="math inline">\(x\)</span>, ya que <span class="math inline">\(0&lt;SC_{reg}&lt;SC_{T}\)</span> entonces los valores del coeficiente de determinación están entre <span class="math inline">\(0&lt;R^2&lt;1.\)</span></p>
+<p>Se define el coeficiente de determinación del modelo de regresión como:</p>
+<p><span class="math display">\[R^2=\frac{SC_{reg}}{SC_{T}}=1-\frac{Sc_{error}}{SC_{T}}.\]</span></p>
+</div>
+<div id="propiedades-de-r2" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Propiedades de <span class="math inline">\(R^2\)</span></h2>
+<p>El coeficiente de determinación <span class="math inline">\(R^2\)</span> satisface las siguientes propiedades:</p>
+<ul>
+<li><p><span class="math inline">\(0 \leq R^2 \leq 1\)</span> ya que <span class="math inline">\(0 \leq SC_{error} \leq SC_{T}.\)</span></p></li>
+<li><p>Si <span class="math inline">\(R^2=1\)</span> entonces tenemos que <span class="math inline">\(SC_{reg}=SC_{T}\)</span> y <span class="math inline">\(\frac{SC_{error}}{SC_{T}}=0.\)</span></p></li>
+<li><p>Si <span class="math inline">\(R^2=0\)</span> entonces <span class="math inline">\(SC_{error}=SC_{T}.\)</span></p></li>
+</ul>
+<p>En particular, se buscan valores de <span class="math inline">\(R^2\)</span> cercanos a 1, ya que esto indica que la mayor parte de la variabilidad de <span class="math inline">\(y\)</span> es determinada o explicada por el modelo de regresión. La magnitud de <span class="math inline">\(R^2\)</span> también depende del rango de variabilidad de la variable regresora. En general <span class="math inline">\(R^2\)</span> aumenta a medida que la propagación de los valores de <span class="math inline">\(x\)</span> aumenta, y disminuye a medida que la propagación de los valores de <span class="math inline">\(x\)</span> disminuyan, siempre que el modelo asumido es correcto.</p>
+<p><span class="math display">\[
+\begin{array}{|c |c|}
+\hline
+\textbf{Valor de} \ R^2 &amp; \textbf{Tipo de correlación} \\
+\hline
+\hline
+R^2=0 &amp; No\ hay\ correlación \\
+0&lt;R^2&lt;0.25 &amp; Correlación\ muy\ débil \\
+0.25\leq R^2 &lt; 0.5 &amp; Correlación\ débil \\
+0.5 \leq R^2 &lt; 0.75 &amp; Correlación\ moderada \\
+0.75 \leq R^2 &lt; 0.9 &amp; Correlación\ fuerte \\
+0.9 \leq R^2 &lt; 1 &amp; Correlación\ muy\ fuerte \\
+R^2=1 &amp; Correlación\ perfecta \\
+\hline
+\end{array}
+\]</span></p>
+</div>
+<div id="relación-r2-y-la-correlación-de-pearson" class="section level2" number="4.7">
+<h2><span class="header-section-number">4.7</span> Relación <span class="math inline">\(R^2\)</span> y la correlación de Pearson</h2>
+<p>El coeficiente de correlación de Pearson entre <span class="math inline">\(x_{1},\ldots, x_{n}\)</span> y <span class="math inline">\(y_{1},\ldots, y_{n}\)</span> se define como:</p>
+<p><span class="math display">\[r=\frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}.\]</span>
+<span class="math inline">\(&quot;r&quot;\)</span> toma valores de <span class="math inline">\(-1\)</span> a <span class="math inline">\(1\)</span>, dónde si <span class="math inline">\(r\)</span> toma el valor de <span class="math inline">\(1\)</span> decimos que hay una relación lineal positiva, si <span class="math inline">\(r\)</span> toma el valor de <span class="math inline">\(-1\)</span> decimos que hay una relación lineal negativa y finalmente si toma el valor de <span class="math inline">\(0\)</span> decimos que no hay una relación entre variables.</p>
+<p>Para el modelo de regresión lineal, en particular, se cumple que:</p>
+<p><span class="math display">\[r^2=R^2.\]</span></p>
+<div id="ejemplo-1" class="section level3" number="4.7.1">
+<h3><span class="header-section-number">4.7.1</span> Ejemplo</h3>
+<p>En las secciones anteriores tomamos los datos de <strong>CALLCENT</strong> y comenzamos a resolver el problema que el gerente nos planteó de poder
+predecir, de alguna manera, el tiempo promedio que tardarían en procesar un número dado de facturas.</p>
+<p>Se ha recolectado, durante un periodo de 30 días, la información sobre el número de facturas procesadas (en nuestrio caso definimos como nuestra variable <span class="math inline">\(x\)</span>) y el tiempo que tardan las mismas (que hemos definido como nuestra variable <span class="math inline">\(y\)</span>).</p>
+<p>Verificamos gráficamente que hubiera una relación lineal entre las variables, estimamos los parámetros del modelo de regresión lineal simple con intercepto y sin intercepto. Luego construimos intervalos de confianza para los parámetros estimados, para el valor esperado y la predicción.</p>
+<p>Como se mencionó en nuestro capítulo debemos aplicar pruebas estadísticas que nos aseguren que las estimaciones de los parámetros serán distintos de cero.</p>
+<div id="prueba-de-hipótesis-para-beta_0-y-beta_1" class="section level4 unnumbered">
+<h4>Prueba de hipótesis para <span class="math inline">\(\beta_{0}\)</span> y <span class="math inline">\(\beta_{1}\)</span></h4>
+<p>Haremos el cálculo del estadístico de prueba para probar la hipótesis: <span class="math inline">\(\textbf{H}_0=\hat{\beta_{0}}=0 \ \ \ vs \ \ \ \textbf{H}_a \neq 0\)</span> con una confianza del <span class="math inline">\(90\%\)</span> y sustituimos en la siguiente ecuación:</p>
+<p><span class="math display">\[t^*=\frac{\hat{\beta_{0}}}{\sqrt{\left(\frac{1}{n}+\frac{\overline{x}^2}{S_{xx}}\right)\hat{\sigma}^2}}.\]</span></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="pruebas-de-hipótesis.html#cb28-1" aria-hidden="true" tabindex="-1"></a>t_est<span class="ot">=</span>beta0<span class="sc">/</span><span class="fu">sqrt</span>((<span class="dv">1</span><span class="sc">/</span>n<span class="sc">+</span>x_barra<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>Sxx)<span class="sc">*</span>s2_gorro)</span>
+<span id="cb28-2"><a href="pruebas-de-hipótesis.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="pruebas-de-hipótesis.html#cb28-3" aria-hidden="true" tabindex="-1"></a>t_est</span></code></pre></div>
+<pre><code>[1] 5.24827</code></pre>
+<p>Ahora buscamos el cuantil de la distribución <span class="math inline">\(t-Student\)</span> para comprar nuestro estadístico.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="pruebas-de-hipótesis.html#cb30-1" aria-hidden="true" tabindex="-1"></a>qt<span class="ot">=</span><span class="fu">qt</span>(.<span class="dv">95</span>,n<span class="dv">-2</span>) </span>
+<span id="cb30-2"><a href="pruebas-de-hipótesis.html#cb30-2" aria-hidden="true" tabindex="-1"></a>qt</span></code></pre></div>
+<pre><code>[1] 1.701131</code></pre>
+<p>Como nuestro estadístico (5.2482) es mayor que (1.7011). Entonces rechazamos <span class="math inline">\(\textbf{H}_0\)</span>. Por lo tanto con una confianza del <span class="math inline">\(90\%\)</span> podemos decir que <span class="math inline">\(\beta_{0} \neq 0.\)</span></p>
+<p>Ahora haremos la prueba para la hipótesis <span class="math inline">\(\textbf{H}_0:\hat{\beta_{1}}=0 \ \ vs \ \ \textbf{H}_{a}:\hat{\beta_{1}} \neq 0\)</span> con una confianza del <span class="math inline">\(90\%\)</span>. Sustituimos en la siguiente ecuación:</p>
+<p><span class="math display">\[t^*=\frac{\hat{\beta_{1}}}{\sqrt{\frac{\hat{\sigma}^2}{S_{xx}}}}\]</span></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="pruebas-de-hipótesis.html#cb32-1" aria-hidden="true" tabindex="-1"></a>t_est<span class="ot">=</span>beta1<span class="sc">/</span><span class="fu">sqrt</span>(s2_gorro<span class="sc">/</span>Sxx)</span>
+<span id="cb32-2"><a href="pruebas-de-hipótesis.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="pruebas-de-hipótesis.html#cb32-3" aria-hidden="true" tabindex="-1"></a>t_est</span></code></pre></div>
+<pre><code>[1] 13.79718</code></pre>
+<p>Ahora buscamos el cuantil de la distribución <span class="math inline">\(t-Student\)</span> para comparar nuestro estadístico:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="pruebas-de-hipótesis.html#cb34-1" aria-hidden="true" tabindex="-1"></a>qt<span class="ot">=</span><span class="fu">qt</span>(.<span class="dv">95</span>,n<span class="dv">-2</span>) </span>
+<span id="cb34-2"><a href="pruebas-de-hipótesis.html#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="pruebas-de-hipótesis.html#cb34-3" aria-hidden="true" tabindex="-1"></a>qt</span></code></pre></div>
+<pre><code>[1] 1.701131</code></pre>
+<p>Como nuestro estadístico (13.7971) es mayor que (1.7011). Entonces rechazamos <span class="math inline">\(\textbf{H}_0\)</span>. Por lo tanto con una confianza del <span class="math inline">\(90\%\)</span> podemos decir que <span class="math inline">\(\beta_{1} \neq 0.\)</span></p>
+<p>Con éstas dos pruebas corroboramos que los datos ajustan a un modelo de regresión lineal que considera a la variable facturas y el intercepto, esto debido a que ambos parámetros resultaron ser distintos de cero.</p>
+<ul>
+<li><p>Si la prueba de hipótesis para <span class="math inline">\(\beta_{0 }\)</span> hubiera resultado en no rechazar <span class="math inline">\(\textbf{H}_0\)</span> entonces, se buscaría ajustar un modelo sin intercepto.</p></li>
+<li><p>Si la prueba de hipótesis para <span class="math inline">\(\beta_{1}\)</span> hubiera resultado en no rechazar <span class="math inline">\(\textbf{H}_0\)</span> entonces, se buscaría ajustar un modelo con otra variable (diferente a las facturas) ya que los datos estarían diciendo que la variable facturas no es significativa para explicar el tiempo promedio de su llegada.</p></li>
+</ul>
+</div>
+<div id="coeficiente-de-determinación-1" class="section level4 unnumbered">
+<h4>Coeficiente de determinación</h4>
+<p>Por último vamos a calcular el coeficiente de determinación de nuestro modelo. Como se menciona en nuestro capítulo, este coeficiente mide la proporción de la variación explicada por el modelo en relación a la variación total existente en los datos, y por eso es un valor entre 0 y 1.</p>
+<p>Y sustituiremos en la siguiente expresión:</p>
+<p><span class="math display">\[R^2=\frac{\hat{\beta_{1}}S_{xy}}{\sum_{i=1}^{n}(y_{i}-\overline{y})^2}\]</span></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="pruebas-de-hipótesis.html#cb36-1" aria-hidden="true" tabindex="-1"></a>R_2<span class="ot">=</span>(beta1<span class="sc">*</span>Sxy)<span class="sc">/</span><span class="fu">sum</span>((y<span class="sc">-</span>y_barra)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb36-2"><a href="pruebas-de-hipótesis.html#cb36-2" aria-hidden="true" tabindex="-1"></a>R_2</span></code></pre></div>
+<pre><code>[1] 0.8717727</code></pre>
+<p>Lo que quiere decir que nuestro modelo está explicando <span class="math inline">\(87.17\%\)</span> de la variabilidad observada en la variable facturas. El ideal es tener un modelo que explique el <span class="math inline">\(100\%\)</span> pero como vimos, debido a que estamos ajustando una recta y esta no pasa por todos los puntos algún error en el ajuste estamos cometiendo.</p>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intervalos-de-confianza.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="validación-de-supuestos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "github", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 8 Pruebas de hipótesis | Modelos de Regresión</title>
+  <meta name="description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 8 Pruebas de hipótesis | Modelos de Regresión" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 8 Pruebas de hipótesis | Modelos de Regresión" />
+  
+  <meta name="twitter:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
+  
+
+<meta name="author" content="Sofía Villers Gómez" />
+<meta name="author" content="David Alberto Mateos Montes de Oca" />
+<meta name="author" content="Dulce María Reyes Varela" />
+<meta name="author" content="Carlos Fernando Vásquez Guerra" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intervalos-de-confianza-1.html"/>
+<link rel="next" href="validación-de-supuestos-1.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Modelos no paramétricos y de Regresión</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#objetivos"><i class="fa fa-check"></i>Objetivos</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#licencia"><i class="fa fa-check"></i>Licencia</a></li>
+</ul></li>
+<li class="part"><span><b>I Introduccion</b></span></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html"><i class="fa fa-check"></i>Modelos lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#principios-de-la-modelización-estadística"><i class="fa fa-check"></i>Principios de la modelización estadística</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#identificar-y-caracterizar-variables"><i class="fa fa-check"></i>Identificar y Caracterizar Variables</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#tipos-de-variables-y-tipo-de-modelo"><i class="fa fa-check"></i>Tipos de variables y tipo de modelo</a>
+<ul>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#en-función-de-las-variables-explicativas"><i class="fa fa-check"></i>En función de las variables explicativas</a></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#en-función-de-la-variable-respuesta"><i class="fa fa-check"></i>En función de la variable respuesta</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="modelos-lineales.html"><a href="modelos-lineales.html#el-modelo-lineal-general"><i class="fa fa-check"></i>El modelo lineal general</a></li>
+</ul></li>
+<li class="part"><span><b>II Regresión Lineal Simple</b></span></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i>Introducción</a>
+<ul>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#objetivos-del-análisis-de-regresión"><i class="fa fa-check"></i>Objetivos del análisis de regresión</a></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#el-algorítmo-de-regresión-lineal"><i class="fa fa-check"></i>El algorítmo de regresión lineal</a></li>
+<li class="chapter" data-level="" data-path="introducción.html"><a href="introducción.html#regresión-lineal-simple"><i class="fa fa-check"></i>Regresión lineal simple</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html"><i class="fa fa-check"></i><b>1</b> Modelo con intercepto</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo"><i class="fa fa-check"></i><b>1.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="1.2" data-path="modelo-con-intercepto.html"><a href="modelo-con-intercepto.html#propiedades-de-los-estimadores"><i class="fa fa-check"></i><b>1.2</b> Propiedades de los estimadores</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html"><i class="fa fa-check"></i><b>2</b> Modelo sin intercepto</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-1"><i class="fa fa-check"></i><b>2.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="2.2" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#propiedades-de-los-estimadores-1"><i class="fa fa-check"></i><b>2.2</b> Propiedades de los estimadores</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="modelo-sin-intercepto.html"><a href="modelo-sin-intercepto.html#ejemplo-en-r-studio"><i class="fa fa-check"></i><b>2.2.1</b> Ejemplo en R-Studio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html"><i class="fa fa-check"></i><b>3</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-beta_0"><i class="fa fa-check"></i><b>3.1</b> Intervalo para <span class="math inline">\(\beta_{0}\)</span></a></li>
+<li class="chapter" data-level="3.2" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-beta_1"><i class="fa fa-check"></i><b>3.2</b> Intervalo para <span class="math inline">\(\beta_{1}\)</span></a></li>
+<li class="chapter" data-level="3.3" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-sigma2"><i class="fa fa-check"></i><b>3.3</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="3.4" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-para-el-valor-esperado-y"><i class="fa fa-check"></i><b>3.4</b> Intervalo para el valor esperado <span class="math inline">\(y\)</span></a></li>
+<li class="chapter" data-level="3.5" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#intervalo-de-predicción"><i class="fa fa-check"></i><b>3.5</b> Intervalo de predicción</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="intervalos-de-confianza.html"><a href="intervalos-de-confianza.html#ejemplo"><i class="fa fa-check"></i><b>3.5.1</b> Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html"><i class="fa fa-check"></i><b>4</b> Pruebas de hipótesis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#pruebas-para-beta_0"><i class="fa fa-check"></i><b>4.1</b> Pruebas para <span class="math inline">\(\beta_{0}\)</span></a></li>
+<li class="chapter" data-level="4.2" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#prueba-para-beta_1"><i class="fa fa-check"></i><b>4.2</b> Prueba para <span class="math inline">\(\beta_{1}\)</span></a></li>
+<li class="chapter" data-level="4.3" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#prueba-para-sigma2"><i class="fa fa-check"></i><b>4.3</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.4" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#análisis-de-la-varianza-anova"><i class="fa fa-check"></i><b>4.4</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="4.5" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#coeficiente-de-determinación"><i class="fa fa-check"></i><b>4.5</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="4.6" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#propiedades-de-r2"><i class="fa fa-check"></i><b>4.6</b> Propiedades de <span class="math inline">\(R^2\)</span></a></li>
+<li class="chapter" data-level="4.7" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#relación-r2-y-la-correlación-de-pearson"><i class="fa fa-check"></i><b>4.7</b> Relación <span class="math inline">\(R^2\)</span> y la correlación de Pearson</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="pruebas-de-hipótesis.html"><a href="pruebas-de-hipótesis.html#ejemplo-1"><i class="fa fa-check"></i><b>4.7.1</b> Ejemplo</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html"><i class="fa fa-check"></i><b>5</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#análisis-de-residuales"><i class="fa fa-check"></i><b>5.1</b> Análisis de residuales</a></li>
+<li class="chapter" data-level="5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-normalidad"><i class="fa fa-check"></i><b>5.2</b> Supuesto de normalidad</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#validación-del-supuesto-de-normalidad"><i class="fa fa-check"></i><b>5.2.1</b> Validación del supuesto de normalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>5.3</b> Supuesto de linealidad</a></li>
+<li class="chapter" data-level="5.4" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#supuesto-de-homocedasticidad"><i class="fa fa-check"></i><b>5.4</b> Supuesto de homocedasticidad</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#prueba-de-breusch-pagan"><i class="fa fa-check"></i><b>5.4.1</b> Prueba de Breusch-Pagan</a></li>
+<li class="chapter" data-level="5.4.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#prueba-de-white"><i class="fa fa-check"></i><b>5.4.2</b> Prueba de White</a></li>
+<li class="chapter" data-level="5.4.3" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#ejemplo-2"><i class="fa fa-check"></i><b>5.4.3</b> Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-outlier-e-influyentes"><i class="fa fa-check"></i><b>5.5</b> Valores outlier e influyentes</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-outlier"><i class="fa fa-check"></i><b>5.5.1</b> Valores outlier</a></li>
+<li class="chapter" data-level="5.5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-influentes"><i class="fa fa-check"></i><b>5.5.2</b> Valores influentes</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Modelo de regresión lineal múltiple</b></span></li>
+<li class="chapter" data-level="" data-path="introducción-1.html"><a href="introducción-1.html"><i class="fa fa-check"></i>Introducción</a></li>
+<li class="chapter" data-level="6" data-path="modelo.html"><a href="modelo.html"><i class="fa fa-check"></i><b>6</b> Modelo</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="modelo.html"><a href="modelo.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-2"><i class="fa fa-check"></i><b>6.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="6.2" data-path="modelo.html"><a href="modelo.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Estimación por máxima verosimilitud</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html"><i class="fa fa-check"></i><b>7</b> Intervalos de confianza</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-beta_j"><i class="fa fa-check"></i><b>7.1</b> Intervalo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="7.2" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-sigma2-1"><i class="fa fa-check"></i><b>7.2</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="7.3" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-la-respuesta-media"><i class="fa fa-check"></i><b>7.3</b> Intervalos de la respuesta media</a></li>
+<li class="chapter" data-level="7.4" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-predicción"><i class="fa fa-check"></i><b>7.4</b> Intervalos de predicción</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#región-de-rechazo-para-beta_j"><i class="fa fa-check"></i><b>8.1</b> Región de rechazo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="8.2" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#prueba-para-sigma2-1"><i class="fa fa-check"></i><b>8.2</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="8.3" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#análisis-de-la-varianza-anova-1"><i class="fa fa-check"></i><b>8.3</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="8.4" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#coeficiente-de-determinación-2"><i class="fa fa-check"></i><b>8.4</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="8.5" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#r2-ajustado"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(R^2\)</span> ajustado</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html"><i class="fa fa-check"></i><b>9</b> Validación de supuestos</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#supuesto-de-multicolinealidad"><i class="fa fa-check"></i><b>9.1</b> Supuesto de multicolinealidad</a></li>
+<li class="chapter" data-level="9.2" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#detección-de-multicolinealidad"><i class="fa fa-check"></i><b>9.2</b> Detección de multicolinealidad</a></li>
+<li class="chapter" data-level="9.3" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#ejemplo-3"><i class="fa fa-check"></i><b>9.3</b> Ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>10</b> Apéndice</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Hecho con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Modelos de Regresión</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pruebas-de-hipótesis-1" class="section level1" number="8">
+<h1><span class="header-section-number">Capítulo 8</span> Pruebas de hipótesis</h1>
+<p>Una vez estimados los parámetros de forma puntual a través del método de mínimos cuadrados o de máxima verosimilitud, nos preguntaremos si realmente la variable regresora <span class="math inline">\(X_{j}, \ \ j \in [1,k]\)</span> donde <span class="math inline">\(k\)</span> es el número total de variables regresoras del modelo, que aportan información o son <strong>significativas</strong> para el modelo, para respondernos ésto contruiremos las pruebas de hipótesis, primero para <span class="math inline">\(\beta_{j}\)</span> y después para <span class="math inline">\(\sigma^2\)</span> como se detallará a continuación:</p>
+<div id="región-de-rechazo-para-beta_j" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Región de rechazo para <span class="math inline">\(\beta_{j}\)</span></h2>
+<p>Dado que el estimador de <span class="math inline">\(\underline{\beta}\)</span> es una combinación lineal, de igual forma se tiene una combinación lineal de variables aleatorias normales independientes, por lo que se tiene para <span class="math inline">\(\beta_{j} \ \forall j \ \in [0,k]\)</span> una distribución asociada normal con parámetros:</p>
+<p><span class="math display">\[\beta_{j} \sim \mathbf{N} \left(\beta_{j},\sigma^2(X&#39;X)^{-1}_{(j+1)(j+1)}\right).\]</span>
+Donde <span class="math inline">\((X&#39;X)_{(j+1)(j+1)}\)</span> es la entrada <span class="math inline">\(j+1\)</span> entrada en la diagonal de la matriz <span class="math inline">\((X&#39;X)\)</span>, además el subíndice <span class="math inline">\(j\)</span> hace referencia al parámetro <span class="math inline">\(\beta_{j}\)</span> al que se desea examinar mediante la prueba de hipótesis, normalizando la expresión anterior se tiene:</p>
+<p><span class="math display">\[\frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\sigma^2(X&#39;X)^{-1}_{(j+1)(j+1)}}} \sim \mathbf{N}(0,1)\]</span></p>
+<p>Como <span class="math inline">\(\frac{(n-k-1)}{\sigma^2}\hat{\sigma}^2 \sim \chi^{2}_{n-k-1}\)</span> tenemos:</p>
+<p><span class="math display">\[\frac{\frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\sigma^2(X&#39;X)^{-1}_{(j+1)(j+1)}}}}{\sqrt{\frac{\frac{(n-k-1)}{\sigma^2}\hat{\sigma}^2}{n-k-1}}}\sim t_{n-k-1}\]</span></p>
+<p>Por lo tanto, el estadístico deseado para probar que los tres posibles casos de <span class="math inline">\(\beta_{j}\)</span>, que sea igual, inferior o superior a un valor dado <span class="math inline">\(b\)</span>, es la siguiente:</p>
+<p><span class="math display">\[t=\frac{\hat{\beta_{j}}-b}{\sqrt{\hat{\sigma}^2(X&#39;X)^{-1}_{(j+1)(j+1)}}}.\]</span></p>
+<p>Usando el estadístico anterior se definen las regiones de rechazo para cada caso de <span class="math inline">\(\beta_{j}\)</span> como:</p>
+<p><span class="math display">\[
+\begin{array}{|c|c|}
+\hline
+Hipótesis &amp;  Región\ de\ rechazo: \\
+\hline
+\hline
+H_0:\beta_{j}=b \ vs. \ H_a:\beta_{j} \neq b &amp; |t|&gt;t^{(\alpha/2)}_{(n-k-1)} \\
+\hline
+H_0:\beta_{j}\leq b \ vs. \ H_a:\beta_{j} &gt; b &amp; t&gt;t^{(\alpha)}_{(n-k-1)} \\
+\hline
+H_0:\beta_{j}\geq b \ vs. \ H_a:\beta_{j} &lt; b &amp; t&lt;t^{(1-\alpha)}_{(n-k-1)} \\
+\hline
+\end{array}
+\]</span></p>
+<p>Para ejemplificar lo anterior:</p>
+<p>Supongamos que queremos ajustar un modelo de regresión lineal múltiple, sin embargo, dudamos si realmente la variable respuesta <span class="math inline">\(\underline{Y}\)</span> depende de la variable regresora <span class="math inline">\(X_{5}\)</span>, es decir, sospechamos que <span class="math inline">\(\beta_{5}=0\)</span>. Para ello realizaremos la siguiente prueba de hipótesis evaluando <span class="math inline">\(\beta_{5}\)</span> en el punto crítico de interés <span class="math inline">\(b=0\)</span>.</p>
+<p><span class="math display">\[\textbf{H}_0:\beta_{5}=0 \ \ vs. \ \ \textbf{H}_a:\beta_{5} \neq 0.\]</span></p>
+<p>La regla de decisión, es rechazar <span class="math inline">\(H_0\)</span> cuando el estadístico <span class="math inline">\(t=\frac{\hat{\beta_{j}}}{\sqrt{\hat{\sigma}^2(X&#39;X)^{-1}_{(j+1)(j+1)}}}\)</span> esté contenida en la región de rechazo. Por lo que se rechaza <span class="math inline">\(H_0\)</span> cuando <span class="math inline">\(t&lt;-t^{\alpha/2}_{n-k-1}\)</span> o si <span class="math inline">\(t&gt;t^{\alpha/2}_{n-k-1}.\)</span></p>
+<p>Si se rechaza <span class="math inline">\(H_0\)</span> entonces <span class="math inline">\(\beta_{5} \neq 0\)</span> por lo que la variable regresora <span class="math inline">\(X_{5}\)</span> tiene influencia en la variable respuesta <span class="math inline">\(\underline{Y}\)</span>; Si no se rechaza la hipótesis nula con un nivel de significancia <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta_{5}=0\)</span>, es decir, la variable regresora <span class="math inline">\(X_{5}\)</span> no influye estadísticamente en la variable respuesta <span class="math inline">\(\underline{Y}\)</span>, entonces en nuestro modelo de regresión lineal múltiple con la combinación de variables regresoras dada, no es conveniente usar la variable <span class="math inline">\(X_{5}\)</span> pues no es significativa para nuestro modelo.</p>
+<p>De manera similar, se puede realizar la anterior prueba para cualquier <span class="math inline">\(\beta_{j}\)</span> para <span class="math inline">\(j \in \mathbf{N}\)</span> tal que <span class="math inline">\(j \in [0,k]\)</span> donde <span class="math inline">\(k\)</span> es el número total de variables regresoras con las que se ajusta el modelo de regresión múltiple.</p>
+</div>
+<div id="prueba-para-sigma2-1" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Prueba para <span class="math inline">\(\sigma^2\)</span></h2>
+<p>Para ésta parte necesitaremos las siguientes relaciones de probabilidad:</p>
+<p><span class="math display">\[\frac{n-k-1}{\sigma^2} \ \hat{\sigma}^2 \ \sim \chi^{2}_{n-k-1}\]</span></p>
+<p><span class="math display">\[\frac{n-k-1}{\sigma^2} \left( \frac{SC_{error}}{n-k-1}\right) \ \sim \chi^{2}_{n-k-1}\]</span></p>
+<p><span class="math display">\[\frac{SC_{error}}{\sigma^2} \ \sim \chi^{2}_{n-k-1}.\]</span></p>
+<p>Dado que se quiere realizar inferencias sobre <span class="math inline">\(\sigma^2\)</span> definimos a la siguiente estadística <span class="math inline">\(S\)</span> como:</p>
+<p><span class="math display">\[S=\frac{SC_{error}}{\sigma^2_{0}}\]</span>
+Donde <span class="math inline">\(\sigma^2_{0}\)</span> es el valor crítico que se desea poner a prueba, para verificar a través de las hipótesis, que la varianza del modelo <span class="math inline">\(\sigma^2\)</span> es igual, superior o inferior al punto crítico <span class="math inline">\(\sigma^2_{0}\)</span> propuesto.</p>
+<p>A continuación, tenemos las siguientes regiones de rechazo:</p>
+<p><span class="math display">\[
+\begin{array}{|c|c|}
+\hline
+Hipótesis &amp; Región\ de\ rechazo: \\
+\hline
+\hline
+H_0:\sigma^2=\sigma^2_{o} \ vs. \ H_a:\sigma^2 \neq \sigma^2_{0} &amp; S&gt;\chi^{2(1-\alpha/2)}_{(n-k-1)} \ \ o \ \ S&lt;\chi^{2(\alpha/2)}_{(n-k-1)} \\
+\hline
+H_0:\sigma^2 \leq \sigma^2_{o} \ vs. \ H_a:\sigma^2 &gt; \sigma^2_{o} &amp; S&gt;\chi^{2(\alpha)}_{(n-k-1)} \\
+\hline
+H_0:\sigma^2 \geq \sigma^2_{o} \ vs. \ H_a:\sigma^2 &lt; \sigma^2_{o} &amp; S&lt;\chi^{2(1-\alpha)}_{(n-k-1)} \\
+\hline
+\end{array}
+\]</span></p>
+</div>
+<div id="análisis-de-la-varianza-anova-1" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Análisis de la varianza (ANOVA)</h2>
+<p>La idea del método de análisis de la varianza sirve para probar el significado de la regresión.</p>
+<p>El análisis de la ANOVA está conformada por varios elementos como:</p>
+<ul>
+<li><p><span class="math inline">\(SC_{T}\)</span> es la suma de cuadrados, la cual sirve para medir la variabilidad de las observaciones del total corregido por la media.</p></li>
+<li><p><span class="math inline">\(SC_{reg}\)</span> es la suma de cuadrados de la regresión, mide la variabilidad en que las observaciones <span class="math inline">\(y_{i}\)</span> y la línea de regresión.</p></li>
+<li><p><span class="math inline">\(SC_{error}\)</span> es la suma de cuadrados del residual o del error, es decir, mide la variación residual que queda sin explicar por la línea de regresión.</p></li>
+</ul>
+<p>Con éstas variables se cumple con la siguiente igualdad:</p>
+<p><span class="math display">\[SC_{T}=SC_{reg}+SC_{error}.\]</span></p>
+<p>Por el <strong>corolario 5</strong> tenemos que:</p>
+<p><span class="math display">\[SC_{error}=\underline{Y}&#39;(I-H)\underline{Y}.\]</span></p>
+<p>Adaptando la suma de residuales a la forma matricial tenemos lo siguiente:</p>
+<p><span class="math display">\[SC_{T}=\sum_{i=1}^{n}(y_{i}-\overline{y})^2\]</span></p>
+<p><span class="math display">\[SC_{T}=\sum_{i=1}^{n}(y_{i}^2-\overline{y}^2)\]</span></p>
+<p><span class="math display">\[SC_{T}=\sum_{i=1}^{n}y_{i}^2-n\overline{y}^2\]</span>
+<span class="math display">\[\therefore SC_{T}=\underline{Y}&#39;\underline{Y}-n\overline{y}^2.\]</span></p>
+<p>Por otro lado tenemos:</p>
+<p><span class="math display">\[SC_{reg}=\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})^2\]</span>
+<span class="math display">\[SC_{reg}=\sum_{i=1}^{n}(\hat{y_{i}}^2-\overline{y}^2)\]</span>
+<span class="math display">\[\therefore \  SC_{reg}=\hat{\beta}&#39;X&#39;\underline{Y}-n\overline{y}^2. \blacksquare \]</span></p>
+<p>Además se sabe que el modelo de regresión lineal múltiple con errores normales tiene las siguientes propiedades:</p>
+<ul>
+<li><p><span class="math inline">\(\frac{SC_{reg}}{\sigma^2} \sim \chi^2_{k+1}\)</span></p></li>
+<li><p><span class="math inline">\(\frac{SC_{error}}{\sigma^2} \sim \chi^2_{n-k-1}\)</span></p></li>
+<li><p><span class="math inline">\(SC_{reg}\)</span> es independiente a <span class="math inline">\(SC_{error}\)</span></p></li>
+</ul>
+<p>Y podemos obtener los siguientes resultados:</p>
+<ul>
+<li><p>La suma de cuadrados del total (<span class="math inline">\(SC_{T}\)</span>) tiene <span class="math inline">\(n-1\)</span> grados de libertad.</p></li>
+<li><p>La suma de cuadrados de la regresión (<span class="math inline">\(SC_{reg}\)</span>) tiene <span class="math inline">\(k\)</span> grados de libertad.</p></li>
+<li><p>La suma de cuadrados de los errores (<span class="math inline">\(SC_{error}\)</span>) tiene <span class="math inline">\(n-k-1\)</span> grados de libertad.</p></li>
+</ul>
+<p>Se observa que si <span class="math inline">\(X \sim \chi^2_{n}\)</span>,  <span class="math inline">\(\underline{Y} \sim \chi^2_{m}\)</span> y si <span class="math inline">\(X\)</span> es independiente a <span class="math inline">\(\underline{Y}\)</span> entonces:</p>
+<p><span class="math display">\[\frac{X/n}{Y/m} \sim F_{n,m}.\]</span></p>
+<p>De esta forma, aplicando la prueba <span class="math inline">\(F\)</span> de <span class="math inline">\(Fisher\)</span> en el análisis de varianza se puede usar como región de rechazo para demostrar la prueba de hipótesis, la cual consiste en dividir <span class="math inline">\(SC_{reg}\)</span> entre sus grados de libertad que se divide entre la razón de la <span class="math inline">\(SC_{error}\)</span> y sus grados de libertad:</p>
+<p><span class="math display">\[F=\frac{\frac{SC_{reg}}{k}}{\frac{SC_{error}}{n-k-1}} \sim F_{k,n-k-1}.\]</span></p>
+<p>A manera de notación se usa el <strong>Cuadrado Medio</strong> denotado como <strong>CM</strong> que corresponde a la Suma de Cuadrados entre sus grados de libertad. Así <span class="math inline">\(CM=\frac{SC_{reg}}{k}\)</span> y <span class="math inline">\(CM_{error}=\frac{SC_{error}}{n-k-1}\)</span>.</p>
+<p>De esta manera podemos reescribir lo anterior como:</p>
+<p><span class="math display">\[F=\frac{CM_{reg}}{CM_{error}} \sim F_{k,n-k-1}.\]</span>
+Entonces se define a la región de rechazo con un nivel de significancia <span class="math inline">\(\alpha\)</span> para:</p>
+<p><span class="math display">\[\textbf{H}_0: \beta_{1}=\beta_{2}=\beta_{3}=\ldots=\beta_{k}=0\]</span>
+<span class="math display">\[F&gt;F^{(\alpha)}_{k,n-k-1}.\]</span></p>
+<p>La forma en que se resume la información es mostrada en la siguiente tabla mejor conocida como:</p>
+<p><strong>Tabla ANOVA</strong>
+<span class="math display">\[
+\begin{array}{|c| c| c| c| c|}
+\hline
+&amp;Grados\ de\ libertad &amp; Suma\ de\ Cuadrados &amp; Cuadrado\ Medio &amp; Prueba\ F \\
+\hline
+\hline
+Regresión &amp; k   &amp; \hat{\beta}&#39;X&#39;\underline{Y}-n\overline{y}^2 &amp; \frac{SC_{reg}}{k} &amp; \frac{CM_{reg}}{CM_{error}} \\
+\hline
+Error     &amp; n-k-1&amp; \underline{Y}&#39;(I-H)\underline{Y} &amp; \frac{SC_{error}}{n-k-1} &amp; -\\
+\hline 
+Total     &amp; n-1 &amp; \underline{Y}&#39;\underline{Y}-n\overline{y}^2 &amp; - &amp; - \\
+\hline
+\end{array}
+\]</span></p>
+</div>
+<div id="coeficiente-de-determinación-2" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Coeficiente de determinación</h2>
+<p>El coeficiente de determinación con frecuencia se le asocia a la proporción de la variación explicada por la variable regresora <span class="math inline">\(X\)</span>, ya que <span class="math inline">\(0 \leq SC_{reg} \leq SC_{T}\)</span> entonces los valores del coeficiente de determinación están entre <span class="math inline">\(0 \leq R^2 \leq 1.\)</span> Cabe mencionar que este coeficiente proporciona una idea muy cercana a la variabilidad que cae sobre la regresión, sin embargo, no hayq ue perder de vista que en primera instancia ésta medida sirve como una aproximación.</p>
+<p>Se define el coeficiente de determinación del modelo de regresión como:</p>
+<p><span class="math display">\[R^2=\frac{SC_{reg}}{SC_{T}}=1-\frac{SC_{error}}{SC_{T}}\]</span></p>
+<p>Los valores cercanos a 1 implican que la mayor parte de la cariabilidad de <span class="math inline">\(\underline{Y}\)</span> está explicada por el modelo de regresión.</p>
+</div>
+<div id="r2-ajustado" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> <span class="math inline">\(R^2\)</span> ajustado</h2>
+<p>Como se mencionó el coeficiente de determinación es una aproximación, ya que el valor de la medida se aproxima a 1, conforme vamos incluyendo más variables. Es decir, entre más variables en el modelo el coeficiente de determinación supone que va mejorando el ajuste, lo cual no es cierto, entre más variables no siempre se proporcionará un mejor ajuste.
+Es por ello que se realiza una <span class="math inline">\(R^2\)</span> ajustada de la siguiente forma:</p>
+<p><span class="math display">\[R^2_{adj}=1- \frac{CM_{error}}{CM_{T}}.\]</span></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intervalos-de-confianza-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="validación-de-supuestos-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "github", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
