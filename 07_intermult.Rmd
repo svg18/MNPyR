@@ -1,0 +1,240 @@
+# Intervalos de confianza
+
+En las secciones anteriores se obtuvieron, de manera puntual, las estimaciones de los parámetros desconocidos del modelo de regresión lineal múltiple. Sin embargo, a continuación se mostrará que se pueden realizar intervalos con un nivel de confianza $\alpha$ en donde los parámetros desconocidos tengan una alta probabilidad de pertenecer a este conjunto.
+
+## Intervalo  para $\beta_{j}$
+
+Para la construcción del intervalo de confianza para el parámetro desconocido $\beta_{j}$, con $j=0,1,\ldots,n$ se mantiene la hipótesis de que los errores se distribuyen como variables aleatorias normales con media cero y varianza $I_{n}\sigma^2$, como consecuencia $\underline{Y}$ se distribuye de forma normal, con media $X\underline{\beta}$ y varianza $\sigma^2 I_{n}$, es decir:
+
+$$\underline{Y} \sim \mathbf{N}(X\underline{\beta},\sigma^2 I_{n})$$
+
+De acuerdo con (Montgomery, Peck y Vining, 2012), el estimador $\underline{\hat{\beta}}$ por mínimos cuadrados es una combinación lineal de las observaciones, el cual también se distribuye con normalidad, con el vector medio $\underline{\beta}$ y varianza $\sigma^2(X'X)^{-1}$, lo cual vimos en el teorema 3.4, al igual que pudimos demostrar que el estimador es insesgado $\mathbf{E}[\underline{\hat{\beta}}]=\underline{\beta}$ y varianza $Var(\underline{\beta})=\sigma^2(X'X)^{-1}$ por lo que de manera conjunta $\underline{\hat{\beta}}$ se distribuye con normalidad de la forma:
+
+$$\underline{\hat{\beta}} \sim \mathbf{N}(\underline{\beta},\sigma^2(X'X)^{-1})$$
+Esto implica que la distribución marginal de cualquier coeficiente de la regresión $\hat{\beta}_{j}$ asimismo se distribuye normal, con media $\beta_{j}$ y varianza $\sigma^2 C_{(j+1)(j+1)}$ donde $C_{(j+1)(j+1)}$ es el j-ésimo elemento de la diagonal de la matriz $(X'X)^{-1}$, es decir, $\hat{\beta_{j}}$ tiene una distribución normal asociada de la forma:
+
+$$\hat{\beta_{j}} \sim \mathbf{N}(\beta_{j}, \sigma^2C_{(j+1)(j+1)}$$
+
+Normalizando se tiene que:
+
+$$\frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\sigma^2C_{(j+1)(j+1)}}}\sim \mathbf{N}(0,1)$$
+Como $\frac{(n-k-1)}{\sigma^2}\hat{\sigma}^2 \sim \chi^2_{n-k-1}$, tenemos:
+
+$$\frac{\frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\sigma^2C_{(j+1)(j+1)}}}}{\sqrt{\frac{\frac{(n-k-1)\hat{\sigma}^2}{\sigma^2}}{n-k-1}}} \sim t_{n-k-1}$$
+
+De esta  forma se obtiene la cantidad pivotal para $\beta_{j}$ sl simplificar la ecuación anterior
+
+$$\frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}}\sim t_{n-k-1}$$
+
+donde $\hat{\sigma}^2=\frac{SC_{error}}{n-k-1}$. Por lo tanto el intervalo de confianza $1-\alpha$ para $\beta_{j}$ es:
+
+$$\mathbf{P} \left[-t^{\alpha/2}_{n-k-1} < \frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} < t^{\alpha/2}_{n-k-1} \right]= 1- \alpha$$
+
+$$\mathbf{P} \left[-t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} < \hat{\beta_{j}}-\beta_{j} < t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} \  \right]= 1- \alpha$$
+
+
+$$\mathbf{P} \left[-t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} < \beta_{j}-\hat{\beta_{j}} < t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}}  \ \right]= 1- \alpha$$
+
+$$\mathbf{P} \left[\hat{\beta_{j}}-t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} < \beta_{j} < \hat{\beta_{j}}+t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}}  \ \right]= 1- \alpha$$
+
+Por lo tanto el intervalo de confianza $1-\alpha$ para $\beta_{j}$ es:
+
+
+$$\beta_{j} \in \left(\hat{\beta_{j}}-t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} \ \ , \ \ \hat{\beta_{j}}+t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{(j+1)(j+1)}}} \ \right)$$
+
+A manera de ejemplo, para j=1 se tiene el siguiente intervalo de confianza para $\beta_1$
+
+$$\beta_{1} \in \left(\hat{\beta_{j}}-t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{22}}} \ \ , \ \ \hat{\beta_{j}}+t^{\alpha/2}_{n-k-1}{\sqrt{\hat{\sigma}^2C_{22}}} \  \right).$$
+Y así sucesivamente para $j \in \mathbf{N}$ tal que $j \in [0,k]$ donde $k$ es el número total de variables explicativas con la que se ajustó el modelo de regresión múltiple.
+
+## Intervalo para $\sigma^2$
+
+Para hacer inferencias sobre $\sigma^2$ se hace notar la siguiente cantidad pivotal:
+
+$$\frac{(n-k-1)\hat{\sigma}^2}{\sigma^2}=\frac{SC_{error}}{\sigma^2} \sim \chi^2_{n-k-1}$$
+
+De esta manera, el intervalo de confianza $1-\alpha$ queda definido de la siguiente manera:
+
+$$\mathbf{P}\left[ \chi^{2(\alpha/2)}_{n-k-1}<\frac{SC_{error}}{\sigma^2}<\chi^{2(1-\alpha/2)}_{n-k-1}\right]=1-\alpha$$
+$$\mathbf{P}\left[ \frac{1}{\chi^{2(\alpha/2)}_{n-k-1}}>\frac{\sigma^2}{SC_{error}}>\frac{1}{\chi^{2(1-\alpha/2)}_{n-k-1}}\right]=1-\alpha$$
+$$\mathbf{P}\left[ \frac{SC_{error}}{\chi^{2(1-\alpha/2)}_{n-k-1}}<\sigma^2<\frac{SC_{error}}{\chi^{2(\alpha/2)}_{n-k-1}}\right]=1-\alpha$$
+
+Por lo tanto, el intervalo de confianza $1-\alpha$ para $\sigma^2$ es:
+
+$$\sigma^2 \in \left(\frac{SC_{error}}{\chi^{2(1-\alpha/2)}_{n-k-1}}\ \ , \ \ \frac{SC_{error}}{\chi^{2(\alpha/2)}_{n-k-1}}\right).$$
+
+
+## Intervalos de la respuesta media
+
+La estimación del valor de $Y$ a través de una $X$ dada, se le conoce como **respuesta media** en un determinado punto, es decir, si se conocen los valores de las variables explicativas $x_{1},x_{2}, \ldots , x_{k}$ en determinado punto, entonces se puede calcular la estimación del valor $Y$ en ese punto, para ello se define al vector de valores conocidos $x^*$ como:
+
+$$x^*= \left( 1 \ \ x_{1} \ \ x_{2} \ \ \ldots \ \ x_{k}\right).$$
+
+De esta forma el valor ajustado de $Y$ dado $X=x^*$ es:
+
+$$\mathbf{E}[ \ Y \mid X=x^*]=x^*\underline{\beta}$$
+
+Al suponer que $\underline{\beta}$ es un valor desconocido, se propone como estimador de $\underline{\beta}$ al obtenido por máxima verosimilitud, así el valor estimado de $Y$ sería:
+
+$$\mathbf{E}\left[\widehat{Y \mid X =} x^*\right]=x^*\underline{\hat{\beta}}$$
+
+El valor ajustado de $Y$ dado $X=x^*,\mathbf{E}\left[ \widehat{Y \mid X=}  x^*\right],$ se denota por $\hat{Y^*}$ para facilitar su tratamiento; además se observa que la esperanza y varianza están determinados por las siguientes igualdades, las cuales se demostrarán a continuación:
+
+$$\mathbf{E}[\hat{Y^*}]= x^*\underline{\beta} \ \ \ \ \ \ \ Var(\hat{Y^*})=\sigma^2 x^{*'}(X'X)^{-1}x^*$$
+
+**Teorema 3.8** Sea $\hat{Y^*}$, el valor de la respuesta media de $Y$ en un determinado punto, de forma que $\hat{Y^*}=x^*\underline{\hat{\beta}}$, entonces se cumple que:
+
+**a)** $\mathbf{E}[\hat{Y^*}]= x^*\underline{\beta}.$
+
+**b)** $\textbf{Var}(\hat{Y^*})=\sigma^2 x^{*'}(X'X)^{-1}x^*.$
+
+**Demostración:**
+
+**a)** Para demostrar la esperanza del valor esperado, se observa que:
+
+Por hipótesis
+
+$$\mathbf{E}[\hat{Y^*}]=\mathbf{E}[x^*\underline{\hat{\beta}}]$$
+Por linealidad de la esperanza
+
+$$\mathbf{E}[\hat{Y^*}]=x^*\mathbf{E}[\underline{\hat{\beta}}]$$
+Ya que $\underline{\hat{\beta}}$ es insesgado
+
+$$\therefore \mathbf{E}[\hat{Y^*}]= x^*\underline{\beta}.\blacksquare$$
+
+**b)** Para la varianza se tiene:
+
+Por hipótesis
+
+$$Var(\hat{Y^*})=Var(x^*\underline{\hat{\beta}})$$
+
+$$Var(\hat{Y^*})=x^*Var(\underline{\hat{\beta}})x^{*'}$$
+Por el **Teorema 3.4**
+
+$$Var(\hat{Y^*})=x^*\sigma^2(X'X)^{-1}x^{*'}$$
+$$\therefore Var(\hat{Y^*})=\sigma^2 x^{*'}(X'X)^{-1}x^*.\blacksquare$$
+
+Bajo el supuesto de normalidad se tiene que la respuesta media de $Y$ en un determinado punto, sigue una distribución normal con parámetros:
+
+$$\hat{Y^*} \sim \mathbf{N}_{n}\left(x^*\underline{\beta} ,\sigma^2 x^{*'}(X'X)^{-1}x^*\right).$$
+
+Al estandarizar para obtener la cantidad pivotal se obtiene:
+
+$$\frac{\hat{Y^*}-x^*\underline{\beta}}{\sqrt{\sigma^2 x^{*'}(X'X)^{-1}x^*}}\sim \mathbf{N}(0,1)$$
+Como $\frac{(n-k-1)}{\sigma^2}\hat{\sigma}^2 \sim \chi^2_{n-k-1}$, al dividir una distribución normal con una distribución $\chi^2$, se obtiene una distribución $t-Student$ 
+
+$$\frac{\frac{\hat{Y^*}-x^*\underline{\beta}}{\sqrt{\sigma^2 x^{*'}(X'X)^{-1}x^*}}}{\sqrt{\frac{\hat{\sigma}^2}{\sigma^2}}} \sim t_{n-k-1}.$$
+
+Simplificando la ecuación anterior se obtiene la cantidad pivotal deseada:
+
+$$\frac{\hat{Y^*}-x^*\underline{\beta}}{\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*}}\sim t_{n-k-1.}$$
+
+donde $\hat{\sigma}^2=\frac{SC_{error}}{n-k-1}.$ Por lo tanto, sustituyendo a $\hat{Y^*}$ por $x^*\underline{\hat{\beta}}$, el intervalo de confianza $1-\alpha$ para $\mathbf{E}[Y \mid X=x^*]$ es:
+
+$$\mathbf{P}\left[ -t^{\alpha/2}_{n-k-1}<\frac{\hat{Y^*}-x^*\underline{\beta}}{\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*}}  <t^{\alpha/2}_{n-k-1}\right]=1-\alpha$$
+
+$$\mathbf{P}\left[ -t^{\alpha/2}_{n-k-1}<\frac{x^*\underline{\hat{\beta}}-x^*\underline{\beta}}{\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*}}  <t^{\alpha/2}_{n-k-1}\right]=1-\alpha$$
+
+
+$$\mathbf{P}\left[ -t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*}<x^*\underline{\hat{\beta}}-x^*\underline{\beta}  <t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*} \ \right]=1-\alpha$$
+
+
+$$\mathbf{P}\left[ -t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*}<x^*\underline{\beta}-x^*\underline{\hat{\beta}}  <t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*} \ \right]=1-\alpha$$
+
+$$\mathbf{P}\left[ x^*\underline{\hat{\beta}}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*}<x^*\underline{\beta}  <x^*\underline{\hat{\beta}}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*} \ \right]=1-\alpha$$
+
+Por lo tanto, el intervalo de confianza $1-\alpha$ para $\mathbf{E}[Y \mid X=x^*]=x^*\underline{\beta}$ es:
+
+$$x^*\underline{\beta} \in \left(x^*\underline{\hat{\beta}}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*} \ \ , \ \ x^*\underline{\hat{\beta}}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2 x^{*'}(X'X)^{-1}x^*} \ \right).$$
+
+
+## Intervalos de predicción
+
+La diferencia entre los intervalos de respuesta media y el intervalo de confianza para el valor esperado $Y$, es que en el intervalo del valor esperado se desea hallar el valor que en promedio se debería obtener al conocer el vector $x^*(x^*\underline{\beta})$, es decir, se busca el valor de la regresión en el punto $x^*$, mientras que en un intervalo de predicción se "predice" un valor $Y$ dado que se conocen los valores de las variables explicativas, reflejadas en el vector $x_{o}$.
+
+De esta manera se desea estimar la observación $Y=x_{0}\underline{\beta}+\epsilon$, por medio de $\hat{Y}_{x}=x_{0}\underline{\hat{\beta}}+\epsilon$, donde $\epsilon \sim \mathbf{N} (0, \sigma^2).$
+
+Para ello se define al vector de valores conocidos $x_{0}$ como:
+
+$x_{0}=\left( 1 \ \ x_{1} \ \ x_{2} \ \ \ldots \ \ x_{k} \right).$
+
+Donde $x_{i}$ es el valor de la variable explicativa $i \in  1, \ldots,k$ en un determinado momento o punto. Así la varianza de un valor de predicción considera la varianza de la **respuesta media** en un punto dado en el cual además se añade la varianza del modelo es decir:
+
+$$Var(\hat{Y}_{x})=Var(\hat{Y^*})+Var(Y).$$
+
+Por lo que sustituyendo los valores se tiene que:
+
+$$Var(\hat{Y}_{x})=\sigma^2x'_{0}(X'X)^{-1}x_{0}+\sigma^2$$
+
+$$Var(\hat{Y}_{x})=\sigma^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right).$$
+
+El valor esperado de $\hat{Y}_{x}$ es igual a la esperanza de $\hat{Y^*}$, de esta manera:
+
+$$\mathbf{E}[\hat{Y}_{x}]=x_{0}\underline{\beta}.$$
+
+**Teorema 3.9** Sea $x_{0}$ el vector que contiene los valores observados de las variables explicativas $x_{i}$, $i \in 1,\ldots,k$ en un determinado punto y sea $\hat{Y}_{x}$ la predicción de un valor $Y$ evaluado en el vector $x_{0}$ de la forma $\hat{Y}_{x}=x_{0}\underline{\hat{\beta}}+\epsilon$, en donde $\epsilon \sim \mathbf{N}(0,\sigma^2)$, entonces se cumple que:
+
+**a)** $\mathbf{E}[\hat{Y}_{x}]=x_{0}\underline{\beta}$
+
+**b)** $\textbf{Var}(\hat{Y}_{x})=\sigma^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)$
+
+**Demostración:**
+
+**a)** Para demostrar la esperanza del valor de predicción, se observa que:
+
+Por hipótesis
+
+$$\mathbf{E}[\hat{Y}_{x}]=\mathbf{E}[x_{0}\underline{\hat{\beta}}+\epsilon]$$
+
+Por linealidad de la esperanza
+
+$$\mathbf{E}[\hat{Y}_{x}]=x_{0}\mathbf{E}[\underline{\hat{\beta}}]+\mathbf{E}[\epsilon]$$
+
+Tenemos que $\hat{\beta}$ es insesgado y por hipótesis 
+
+$$\mathbf{E}[\hat{Y}_{x}]=x_{0}\underline{\beta}+0$$
+
+$$\therefore \mathbf{E}[\hat{Y}_{x}]=x_{0}\underline{\beta}. \blacksquare$$
+
+**b)** Para la varianza se tiene:
+
+Por hipótesis
+
+$$Var(\hat{Y}_{x})=Var(x_{0}\underline{\hat{\beta}}+\epsilon)$$
+
+$$Var(\hat{Y}_{x})=x_{0}Var(\underline{\hat{\beta}})x'_{0}+Var(\epsilon)+2x_{0}Cov(\underline{\hat{\beta}},\epsilon)$$
+
+Por el **teorema 3.4** e independencia de $\epsilon$
+
+$$Var(\hat{Y}_{x})=x_{0}\sigma^2(X'X)^{-1}x'_{0}+\sigma^2+0$$
+
+$$\therefore Var(\hat{Y}_{x})=\sigma^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right). \blacksquare$$
+
+Bajo el supuesto de normalidad se tiene que la predicción de $Y$ en un determinado punto, sigue una distribución normal con parámetros:
+
+$$\hat{Y}_{x} \sim \mathbf{N}_{n} \left( x_{0}\underline{\beta}, \sigma^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)\right).$$
+
+De esta manera al suponer normalidad, estandarizando y dividiendo entre $\frac{(n-k-1)}{\sigma^2}\hat{\sigma}^2 \sim \chi^2_{n-k-1}$ se obtiene la cantidad pivotal deseada:
+
+$$\frac{\hat{Y}_{x}-x_{0}\underline{\beta}}{\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)}} \sim t_{n-k-1}.$$
+
+Por lo tanto, el intervalo de confianza $1-\alpha$ para la predicción de $Y$ es:
+
+$$\mathbf{P}\left[-t^{\alpha/2}_{n-k-1}<\frac{\hat{Y}_{x}-x_{0}\underline{\beta}}{\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)}}<t^{\alpha/2}_{n-k-1}\right]=1-\alpha$$
+$$\mathbf{P}\left[-t^{\alpha/2}_{n-k-1}<\frac{x_{0}\underline{\hat{\beta}}+\epsilon-x_{0}\underline{\beta}}{\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)}}<t^{\alpha/2}_{n-k-1}\right]=1-\alpha$$
+$$\mathbf{P}\left[-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)}<x_{0}\underline{\hat{\beta}}+\epsilon-x_{0}\underline{\beta}<t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)} \ \right]=1-\alpha$$
+$$\mathbf{P}\left[-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)}<x_{0}\underline{\beta}-x_{0}\underline{\hat{\beta}}-\epsilon<t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)} \ \right]=1-\alpha$$
+
+$$\mathbf{P}\left[-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)}<x_{0}\underline{\beta}-\epsilon-x_{0}\underline{\hat{\beta}}<t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)} \ \right]=1-\alpha$$
+
+$$\mathbf{P}\left[x_{0}\underline{\hat{\beta}}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)}<x_{0}\underline{\beta}-\epsilon<x_{0}\underline{\hat{\beta}}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)} \ \right]=1-\alpha$$
+
+Dado que $\epsilon$ es una variable aleatoria simétrica y de media 0 entonces se puede sustituir $-\epsilon$ por $\epsilon$, así:
+
+$$\mathbf{P}\left[x_{0}\underline{\hat{\beta}}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)}<x_{0}\underline{\beta}+\epsilon<x_{0}\underline{\hat{\beta}}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)} \ \right]=1-\alpha$$
+
+Por lo tanto el intervalo de confianza para la predicción de $Y$ dado el vector $x_{0}$, con un nivel de significancia $\alpha$ es:
+
+$$x_{0}\underline{\beta}+\epsilon \in\left(x_{0}\underline{\hat{\beta}}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)} \ \ , \ \ x_{0}\underline{\hat{\beta}}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)} \ \right)$$
+
+$$x_{0}\underline{\beta}+\epsilon \in \left(\hat{Y}-t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)} \ \ , \ \ \hat{Y}+t^{\alpha/2}_{n-k-1}\sqrt{\hat{\sigma}^2\left(1+x'_{0}(X'X)^{-1}x_{0}\right)} \ \right).$$

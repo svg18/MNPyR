@@ -1,0 +1,82 @@
+# (PART) Introduccion {-}
+
+# Modelos lineales {-}
+
+Los modelos lineales son una de las herramientas más importantes del análisis cuantitativo. En forma general, estos modelos se utilizan cuando se busca predecir o explicar una variable dependiente a partir de una o más variables independientes. Dependiendo de las características de las variables disponibles, la herramienta estadística más a apropiada para construir el modelo puede variar. Es por esta razón que cuando se construye un modelo estadístico es necesario tener en cuenta los principios de modelización y las caracteristicas de las variables.
+
+## Principios de la modelización estadística {-}
+
+- Dado un conjunto de variables, cada una de las cuales es un vector de lecturas de un rasgo específico de las muestras en un experimento.
+
+- __Problema:__ ¿De qué manera una variable \(Y\) depende de otras variables \(X_1,...,X_n\) en el estudio?
+
+- Un __modelo estadístico__ define una relación matemática entre los \(X_i\) y \(Y\). El modelo es una representación del real \(Y\) que pretende reemplazarlo en la medida de lo posible. Al menos el modelo debería capturar la dependencia de \(Y\) de los \(X_i\).
+
+## Identificar y Caracterizar Variables {-}
+
+Este es el primer paso en el modelado:
+
+- Qué variable es la variable de respuesta;
+
+- Qué variables son las variables explicativas;
+
+- ¿Son las variables explicativas continuas, categóricas o una mezcla de ambas?
+
+- ¿Cuál es la naturaleza de la variable de respuesta? ¿Es una medición contínua, un conteo, una proporción, una categoría o un tiempo hasta un evento?
+
+## Tipos de variables y tipo de modelo {-}
+
+### En función de las variables explicativas {-}
+
+|                    Variables Explicativas                   |                   Modelo                   |
+|:-----------------------------------------------------------:|:------------------------------------------:|
+|        Todas las variables <br>explicativas continuas       |                  Regresión                 |
+|       Todas las variables <br>explicativas categóricas      |        Análisis de Varianza (ANOVA)        |
+| Variables explicativas <br>tanto continuas como categóricas | Regresión, Análisis de Covarianza (ANCOVA) |
+
+### En función de la variable respuesta {-}
+
+| Variable de respuesta |             Tipo de modelo            |
+|:---------------------:|:-------------------------------------:|
+|        Continua       |    Regresión normal, ANOVA, ANCOVA    |
+|       Proporción      |          Regresión logística          |
+|        Conteos        | Modelo log-lineal (regresión Poisson) |
+|        Binario        |      Regresión logística binaria      |
+|  Tiempo hasta evento  |       Análisis de supervivencia       |
+
+## El modelo lineal general {-}
+
+Como se mencionó, un modelo lineal, es un modelo para el __análisis de regresión__, que tiene como objetivo determinar una función matemática que describa el comportamiento de una variable dados los valores de otra u otras variables.
+
+En particular el __análisis de regresión simple__, pretende estudiar y explicar el comportamiento de una variable que notamos \(y\), y que llamaremos __variable respuesta__, __variable dependiente__ o __variable de interés__, a partir de otra variable, que notamos \(x\), y que llamamos __variable explicativa__, __variable independiente__, __covariable__ o __regresor__.
+
+El principal objetivo de la regresión es encontrar la función que mejor explique la relación entre la variable dependiente y las independientes.
+
+- Una forma muy general para el modelo sería
+
+\[
+      y = f(x_1,x_2,...,x_p) + \epsilon,
+\]
+
+donde \(f\) es una función desconocida y \(\epsilon\) es el error en esta representación. 
+Puesto que normalmente no tenemos suficientes datos para intentar estimar \(f\) directamente, normalmente tenemos que asumir que tiene alguna forma restringida.
+
+- La forma más simple y común es el __modelo lineal (LM)__.
+
+\[
+    y = \beta_0 + \beta_1 x_1 + \beta_2 x_z + \epsilon,
+\]
+
+donde \(\beta_i\) \(i=0,1,2\) son parámetros _desconocidos_.
+
+\(\beta_0\) se llama el término de intercepción. Por lo tanto, el problema se reduce a la estimación de cuatro valores en lugar de los complicados e infinitos \(f\) dimensionales.
+
+- Un modelo lineal simple con una sola variable exploratoria se define como:
+
+\[
+         \hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x
+\]
+
+donde \(\hat y\) son los valores ajustados para \(\hat{\beta}_0\) (intercepto) y \(\hat{\beta}_1\) (pendiente). Luego por un \(x_i\) dado obtenemos un \(\hat{y}_i\) que se aproxima a \(y_i\).
+
+Es posible apreciar que el tema de modelos lineales es bastante amplio y en este curso sólo nos enfocaremos en los modelos de regresión normal múltiple, análisis de varianza y modelos dinámicos.

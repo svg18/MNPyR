@@ -1,0 +1,373 @@
+# Pruebas de hipótesis
+
+El objetivo de la pruebas de hipótesis es poder escoger, a través de métodos estadísticos, la hipótesis capaz de retratar de mejor manera la realidad que se observa en la muestra. 
+
+**Definición 2.5** Una prueba de hipótesis es una regla de decisión que, cuando se ha obtenido los valores de la muestra observada, lleva a una decisión de aceptar o rechazar la hipótesis nula bajo una cierta consideración.
+
+La hipótesis nula, la sentencia que se pone a prueba es denotada como $H_0$, la hipótesis alternativa, el complemento de la hipótesis nula, es denotada como $H_a.$
+
+En el modelo de regresión lineal simple, se desea realizar dos pruebas de hipótesis de gran importancia.
+
+* $\textbf{H}_0: \hat{\beta_{1}}=0 \ vs. \  \textbf{H}_a:\hat{\beta_{1}} \neq 0$
+
+* $\textbf{H}_0: \hat{\beta_{0}}=0  \ vs. \  \textbf{H}_a:\hat{\beta_{0}} \neq 0$
+
+Estas pruebas son de gran importancia, ya que la primera de ellas es probar si $\beta_{1}$ es igual a cero, es decir, que el modelo no tenga pendiente y sea constante a través del tiempo, con un gran nivel de significancia dado. Si la prueba se rechaza entonces establece que el valor esperado de $y$ depende de $x$.
+
+La segunda prueba de hipótesis analiza la posibilidad de que $\beta_{0}=0$, si la prueba es aceptada implica que el modelo de regresión simple se comporta sin intercepto. Mientras que si se rechaza la hipótesis nula entonces $\beta_{0}\neq 0,$ por lo cual el mejor ajuste para la muestra es un modelo de regresión simple con intercepto.
+
+## Pruebas  para $\beta_{0}$
+
+Como se observó, la cantidad pivotal para $\beta_{0}$ está determinado por $t^{\alpha/2}_{(n-2)}$ con el estadístico:
+
+$$t^*=\frac{\hat{\beta_{0}}-b_{0}}{\sqrt{\left(\frac{1}{n}+\frac{\overline{x}^2}{S_{xx}}\right)\hat{\sigma}^2}},$$
+
+donde:
+
+$$\hat{\sigma}^2=\frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.$$
+Entonces las pruebas de hipótesis para $\beta_{0},$ en sus tres casos, que el valor de $\beta_{0}$ sea igual, inferior o superior al punto crítico deseado ($b_{0}$) tienen las siguientes reglas de decisión, con un nivel de significancia $\alpha$.
+
+$$
+\begin{array}{|c|c|}
+\hline
+Hipótesis & Región\ de\ rechazo: \\
+\hline
+H_0:\beta_{0}=b_{0} \ vs. \ H_a:\beta_{0} \neq b_{0} & |t^*|>t^{\alpha/2}_{(n-2)} \\
+\hline
+H_0:\beta_{0}\leq b_{0} \ vs. \ H_a:\beta_{0} > b_{0} & t^*>t^{\alpha}_{(n-2)} \\
+\hline
+H_0:\beta_{0}\geq b_{0} \ vs. \ H_a:\beta_{0} < b_{0} & t^*<t^{1-\alpha}_{(n-2)} \\
+\hline
+\end{array}
+$$
+
+
+**Para ejemplificar**
+
+Suponga que se quiere ajustar un modelo con intercepto o sin intercepto. En éste caso, conviene realizar una prueba de hipótesis de dos colas sobre $\beta_{0}$ valuando el punto crítico $b_{0}=0$, es decir, se desea probar que $\beta_{0}=0$, ya que si, con un nivel de significancia $\alpha$, se rechaza $H_0$ se tiene evidencia de que el modelo a ajustar debería ser el modelo con intercepto. Detallando la prueba, en este caso en particular, tenemos:
+
+$$\textbf{H}_0: \hat{\beta_{0}}=0 \ \ \ \ vs. \ \ \ \ \textbf{H}_a:\hat{\beta_{0}}\neq 0$$
+
+La regla de decisión es rechazar $H_0$ cuando el estadístico  $t^*=\frac{\hat{\beta_{0}}-b_{0}}{\sqrt{\left(\frac{1}{n}+\frac{\overline{x}^2}{S_{xx}}\right)\hat{\sigma}^2}}$ esté contenida en la región de rechazo. En este caso en particular, se tiene lo siguiente:
+
+$$t^*=\frac{\hat{\beta_{0}}}{\sqrt{\left(\frac{1}{n}+\frac{\overline{x}^2}{S_{xx}}\right)\hat{\sigma}^2}}.$$
+
+Por lo que se rechaza $H_0$ cuando $t^*<-t^{\alpha/2}_{(n-2)}$ o si $t^*>t^{\alpha/2}_{(n-2)}$. Si se rechaza $H_0$ entonces $\beta_{0} \neq 0$ por lo que convendría realizar un modelo con intercepto; si no se rechaza la hipótesis nula con un nivel de significancia $\alpha$, $\beta_{0}=0,$ entonces el modelo sin intercepto sería el más óptimo para el conjunto de datos que se examina.
+
+## Prueba para $\beta_{1}$
+
+Similar al caso anterior, $\beta_{1}$ está determinado por $t^{\alpha/2}_{(n-2)}$ con el estadístico:
+
+$$t^*=\frac{\hat{\beta_{1}}-b_{1}}{\sqrt{\frac{\hat{\sigma}^2}{S_{xx}}}},$$
+
+donde:
+
+$$\hat{\sigma}^2=\frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.$$
+
+Por lo tanto tenemos la prueba de hipótesis para $\beta_{1}$ en sus tres casos, que el valor de $\beta_{1}$ sea igual, inferior o superior al punto crítico deseado ($b_{1}$) y sus respectivas regiones de rechazo con un nivel de significancia $\alpha.$
+$$
+\begin{array}{|c|c|}
+\hline
+Hipótesis & Región\ de\ rechazo: \\
+\hline
+\hline
+H_0:\beta_{1}=b_{1} \ vs. \ H_a:\beta_{1} \neq b_{1} & |t^*|>t^{\alpha/2}_{(n-2)} \\
+\hline
+H_0:\beta_{1}\leq b_{1} \ vs. \ H_a:\beta_{1} > b_{1} & t^*>t^{\alpha}_{(n-2)} \\
+\hline
+H_0:\beta_{1}\geq b_{1} \ vs. \ H_a:\beta_{1} < b_{1} & t^*<t^{1-\alpha}_{(n-2)} \\
+\hline
+\end{array}
+$$
+
+Para ejemplificar, suponga que quiere ajustar un modelo de regresión lineal simple, sin embargo, duda si realmente la variable respuesta $y$ depende de la variable regresora $x$, es decir, sospecha que $\beta_{1}=0.$ Para ello se raliza la siguiente prueba de hipótesis valuando $\beta_{1}$ en el punto crítico de interés $b_{1}=0:$
+
+$$\textbf{H}_0: \hat{\beta_{1}}=0 \ \ \ \ vs. \ \ \ \ \textbf{H}_a:\hat{\beta_{1}} \neq 0$$
+
+La regla de decisión es rechazar $H_0$ cuando el estadístico  $$t^*=\frac{\hat{\beta_{1}}}{\sqrt{\frac{\hat{\sigma}^2}{S_{xx}}}}$$
+
+Esté contenida en la región de rechazo.Por lo que se rechaza $H_0$ cuando $t^*<-t^{\alpha/2}_{(n-2)}$ o si $t^*>t^{\alpha/2}_{(n-2)}$.
+Si se rechaza $H_0$ entonces $\beta_{1} \neq 0$ por lo que la variable respuesta $y$ depende de la variable regresora $x$; si no se rechaza $H_0$ con un nivel de significancia $\alpha$, $\beta_{1}=0$, entonces la variable respuesta $y$ no depende de la variable regresora $x$, debido a ello un modelo de regresión no sería viable con esas variables.
+
+
+## Prueba para $\sigma^2$
+
+Para $\sigma^2$ se tiene las siguientes reglas de decisión con un nivel de significancia $\alpha:$
+
+$$
+\begin{array}{|c|c|}
+\hline
+Hipótesis & Región\ de\ rechazo: \\
+\hline
+\hline
+H_0:\sigma^2 = s \ vs. \ H_a:\sigma^2\neq s & t^*>\chi^{1-\alpha/2}_{(n-2)} \ \ ó \ \ t^*<\chi^{\alpha/2}_{(n-2)}  \\
+\hline
+H_0:\sigma^2 \leq s \ vs. \ H_a:\sigma^2 > s & t^*>\chi^{\alpha}_{(n-2)} \\
+\hline
+H_0:\sigma^2\geq s \ vs. \ H_a:\sigma^2 < s & t^*<\chi^{1-\alpha}_{(n-2)} \\
+\hline
+\end{array}
+$$
+donde el estadístico $t^*:$
+
+$$t^*=\frac{(n-2)\hat{\sigma}^2}{s}$$
+Con:
+$$\hat{\sigma}^2=\frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.$$
+
+## Análisis de la varianza (ANOVA)
+
+El análisis de la varianza, también llamado ANOVA por sus siglas en ingles (Analysis of Variance), mide la asociación lineal entre la variable respuesta $y$ y la variable regresora $x$.
+
+La asociación lineal se logra cuando $\beta_{1}\neq 0$, ya que en caso contrario, la estimación de $y$ sería la media muestral $\overline{y}$, y la variable regresora $x$ no aportaría información. Entonces, al suponer $\beta_{1}=0$, el ajuste de $y$ estaría dado de la siguiente manera:
+
+$$\hat{y}=\hat{\beta_{0}}+\hat{\beta_{1}}x_{i}.$$
+Con $\hat{\beta_{1}}=0:$
+
+$$\hat{y}=\hat{\beta_{0}}.$$
+
+Por el **teorema 2.2** se sustituye la estimación de $\hat{\beta_{0}}:$
+
+$$\hat{y}=\overline{y}-\overline{x}\hat{\beta_{1}}.$$
+
+como $\hat{\beta_{1}}=0:$
+
+$$\hat{y}=\overline{y}.$$
+Es decir, no hay asociación lineal entre la variable respuesta $y$ con la variable regresora $x$. Es por ello que se desea demostrar que $\beta_{1}\neq 0,$ mediante la siguiente prueba de hipótesis:
+
+$$\textbf{H}_0:\hat{\beta_{1}}=0 \ \ \ vs. \ \ \ \textbf{H}_a:\hat{\beta_{1}} \neq 0$$
+Se puede usar el estadístico de prueba de hipótesis para $\beta_{1},$ con $b1=0$. Y se tiene lo siguiente:
+
+$$t^*=\frac{\hat{\beta_{1}}-b_{1}}{\sqrt{\frac{\hat{\sigma}^2}{S_{xx}}}} \sim t_{(n-2)}$$
+De esta manera se rechaza la hipótesis nula y se supone que $\beta_{1}\neq 0$ cuando $|t^*|>t^{\alpha/2}_{(n-2)}$.
+
+Sin embargo, en el análisis de la varianza, lo que se busca construir es otro estadístico que pueda ser usado cuando se tenga más de una variable explicativa. Es por ello que el matemático y biológo Ronald Fisher (1920), analizó la siguiente igualdad:
+
+$$y_{i}-\overline{y}=(\hat{y_{i}}-\overline{y})+(y_{i}-\hat{y_{i}})$$
+
+Lo que busca es fraccionar la distancia del valor observado respecto a la media, por la suma de la distancia del valor estimado a la media más la distancia del valor observado al valor estimado.
+
+Obteniendo el cuadrado de la ecuación anterior:
+
+$$(y_{i}-\overline{y})^2=(\hat{y_{i}}-\overline{y})^2+(y_{i}-\hat{y_{i}})^2+2(\hat{y_{i}}-\overline{y})(y_{i}-\hat{y_{i}})$$
+Sumando sobre todos los valores:
+
+$$\sum_{i=1}^{n}(y_{i}-\overline{y})^2=\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})^2+\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2+2\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})(y_{i}-\hat{y_{i}})$$
+Resolviendo la ecuación:
+
+$$2\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})(y_{i}-\hat{y_{i}})=2\sum_{i=1}^{n}\hat{y_{i}}(y_{i}-\hat{y_{i}})-2\overline{y}\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.$$
+
+Por la **definición 2.2**, se tiene $(y_{i}-\hat{y_{i}})=e_{i}$:
+
+$$2\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})(y_{i}-\hat{y_{i}})=2\sum_{i=1}^{n}\hat{y_{i}}e_{i}-2\overline{y}\sum_{i=1}^{n}e_{i}.$$
+
+Por el **teorema 2.3**, se sabe que $\sum_{i=1}^{n}e_{i}=0$
+
+$$2\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})(y_{i}-\hat{y_{i}})=2\sum_{i=1}^{n}\hat{y_{i}}e_{i}$$
+Por el **corolario 2**, $\sum_{i=1}^{n}\hat{y_{i}}e_{i}=0$, por lo tanto tenemos:
+
+$$\sum_{i=1}^{n}(y_{i}-\overline{y})^2=\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})^2+\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.$$
+
+De esta manera se construye la **ANOVA**, generalmente se hace un cambio de notación:
+
+* $SC_{T}$ es la suma de cuadrados, mide la variabilidad de las observaciones del total corregido por la media y es denotado por  $SC_{T}=\sum_{i=1}^{n}(y_{i}-\overline{y})^2.$
+
+* $SC_{reg}$ es la suma de cuadrados de la regresión, mide la variabilidad de las observaciones $y_{i}$ y la línea de regresión ajustada, es denotado por $SC_{reg}=\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})^2.$
+
+* $SC_{error}$ es la suma de cuadrados del error, es decir mide la variación residual que queda sin explicar por la línea de regresión, es denotado por $SC_{error}=\sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2.$
+
+De esta forma se tiene la siguiente igualdad:
+
+$$SC_{T}=SC_{reg}+SC_{error}$$
+
+Además se observa que:
+
+* $SC_{T}$ tiene $n-1$ grados de libertad, ya que la suma $\sum_{i=1}^{n}(y_{i}-\overline{y})^2$ es el núcleo de $(n-1)S^2=\frac{\sum_{i=1}^{n}(y_{i}-\overline{y})^2}{n-1}$ en el cual al estimar $\mu$ con $\overline{y}$ se pierde un grado de libertad.
+
+* $SC_{reg}$ tiene 1 grado de libertad, ya que la regresión sólo tiene una variable indepediente $(x).$
+
+* $SC_{error}$ tiene $n-2$ grados de libertad, ya que la regresión $SC_{error}=SC_{T}-SC_{reg},$ en el cual se ha visto que $SC_{T}$ y $SC_{reg}$ tienen $n-1$ y $1$ grado de libertad, respectivamente, así los grados de libertad de $SC_{error}=n-1-1,$ entonces $SC_{error}$ tienen n-2 grados de libertad. 
+Sabemos que el modelo de Regresión Lineal con errores normales tiene las siguientes propiedades:
+
+* $\frac{SC_{reg}}{\sigma^2}\sim \chi^2_{(1)}.$
+
+* $\frac{(n-2)\hat{\sigma}^2}{\sigma^2}=\frac{SC_{error}}{\sigma^2}\sim\chi^2_{(n-2)}.$
+
+* Además $SC_{reg}$ es independiente a $SC_{error}.$
+
+Debido a un resultado de probabilidad se sabe que si $x \sim \chi^2_{(n)}$ y $y \sim \chi^2_{(m)}$ y si $x$ es independiente a $y$ entonces:
+
+$$\frac{x/n}{y/m}\sim F_{(n,m)}$$
+
+De esta forma se puede aplicar la prueba $F$ de Fisher en el análisis de varianza para probar las hipótesis. La prueba $F$ consiste en dividir $SC_{reg}$ entre sus grados de libertad y éste dividirlo entre $SC_{error}$ que a su vez está dividida entre sus grados de libertad, de esta manera:
+
+$$F=\frac{\frac{SC_{reg}}{1}}{\frac{SC_{error}}{n-2}}$$
+
+Aplicando el resultado:
+
+$$F=\frac{\frac{SC_{reg}}{1}}{\frac{SC_{error}}{n-2}} \sim F_{(1,n-2)}$$
+Ahora se ocupará el **Cuadrado Medio** denotado como **CM**, la cual corresponde a la Suma de Cuadrados entre los grados de libertad. Así, se define al cuadrado medio de la regresión $CM_{reg}$ y al cuadrado medio del error $CM_{error}$ como:
+
+$$
+\begin{array}{c c c}
+CM_{reg}=\frac{SC_{reg}}{1} & y & CM_{error}=\frac{SC_{error}}{n-2}. \\
+\end{array}
+$$
+
+De igual manera, haciendo el ajuste, la prueba $F$ queda definida como:
+
+$$F=\frac{CM_{reg}}{CM_{error}}.$$
+Observamos que $SC_{reg}=\hat{\beta_{1}}S_{xy}$ entonces:
+
+$$F=\frac{\hat{\beta_{1}}S_{xy}}{CM_{error}}.$$
+De esta manera, la región de rechazo para la prueba de hipótesis $H_0:\beta_{1}=0$ es:
+
+$$\frac{\hat{\beta_{1}}S_{xy}}{CM_{error}}>(t^{\alpha/2}_{(n-2)})^2$$
+La cual es equivalente a la prueba t.
+
+$$\frac{|\hat{\beta_{1}}|}{\sqrt{Var(\hat{\beta_{1}})}} > t^{\alpha/2}_{(n-2)}.$$
+
+Ya que si $x \sim t_{(n-1)}$ entonces $x^2 \sim F_{(1,n-2)}.$
+
+El siguiente cuadro resume la información anterior, mejor conocida como **Tabla ANOVA:**
+
+$$
+\begin{array}{|c| c| c| c| c|}
+\hline
+&Grados\ de\ libertad & Suma\ de\ Cuadrados & Cuadrado\ Medio & Prueba\ F \\
+\hline
+\hline
+Regresión & 1   & \sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})^2=\hat{\beta_{1}}S_{xy} & SC_{reg} & \frac{CM_{reg}}{CM_{error}} \\
+\hline
+Error     & n-2 & \sum_{i=1}^{n}(y_{i}-\hat{y_{i}})^2=SC_{T}-\hat{\beta_{1}}S_{xy} & \frac{SC_{error}}{n-2} & -\\
+\hline 
+Total     & n-1 & \sum_{i=1}^{n}(y_{i}-\overline{y})^2 & - & - \\
+\hline
+\end{array}
+$$                                     
+
+
+## Coeficiente de determinación
+
+El coeficiente de determinación, con frecuencia se le asocia a la proporción de la variación explicada por el regresor $x$, ya que $0<SC_{reg}<SC_{T}$ entonces los valores del coeficiente de determinación están entre $0<R^2<1.$
+
+Se define el coeficiente de determinación del modelo de regresión como:
+
+$$R^2=\frac{SC_{reg}}{SC_{T}}=1-\frac{Sc_{error}}{SC_{T}}.$$
+
+## Propiedades de $R^2$
+
+El coeficiente de determinación $R^2$ satisface las siguientes propiedades:
+
+* $0 \leq R^2 \leq 1$ ya que $0 \leq SC_{error} \leq SC_{T}.$
+
+* Si $R^2=1$ entonces tenemos que $SC_{reg}=SC_{T}$ y $\frac{SC_{error}}{SC_{T}}=0.$
+
+* Si $R^2=0$ entonces $SC_{error}=SC_{T}.$
+
+En particular, se buscan valores de $R^2$ cercanos a 1, ya que esto indica que la mayor parte de la variabilidad de $y$ es determinada o explicada por el modelo de regresión. La magnitud de $R^2$ también depende del rango de variabilidad de la variable regresora. En general $R^2$ aumenta a medida que la propagación de los valores de $x$ aumenta, y disminuye a medida que la propagación de los valores de $x$ disminuyan, siempre que el modelo asumido es correcto. 
+
+$$
+\begin{array}{|c |c|}
+\hline
+\textbf{Valor de} \ R^2 & \textbf{Tipo de correlación} \\
+\hline
+\hline
+R^2=0 & No\ hay\ correlación \\
+0<R^2<0.25 & Correlación\ muy\ débil \\
+0.25\leq R^2 < 0.5 & Correlación\ débil \\
+0.5 \leq R^2 < 0.75 & Correlación\ moderada \\
+0.75 \leq R^2 < 0.9 & Correlación\ fuerte \\
+0.9 \leq R^2 < 1 & Correlación\ muy\ fuerte \\
+R^2=1 & Correlación\ perfecta \\
+\hline
+\end{array}
+$$
+
+
+## Relación $R^2$ y la correlación de Pearson
+
+El coeficiente de correlación de Pearson entre $x_{1},\ldots, x_{n}$ y $y_{1},\ldots, y_{n}$ se define como:
+
+$$r=\frac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}.$$
+$"r"$ toma valores de $-1$ a $1$, dónde si $r$ toma el valor de $1$ decimos que hay una relación lineal positiva, si $r$ toma el valor de $-1$ decimos que hay una relación lineal negativa y finalmente si toma el valor de $0$ decimos que no hay una relación entre variables.
+
+Para el modelo de regresión lineal, en particular, se cumple que:
+
+$$r^2=R^2.$$
+
+### Ejemplo
+
+En las secciones anteriores tomamos los datos de **CALLCENT**  y comenzamos a resolver el problema que el gerente nos planteó de poder 
+predecir, de alguna manera, el tiempo promedio que tardarían en procesar un número dado de facturas.
+
+Se ha recolectado, durante un periodo de 30 días, la información sobre el número de facturas procesadas (en nuestrio caso definimos como nuestra variable $x$) y el tiempo que tardan las mismas (que hemos definido como nuestra variable $y$).
+
+Verificamos gráficamente que hubiera una relación lineal entre las variables, estimamos los parámetros del modelo de regresión lineal simple con intercepto y sin intercepto. Luego construimos intervalos de confianza para los parámetros estimados, para el valor esperado y la predicción.
+
+Como se mencionó en nuestro capítulo debemos aplicar pruebas estadísticas que nos aseguren que las estimaciones de los parámetros serán distintos de cero.
+
+#### Prueba de hipótesis para $\beta_{0}$ y $\beta_{1}${-}
+
+Haremos el cálculo del estadístico de prueba para probar la hipótesis: $\textbf{H}_0=\hat{\beta_{0}}=0 \ \ \ vs \ \ \ \textbf{H}_a \neq 0$ con una confianza del $90\%$ y sustituimos en la siguiente ecuación:
+
+$$t^*=\frac{\hat{\beta_{0}}}{\sqrt{\left(\frac{1}{n}+\frac{\overline{x}^2}{S_{xx}}\right)\hat{\sigma}^2}}.$$
+
+```{r}
+t_est=beta0/sqrt((1/n+x_barra^2/Sxx)*s2_gorro)
+
+t_est
+```
+Ahora buscamos el cuantil de la distribución $t-Student$ para comprar nuestro estadístico.
+
+```{r}
+qt=qt(.95,n-2) 
+qt
+```
+
+Como nuestro estadístico (5.2482) es mayor que (1.7011). Entonces rechazamos $\textbf{H}_0$. Por lo tanto con una confianza del $90\%$ podemos decir que $\beta_{0} \neq 0.$ 
+
+Ahora haremos la prueba para la hipótesis $\textbf{H}_0:\hat{\beta_{1}}=0 \ \ vs \ \ \textbf{H}_{a}:\hat{\beta_{1}} \neq 0$ con una confianza del $90\%$. Sustituimos en la siguiente ecuación:
+
+$$t^*=\frac{\hat{\beta_{1}}}{\sqrt{\frac{\hat{\sigma}^2}{S_{xx}}}}$$
+
+```{r}
+t_est=beta1/sqrt(s2_gorro/Sxx)
+
+t_est
+```
+
+Ahora buscamos el cuantil de la distribución $t-Student$ para comparar nuestro estadístico:
+
+```{r}
+qt=qt(.95,n-2) 
+
+qt
+```
+
+Como nuestro estadístico (13.7971) es mayor que (1.7011). Entonces rechazamos $\textbf{H}_0$. Por lo tanto con una confianza del $90\%$ podemos decir que $\beta_{1} \neq 0.$
+
+Con éstas dos pruebas corroboramos que los datos ajustan a un modelo de regresión lineal que considera a la variable facturas y el intercepto, esto debido a que ambos parámetros resultaron ser distintos de cero.
+
+* Si la prueba de hipótesis para $\beta_{0 }$ hubiera resultado en no rechazar $\textbf{H}_0$ entonces, se buscaría ajustar un  modelo sin intercepto.
+
+* Si la prueba de hipótesis para $\beta_{1}$ hubiera resultado en no rechazar $\textbf{H}_0$ entonces, se buscaría ajustar un modelo con otra variable (diferente a las facturas) ya que los datos estarían diciendo que la variable facturas no es significativa para explicar el tiempo promedio de su llegada.
+
+#### Coeficiente de determinación {-}
+
+Por último vamos a calcular el coeficiente de determinación de nuestro modelo. Como se menciona en nuestro capítulo, este coeficiente mide la proporción de la variación explicada por el modelo en relación a la variación total existente en los datos, y por eso es un valor entre 0 y 1.
+
+Y sustituiremos en la siguiente expresión:
+
+$$R^2=\frac{\hat{\beta_{1}}S_{xy}}{\sum_{i=1}^{n}(y_{i}-\overline{y})^2}$$
+
+```{r}
+R_2=(beta1*Sxy)/sum((y-y_barra)^2)
+R_2
+```
+
+Lo que quiere decir que nuestro modelo está explicando $87.17\%$ de la variabilidad observada en la variable facturas. El ideal es tener un modelo que explique el $100\%$ pero como vimos, debido a que estamos ajustando una recta y esta no pasa por todos los puntos algún error en el ajuste estamos cometiendo.  
+
+
+
+
+

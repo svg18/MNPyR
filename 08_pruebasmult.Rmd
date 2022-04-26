@@ -1,0 +1,187 @@
+# Pruebas de hipótesis
+
+Una vez estimados los parámetros de forma puntual a través del método de mínimos cuadrados o de máxima verosimilitud, nos preguntaremos si realmente la variable regresora  $X_{j}, \ \ j \in [1,k]$ donde $k$ es el número total de variables regresoras del modelo, que aportan información o son **significativas** para el modelo, para respondernos ésto contruiremos las pruebas de hipótesis, primero para $\beta_{j}$ y después para $\sigma^2$ como se detallará a continuación:
+
+## Región de rechazo para $\beta_{j}$
+
+Dado que el estimador de $\underline{\beta}$ es una combinación lineal, de igual forma se tiene una combinación lineal de variables aleatorias normales independientes, por lo que se tiene para $\beta_{j} \ \forall j \ \in [0,k]$ una distribución asociada normal con parámetros:
+
+$$\beta_{j} \sim \mathbf{N} \left(\beta_{j},\sigma^2(X'X)^{-1}_{(j+1)(j+1)}\right).$$
+Donde $(X'X)_{(j+1)(j+1)}$ es la entrada $j+1$ entrada en la diagonal de la matriz $(X'X)$, además el subíndice $j$ hace referencia al parámetro $\beta_{j}$ al que se desea examinar mediante la prueba de hipótesis, normalizando la expresión anterior se tiene:
+
+$$\frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\sigma^2(X'X)^{-1}_{(j+1)(j+1)}}} \sim \mathbf{N}(0,1)$$
+
+Como $\frac{(n-k-1)}{\sigma^2}\hat{\sigma}^2 \sim \chi^{2}_{n-k-1}$ tenemos:
+
+$$\frac{\frac{\hat{\beta_{j}}-\beta_{j}}{\sqrt{\sigma^2(X'X)^{-1}_{(j+1)(j+1)}}}}{\sqrt{\frac{\frac{(n-k-1)}{\sigma^2}\hat{\sigma}^2}{n-k-1}}}\sim t_{n-k-1}$$
+
+Por lo tanto, el estadístico deseado para probar que los tres posibles casos de $\beta_{j}$, que sea igual, inferior o superior a un valor dado $b$, es la siguiente:
+
+$$t=\frac{\hat{\beta_{j}}-b}{\sqrt{\hat{\sigma}^2(X'X)^{-1}_{(j+1)(j+1)}}}.$$
+
+Usando el estadístico anterior se definen las regiones de rechazo para cada caso de $\beta_{j}$ como:
+
+$$
+\begin{array}{|c|c|}
+\hline
+Hipótesis &  Región\ de\ rechazo: \\
+\hline
+\hline
+H_0:\beta_{j}=b \ vs. \ H_a:\beta_{j} \neq b & |t|>t^{(\alpha/2)}_{(n-k-1)} \\
+\hline
+H_0:\beta_{j}\leq b \ vs. \ H_a:\beta_{j} > b & t>t^{(\alpha)}_{(n-k-1)} \\
+\hline
+H_0:\beta_{j}\geq b \ vs. \ H_a:\beta_{j} < b & t<t^{(1-\alpha)}_{(n-k-1)} \\
+\hline
+\end{array}
+$$
+
+Para ejemplificar lo anterior:
+
+Supongamos que queremos ajustar un modelo de regresión lineal múltiple, sin embargo, dudamos si realmente la variable respuesta $\underline{Y}$ depende de la variable regresora $X_{5}$, es decir, sospechamos que $\beta_{5}=0$. Para ello realizaremos la siguiente prueba de hipótesis evaluando $\beta_{5}$ en el punto crítico de interés $b=0$.
+
+$$\textbf{H}_0:\beta_{5}=0 \ \ vs. \ \ \textbf{H}_a:\beta_{5} \neq 0.$$
+
+La regla de decisión, es rechazar $H_0$ cuando el estadístico $t=\frac{\hat{\beta_{j}}}{\sqrt{\hat{\sigma}^2(X'X)^{-1}_{(j+1)(j+1)}}}$ esté contenida en la región de rechazo. Por lo que se rechaza $H_0$ cuando $t<-t^{\alpha/2}_{n-k-1}$ o si $t>t^{\alpha/2}_{n-k-1}.$
+
+Si se rechaza $H_0$ entonces $\beta_{5} \neq 0$ por lo que la variable regresora $X_{5}$ tiene influencia en la variable respuesta $\underline{Y}$; Si no se rechaza la hipótesis nula con un nivel de significancia $\alpha$, $\beta_{5}=0$, es decir, la variable regresora $X_{5}$ no influye estadísticamente en la variable respuesta $\underline{Y}$, entonces en nuestro modelo de regresión lineal múltiple con la combinación de variables regresoras dada, no es conveniente usar la variable $X_{5}$ pues no es significativa para nuestro modelo.
+
+De manera similar, se puede realizar la anterior prueba para cualquier $\beta_{j}$ para $j \in \mathbf{N}$ tal que $j \in [0,k]$ donde $k$ es el número total de variables regresoras con las que se ajusta el modelo de regresión múltiple.
+
+## Prueba para $\sigma^2$
+
+Para ésta parte necesitaremos las siguientes relaciones de probabilidad:
+
+$$\frac{n-k-1}{\sigma^2} \ \hat{\sigma}^2 \ \sim \chi^{2}_{n-k-1}$$
+
+$$\frac{n-k-1}{\sigma^2} \left( \frac{SC_{error}}{n-k-1}\right) \ \sim \chi^{2}_{n-k-1}$$
+
+$$\frac{SC_{error}}{\sigma^2} \ \sim \chi^{2}_{n-k-1}.$$
+
+Dado que se quiere realizar inferencias sobre $\sigma^2$ definimos a la siguiente estadística $S$ como:
+
+$$S=\frac{SC_{error}}{\sigma^2_{0}}$$
+Donde $\sigma^2_{0}$ es el valor crítico que se desea poner a prueba, para verificar a través de las hipótesis, que la varianza del modelo $\sigma^2$ es igual, superior o inferior al punto crítico $\sigma^2_{0}$ propuesto.
+
+A continuación, tenemos las siguientes regiones de rechazo:
+
+$$
+\begin{array}{|c|c|}
+\hline
+Hipótesis & Región\ de\ rechazo: \\
+\hline
+\hline
+H_0:\sigma^2=\sigma^2_{o} \ vs. \ H_a:\sigma^2 \neq \sigma^2_{0} & S>\chi^{2(1-\alpha/2)}_{(n-k-1)} \ \ o \ \ S<\chi^{2(\alpha/2)}_{(n-k-1)} \\
+\hline
+H_0:\sigma^2 \leq \sigma^2_{o} \ vs. \ H_a:\sigma^2 > \sigma^2_{o} & S>\chi^{2(\alpha)}_{(n-k-1)} \\
+\hline
+H_0:\sigma^2 \geq \sigma^2_{o} \ vs. \ H_a:\sigma^2 < \sigma^2_{o} & S<\chi^{2(1-\alpha)}_{(n-k-1)} \\
+\hline
+\end{array}
+$$
+
+## Análisis de la varianza (ANOVA)
+
+La idea del método de análisis de la varianza sirve para probar el significado de la regresión. 
+
+El análisis de la ANOVA está conformada por varios elementos como:
+
+* $SC_{T}$ es la suma de cuadrados, la cual sirve para medir la variabilidad de las observaciones del total corregido por la media.
+
+* $SC_{reg}$ es la suma de cuadrados de la regresión, mide la variabilidad en que las observaciones $y_{i}$ y la línea de regresión.
+
+* $SC_{error}$ es la suma de cuadrados del residual o del error, es decir, mide la variación residual que queda sin explicar por la línea de regresión.
+
+Con éstas variables se cumple con la siguiente igualdad:
+
+$$SC_{T}=SC_{reg}+SC_{error}.$$
+
+Por el **corolario 5** tenemos que:
+
+$$SC_{error}=\underline{Y}'(I-H)\underline{Y}.$$
+
+Adaptando la suma de residuales a la forma matricial tenemos lo siguiente:
+
+$$SC_{T}=\sum_{i=1}^{n}(y_{i}-\overline{y})^2$$
+
+$$SC_{T}=\sum_{i=1}^{n}(y_{i}^2-\overline{y}^2)$$
+
+$$SC_{T}=\sum_{i=1}^{n}y_{i}^2-n\overline{y}^2$$
+$$\therefore SC_{T}=\underline{Y}'\underline{Y}-n\overline{y}^2.$$
+
+Por otro lado tenemos:
+
+$$SC_{reg}=\sum_{i=1}^{n}(\hat{y_{i}}-\overline{y})^2$$
+$$SC_{reg}=\sum_{i=1}^{n}(\hat{y_{i}}^2-\overline{y}^2)$$
+$$\therefore \  SC_{reg}=\hat{\beta}'X'\underline{Y}-n\overline{y}^2. \blacksquare $$
+
+Además se sabe que el modelo de regresión lineal múltiple con errores normales tiene las siguientes propiedades:
+
+* $\frac{SC_{reg}}{\sigma^2} \sim \chi^2_{k+1}$
+
+* $\frac{SC_{error}}{\sigma^2} \sim \chi^2_{n-k-1}$
+
+* $SC_{reg}$ es independiente a $SC_{error}$
+
+
+Y podemos obtener los siguientes resultados:
+
+* La suma de cuadrados del total ($SC_{T}$) tiene $n-1$ grados de libertad.
+
+* La suma de cuadrados de la regresión ($SC_{reg}$) tiene $k$ grados de libertad.
+
+* La suma de cuadrados de los errores ($SC_{error}$) tiene $n-k-1$ grados de libertad.
+
+Se observa que si $X \sim \chi^2_{n}$, \ $\underline{Y} \sim \chi^2_{m}$ y si $X$ es independiente a $\underline{Y}$ entonces:
+
+$$\frac{X/n}{Y/m} \sim F_{n,m}.$$
+
+De esta forma, aplicando la prueba $F$ de $Fisher$ en el análisis de varianza se puede usar como región de rechazo para demostrar la prueba de hipótesis, la cual consiste en dividir $SC_{reg}$ entre sus grados de libertad que se divide entre la razón de la $SC_{error}$ y sus grados de libertad:
+
+$$F=\frac{\frac{SC_{reg}}{k}}{\frac{SC_{error}}{n-k-1}} \sim F_{k,n-k-1}.$$
+
+A manera de notación se usa el **Cuadrado Medio** denotado como **CM** que corresponde a la Suma de Cuadrados entre sus grados de libertad. Así $CM=\frac{SC_{reg}}{k}$ y $CM_{error}=\frac{SC_{error}}{n-k-1}$.
+
+De esta manera podemos reescribir lo anterior como:
+
+$$F=\frac{CM_{reg}}{CM_{error}} \sim F_{k,n-k-1}.$$
+Entonces se define a la región de rechazo con un nivel de significancia $\alpha$ para:
+
+$$\textbf{H}_0: \beta_{1}=\beta_{2}=\beta_{3}=\ldots=\beta_{k}=0$$
+$$F>F^{(\alpha)}_{k,n-k-1}.$$
+
+La forma en que se resume la información es mostrada en la siguiente tabla mejor conocida como: 
+
+**Tabla ANOVA**
+$$
+\begin{array}{|c| c| c| c| c|}
+\hline
+&Grados\ de\ libertad & Suma\ de\ Cuadrados & Cuadrado\ Medio & Prueba\ F \\
+\hline
+\hline
+Regresión & k   & \hat{\beta}'X'\underline{Y}-n\overline{y}^2 & \frac{SC_{reg}}{k} & \frac{CM_{reg}}{CM_{error}} \\
+\hline
+Error     & n-k-1& \underline{Y}'(I-H)\underline{Y} & \frac{SC_{error}}{n-k-1} & -\\
+\hline 
+Total     & n-1 & \underline{Y}'\underline{Y}-n\overline{y}^2 & - & - \\
+\hline
+\end{array}
+$$
+
+## Coeficiente de determinación
+
+El coeficiente de determinación con frecuencia se le asocia a la proporción de la variación explicada por la variable regresora $X$, ya que $0 \leq SC_{reg} \leq SC_{T}$ entonces los valores del coeficiente de determinación están entre $0 \leq R^2 \leq 1.$ Cabe mencionar que este coeficiente proporciona una idea muy cercana a la variabilidad que cae sobre la regresión, sin embargo, no hayq ue perder de vista que en primera instancia ésta medida sirve como una aproximación. 
+
+Se define el coeficiente de determinación del modelo de regresión como:
+
+$$R^2=\frac{SC_{reg}}{SC_{T}}=1-\frac{SC_{error}}{SC_{T}}$$
+
+Los valores cercanos a 1 implican que la mayor parte de la cariabilidad de $\underline{Y}$ está explicada por el modelo de regresión.
+
+## $R^2$ ajustado 
+
+
+Como se mencionó el coeficiente de determinación es una aproximación, ya que el valor de la medida se aproxima a 1, conforme vamos incluyendo más variables. Es decir, entre más variables en el modelo el coeficiente de determinación supone que va mejorando el ajuste, lo cual no es cierto, entre más variables no siempre se proporcionará un mejor ajuste.
+Es por ello que se realiza una $R^2$ ajustada de la siguiente forma:
+
+$$R^2_{adj}=1- \frac{CM_{error}}{CM_{T}}.$$
