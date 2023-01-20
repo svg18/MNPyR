@@ -1,0 +1,129 @@
+# Ejemplo de regresión lineal múltiple
+
+Ahora retomaremos el ejemplo desarrollado en la sección de regresión lineal simple para resolver el problema ajustando un modelo de regresión lineal multiple.
+
+## Contexto del problema
+
+Para esta tarea usaremos los datos almacenados [aquí](https://raw.githubusercontent.com/alberto-mateos-mo/seminario-est-fciencias/master/datos/linear_regression_data/mmm_Rexample.csv).
+
+Estos datos contienen información sobre el impacto que han tenido diferentes inversiones de publicidad en las ventas de la compañía.
+
+El objetivo de la empresa es entender cómo influyen las diferentes inversiones en publicidad en las ventas.
+
+## Exploración de datos
+
+Para leer los datos directamente de GitHub usaremos la librería `readr`, la cual puede instalarse usando `install.packages("readr")`.
+
+```{r, message=FALSE, warning=FALSE}
+library(readr)
+library(dplyr)
+
+datos <- read_csv("https://raw.githubusercontent.com/alberto-mateos-mo/seminario-est-fciencias/master/datos/linear_regression_data/mmm_Rexample.csv")
+
+head(datos)
+```
+
+Como podemos ver tenemos información de las ventas de la compañía y de los montos que se han destinado para publicidad en televisión (tv), redes sociales (social_networks) y exteriores (ooh).
+
+## Visualización de datos
+
+A diferencia del caso de regresión lineal simple, no podemos crear un gráfico de dispersión pues requeriríamos de un espacio de 5 dimensiones para intentar detectar una relación lineal entre las inversiones y las ventas.
+
+Si bien podríamos crear gráficos de dispersión entre cada variable independientes y las ventas, esta tarea podría ser muy lara y poco productiva en conjuntos de datos de alta dimension.
+
+Para tener un vistazo de toda la información al mismo tiempo podemos usar un gráfico de correlaciones.
+
+```{r}
+library(corrplot)
+
+datos <- datos %>% 
+  dplyr::select(-index)
+
+corrplot(cor(datos), method = "number")
+```
+
+Además de la relación directa entre tv y ventas también podemos identificar una posible relación entre redes sociales y ventas, con un coeficiente de correlación de 0.58
+
+La correlación entre publicidad exterior (ooh) y ventas es baja (0.23), con lo que podríamos intuir que estas inversiones podrían no ser influyentes en las ventas.
+
+
+## Ajuste del modelo de regresión lineal múltiple
+
+Con este modelo encontraremos la ecuación del hiperplano que mejor describa la relación entre nuestras variables de interés.
+
+En el caso multivariado este hiperplano estará descrito de la siguiente forma:
+
+$$sales = \beta_0 + \beta_1*tv + \beta_2*social\ networks + \beta_3*ooh$$
+
+```{r}
+modelo <- lm(sales ~ ., data = datos)
+```
+
+
+## Validación del modelo
+
+Mediante el resumen del modelo tendremos acceso a todas las métricas necesarias para evaluar qué tan _bueno_ es.
+
+```{r}
+summary(modelo)
+```
+
+En primer lugar veremos la sección __Call__, en esta sección se describe qué modelo se esta ajustando; esta parte es meramente informativa.
+
+La sección __Residuals__ nos da una idea de la distribución de los residuales.
+
+__Para pensar: ¿por qué el resumen del modelo omite la media de los residuales?, ¿qué deberíamos esperar de la mediana?__
+
+### Coefficients
+
+En la tabla de esta sección se muestran:
+
+- Los estimadores de los coeficientes del modelo i.e. $\beta_0$ (Intercept), $\beta_1$ (tv), $\beta_2$ (social_networks) y $\beta_3$ (ooh)
+
+- Los errores estandar para los coeficientes
+
+- El estadístico t y el p-value correspondiente: estos definen la significancia estadística de los estimadores
+
+De este ejemplo podemos concluir que el único coeficiente no significativo es el de las inversiones en exteriores, con un p-value de 0.86; es decir, esta varible no es útil para explicar las ventas y podemos excluirla del modelo.
+
+```{r}
+modelo <- lm(sales ~ tv + social_networks, data = datos)
+
+summary(modelo)
+```
+
+En el modelo reducido podemos observar que todos los coeficientes son sinificativos, podemos decir que este es el mejor modelo para explicar las ventas de la compañía.
+
+## Bondad de ajuste
+
+La última sección nos muestra:
+
+- El error estándar de los residuales: representa las variaciones de los datos reales en torno a la linea de regresión ajustada por el modelo.
+
+- R cuadrada y R cuadrada ajustada: representan la proporción de información de los datos que es explicada por el modelo. La diferencia entre ellas es que la R cuadrada ajustada considera en su cálculo una penalización por la cantidad de parámetros que estima el modelo.
+
+- Estadístico F: evalua si al menos una variable independiente tiene coeficiente distinto de cero; es decir resume globalmente si el modelo ajustado es un modelo significativo.
+
+## Intepretación de resultados
+
+Una vez validado el modelo de regresión lineal multiple podemos usar sus resultados para intepretarlos en el contexto del problema.
+
+Recordemos que nuestro objetivo es entender cómo influyen las diferentes inversiones en publicidad en las ventas.
+
+En primer lugar podemos determinar que las inversiones en publicidad por televisión y redes sociales influyen en el desempeño de las ventas.
+
+El coeficiente $\beta_0$ (Intercept) nos indica las ventas promedio generadas por otros factores no medidos y con inversiones nulas en TV y redes sociales.
+
+El coeficiente $\beta_1$ asociado a las inversiones en TV nos da el incremento (dado que es positivo) promedio en ventas por cada incremento de una unidad monetaria en TV dado un mismo valor de inversión en redes sociales.
+
+El coeficiente $\beta_2$ asociado a las inversiones en redes sociales nos da el incremento (dado que es positivo) promedio en ventas por cada incremento de una unidad monetaria en redes sociales dado un mismo valor de inversión en TV.
+
+Es decir:
+
+- Las inversiones en publicidad por TV benefician a las ventas, generando en promedio 4.6 unidades monetarias de venta por cada unidad monetaria invertida en este medio, _ceteris paribus_.
+
+- Las inversiones en publicidad por redes sociales también benefician a las ventas,generando en promedio 18.8 unidades monetarias de venta por cada unidad monetaria invertida en este medio, _ceteris paribus_.
+
+Podemos agregar que de las dos inversiones usadas en el modelo, la de redes sociales es más eficiente pues genera un mayor impacto en las ventas.
+
+

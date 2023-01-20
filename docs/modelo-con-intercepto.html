@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 1 Modelo con intercepto | Modelos de Regresión</title>
   <meta name="description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 1 Modelo con intercepto | Modelos de Regresión" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Material para el curso Modelos no paramétricos y de regresión en la Facultad de Ciencias, Universidad Nacional Autónoma de México" />
   
@@ -35,7 +34,6 @@
   
 <link rel="prev" href="introducción.html"/>
 <link rel="next" href="modelo-sin-intercepto.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -53,8 +51,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
@@ -101,7 +100,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -114,7 +113,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -248,35 +247,61 @@ div.csl-indent {
 <li class="chapter" data-level="5.5.2" data-path="validación-de-supuestos.html"><a href="validación-de-supuestos.html#valores-influentes"><i class="fa fa-check"></i><b>5.5.2</b> Valores influentes</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="ejemplo-de-regresión-lineal-simple.html"><a href="ejemplo-de-regresión-lineal-simple.html"><i class="fa fa-check"></i><b>6</b> Ejemplo de regresión lineal simple</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ejemplo-de-regresión-lineal-simple.html"><a href="ejemplo-de-regresión-lineal-simple.html#contexto-del-problema"><i class="fa fa-check"></i><b>6.1</b> Contexto del problema</a></li>
+<li class="chapter" data-level="6.2" data-path="ejemplo-de-regresión-lineal-simple.html"><a href="ejemplo-de-regresión-lineal-simple.html#exploración-de-datos"><i class="fa fa-check"></i><b>6.2</b> Exploración de datos</a></li>
+<li class="chapter" data-level="6.3" data-path="ejemplo-de-regresión-lineal-simple.html"><a href="ejemplo-de-regresión-lineal-simple.html#visualización-de-datos"><i class="fa fa-check"></i><b>6.3</b> Visualización de datos</a></li>
+<li class="chapter" data-level="6.4" data-path="ejemplo-de-regresión-lineal-simple.html"><a href="ejemplo-de-regresión-lineal-simple.html#ajuste-del-modelo-de-regresión-lineal-simple"><i class="fa fa-check"></i><b>6.4</b> Ajuste del modelo de regresión lineal simple</a></li>
+<li class="chapter" data-level="6.5" data-path="ejemplo-de-regresión-lineal-simple.html"><a href="ejemplo-de-regresión-lineal-simple.html#validación-del-modelo"><i class="fa fa-check"></i><b>6.5</b> Validación del modelo</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="ejemplo-de-regresión-lineal-simple.html"><a href="ejemplo-de-regresión-lineal-simple.html#coefficients"><i class="fa fa-check"></i><b>6.5.1</b> Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="ejemplo-de-regresión-lineal-simple.html"><a href="ejemplo-de-regresión-lineal-simple.html#bondad-de-ajuste"><i class="fa fa-check"></i><b>6.6</b> Bondad de ajuste</a></li>
+<li class="chapter" data-level="6.7" data-path="ejemplo-de-regresión-lineal-simple.html"><a href="ejemplo-de-regresión-lineal-simple.html#intepretación-de-resultados"><i class="fa fa-check"></i><b>6.7</b> Intepretación de resultados</a></li>
+</ul></li>
 <li class="part"><span><b>III Modelo de regresión lineal múltiple</b></span></li>
 <li class="chapter" data-level="" data-path="introducción-1.html"><a href="introducción-1.html"><i class="fa fa-check"></i>Introducción</a></li>
-<li class="chapter" data-level="6" data-path="modelo.html"><a href="modelo.html"><i class="fa fa-check"></i><b>6</b> Modelo</a>
+<li class="chapter" data-level="7" data-path="modelo.html"><a href="modelo.html"><i class="fa fa-check"></i><b>7</b> Modelo</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="modelo.html"><a href="modelo.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-2"><i class="fa fa-check"></i><b>6.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
-<li class="chapter" data-level="6.2" data-path="modelo.html"><a href="modelo.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Estimación por máxima verosimilitud</a></li>
+<li class="chapter" data-level="7.1" data-path="modelo.html"><a href="modelo.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo-2"><i class="fa fa-check"></i><b>7.1</b> Estimación por mínimos cuadrados de los parámetros del modelo</a></li>
+<li class="chapter" data-level="7.2" data-path="modelo.html"><a href="modelo.html#estimación-por-máxima-verosimilitud"><i class="fa fa-check"></i><b>7.2</b> Estimación por máxima verosimilitud</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html"><i class="fa fa-check"></i><b>7</b> Intervalos de confianza</a>
+<li class="chapter" data-level="8" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html"><i class="fa fa-check"></i><b>8</b> Intervalos de confianza</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-beta_j"><i class="fa fa-check"></i><b>7.1</b> Intervalo para <span class="math inline">\(\beta_{j}\)</span></a></li>
-<li class="chapter" data-level="7.2" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-sigma2-1"><i class="fa fa-check"></i><b>7.2</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
-<li class="chapter" data-level="7.3" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-la-respuesta-media"><i class="fa fa-check"></i><b>7.3</b> Intervalos de la respuesta media</a></li>
-<li class="chapter" data-level="7.4" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-predicción"><i class="fa fa-check"></i><b>7.4</b> Intervalos de predicción</a></li>
+<li class="chapter" data-level="8.1" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-beta_j"><i class="fa fa-check"></i><b>8.1</b> Intervalo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="8.2" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalo-para-sigma2-1"><i class="fa fa-check"></i><b>8.2</b> Intervalo para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="8.3" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-la-respuesta-media"><i class="fa fa-check"></i><b>8.3</b> Intervalos de la respuesta media</a></li>
+<li class="chapter" data-level="8.4" data-path="intervalos-de-confianza-1.html"><a href="intervalos-de-confianza-1.html#intervalos-de-predicción"><i class="fa fa-check"></i><b>8.4</b> Intervalos de predicción</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html"><i class="fa fa-check"></i><b>8</b> Pruebas de hipótesis</a>
+<li class="chapter" data-level="9" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html"><i class="fa fa-check"></i><b>9</b> Pruebas de hipótesis</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#región-de-rechazo-para-beta_j"><i class="fa fa-check"></i><b>8.1</b> Región de rechazo para <span class="math inline">\(\beta_{j}\)</span></a></li>
-<li class="chapter" data-level="8.2" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#prueba-para-sigma2-1"><i class="fa fa-check"></i><b>8.2</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
-<li class="chapter" data-level="8.3" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#análisis-de-la-varianza-anova-1"><i class="fa fa-check"></i><b>8.3</b> Análisis de la varianza (ANOVA)</a></li>
-<li class="chapter" data-level="8.4" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#coeficiente-de-determinación-2"><i class="fa fa-check"></i><b>8.4</b> Coeficiente de determinación</a></li>
-<li class="chapter" data-level="8.5" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#r2-ajustado"><i class="fa fa-check"></i><b>8.5</b> <span class="math inline">\(R^2\)</span> ajustado</a></li>
+<li class="chapter" data-level="9.1" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#región-de-rechazo-para-beta_j"><i class="fa fa-check"></i><b>9.1</b> Región de rechazo para <span class="math inline">\(\beta_{j}\)</span></a></li>
+<li class="chapter" data-level="9.2" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#prueba-para-sigma2-1"><i class="fa fa-check"></i><b>9.2</b> Prueba para <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="9.3" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#análisis-de-la-varianza-anova-1"><i class="fa fa-check"></i><b>9.3</b> Análisis de la varianza (ANOVA)</a></li>
+<li class="chapter" data-level="9.4" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#coeficiente-de-determinación-2"><i class="fa fa-check"></i><b>9.4</b> Coeficiente de determinación</a></li>
+<li class="chapter" data-level="9.5" data-path="pruebas-de-hipótesis-1.html"><a href="pruebas-de-hipótesis-1.html#r2-ajustado"><i class="fa fa-check"></i><b>9.5</b> <span class="math inline">\(R^2\)</span> ajustado</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html"><i class="fa fa-check"></i><b>9</b> Validación de supuestos</a>
+<li class="chapter" data-level="10" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html"><i class="fa fa-check"></i><b>10</b> Validación de supuestos</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#supuesto-de-multicolinealidad"><i class="fa fa-check"></i><b>9.1</b> Supuesto de multicolinealidad</a></li>
-<li class="chapter" data-level="9.2" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#detección-de-multicolinealidad"><i class="fa fa-check"></i><b>9.2</b> Detección de multicolinealidad</a></li>
-<li class="chapter" data-level="9.3" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#ejemplo-3"><i class="fa fa-check"></i><b>9.3</b> Ejemplo</a></li>
+<li class="chapter" data-level="10.1" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#supuesto-de-multicolinealidad"><i class="fa fa-check"></i><b>10.1</b> Supuesto de multicolinealidad</a></li>
+<li class="chapter" data-level="10.2" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#detección-de-multicolinealidad"><i class="fa fa-check"></i><b>10.2</b> Detección de multicolinealidad</a></li>
+<li class="chapter" data-level="10.3" data-path="validación-de-supuestos-1.html"><a href="validación-de-supuestos-1.html#ejemplo-3"><i class="fa fa-check"></i><b>10.3</b> Ejemplo</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>10</b> Apéndice</a></li>
+<li class="chapter" data-level="11" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>11</b> Apéndice</a></li>
+<li class="chapter" data-level="12" data-path="ejemplo-de-regresión-lineal-múltiple.html"><a href="ejemplo-de-regresión-lineal-múltiple.html"><i class="fa fa-check"></i><b>12</b> Ejemplo de regresión lineal múltiple</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ejemplo-de-regresión-lineal-múltiple.html"><a href="ejemplo-de-regresión-lineal-múltiple.html#contexto-del-problema-1"><i class="fa fa-check"></i><b>12.1</b> Contexto del problema</a></li>
+<li class="chapter" data-level="12.2" data-path="ejemplo-de-regresión-lineal-múltiple.html"><a href="ejemplo-de-regresión-lineal-múltiple.html#exploración-de-datos-1"><i class="fa fa-check"></i><b>12.2</b> Exploración de datos</a></li>
+<li class="chapter" data-level="12.3" data-path="ejemplo-de-regresión-lineal-múltiple.html"><a href="ejemplo-de-regresión-lineal-múltiple.html#visualización-de-datos-1"><i class="fa fa-check"></i><b>12.3</b> Visualización de datos</a></li>
+<li class="chapter" data-level="12.4" data-path="ejemplo-de-regresión-lineal-múltiple.html"><a href="ejemplo-de-regresión-lineal-múltiple.html#ajuste-del-modelo-de-regresión-lineal-múltiple"><i class="fa fa-check"></i><b>12.4</b> Ajuste del modelo de regresión lineal múltiple</a></li>
+<li class="chapter" data-level="12.5" data-path="ejemplo-de-regresión-lineal-múltiple.html"><a href="ejemplo-de-regresión-lineal-múltiple.html#validación-del-modelo-1"><i class="fa fa-check"></i><b>12.5</b> Validación del modelo</a>
+<ul>
+<li class="chapter" data-level="12.5.1" data-path="ejemplo-de-regresión-lineal-múltiple.html"><a href="ejemplo-de-regresión-lineal-múltiple.html#coefficients-1"><i class="fa fa-check"></i><b>12.5.1</b> Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="12.6" data-path="ejemplo-de-regresión-lineal-múltiple.html"><a href="ejemplo-de-regresión-lineal-múltiple.html#bondad-de-ajuste-1"><i class="fa fa-check"></i><b>12.6</b> Bondad de ajuste</a></li>
+<li class="chapter" data-level="12.7" data-path="ejemplo-de-regresión-lineal-múltiple.html"><a href="ejemplo-de-regresión-lineal-múltiple.html#intepretación-de-resultados-1"><i class="fa fa-check"></i><b>12.7</b> Intepretación de resultados</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Hecho con bookdown</a></li>
 
@@ -297,8 +322,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="modelo-con-intercepto" class="section level1" number="1">
-<h1><span class="header-section-number">Capítulo 1</span> Modelo con intercepto</h1>
+<div id="modelo-con-intercepto" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Capítulo 1</span> Modelo con intercepto<a href="modelo-con-intercepto.html#modelo-con-intercepto" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>El objetivo principal del <strong>Modelo de Regresión Lineal Simple</strong> es el poder asociar o ajustar a una dispersión de datos una función (en primera instancia se abordará el ajuste mediante una recta) cuyos parámetros dependan directamente de las observaciones con la finalidad de poder resumir, simplificar u obtener propiedades importantes sobre comportamiento de la muestra.</p>
 <p>Dicho modelo es el más sencillo de los modelos lineales e involucra una variable de interés <span class="math inline">\(y\)</span> llamada <strong>dependiente</strong> o <strong>respuesta</strong> y su relación con la variable <strong>predictoria</strong> o <strong>independiente</strong> <span class="math inline">\(x\)</span>, estableciendo que la media de la variable dependiente <span class="math inline">\(y\)</span> cambia a razón constante cuando el valor de la variable independiente <span class="math inline">\(x\)</span> crece o decrece.</p>
 <p>El modelo de regresión lineal simple en general es:</p>
@@ -338,8 +363,8 @@ donde:</p>
 La parte aleatoria de <span class="math inline">\(y_{i}\)</span> es <span class="math inline">\(\epsilon_{i}\)</span>; <span class="math inline">\(\beta_{0}\)</span>,<span class="math inline">\(\beta_{1}\)</span> son constantes y <span class="math inline">\(x_{i}\)</span> ya es un valor dado; por lo que <span class="math inline">\(Var(c+\epsilon_{i})=Var(\epsilon_{i})\)</span> con <span class="math inline">\(c\)</span> constante, de esta manera:</p>
 <p><span class="math display">\[Var(y_{i})=0+0+Var(\epsilon_{i})\]</span>
 <span class="math display">\[\therefore Var(y_{i})=\sigma^2\]</span></p>
-<div id="estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Estimación por mínimos cuadrados de los parámetros del modelo</h2>
+<div id="estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Estimación por mínimos cuadrados de los parámetros del modelo<a href="modelo-con-intercepto.html#estimación-por-mínimos-cuadrados-de-los-parámetros-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El modelo de regresión lineal simple</p>
 <p><span class="math display">\[y=\beta_{0}+\beta_{1}x+\epsilon\]</span></p>
 <p>cuenta con dos parámetros desconocidos, <span class="math inline">\(\beta_{0}\)</span> y <span class="math inline">\(\beta_{1}\)</span>, los cuales deben ser estimados a partir de los datos de la muestra. Con la hipótesis de varianza constante sobre los errores, aparece otro parámetro <span class="math inline">\(\sigma^2\)</span> desconocido, aunque no está incluido en el modelo también debe ser estimado.
@@ -410,7 +435,7 @@ De esta manera se demuestra el teorema 2.2. Un punto a destacar es que las sigui
 \\
 \hat{\beta_{0}} \ \sum_{i=1}^{n}x_{i} \ + \ \hat{\beta_{1}}\sum_{i=1}^{n}x_{i}^2 \ \ = \ \sum_{i=1}^{n}x_{i}y_{i}
 \end{array}
-\right. 
+\right.
 \]</span></p>
 <p>Son conocidas como las <strong>ecuaciones normales</strong>, que en conjunto forman un sistema de ecuaciones; al resolverlas simultáneamente para <span class="math inline">\(\hat{\beta_{0}}\)</span> y <span class="math inline">\(\hat{\beta_{1}}\)</span> se obtiene los estimadores de <span class="math inline">\(\beta_{0}\)</span> y <span class="math inline">\(\beta_{1}\)</span> que se plantean en el teorema anterior.</p>
 <p>Un problema del método de mínimos cuadrados es que no proporciona un estimador para <span class="math inline">\(\sigma^2\)</span>, sin embargo, se obtendrá bajo el supuesto de normalidad que es el siguiente:</p>
@@ -456,8 +481,8 @@ Y como demostramos anteriormente, la suma de los residuos es cero:</p>
 <p>Entonces:</p>
 <p><span class="math display">\[\sum_{i=1}^{n}\hat{y_{i}}e_{i}=0. \blacksquare\]</span></p>
 </div>
-<div id="propiedades-de-los-estimadores" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> Propiedades de los estimadores</h2>
+<div id="propiedades-de-los-estimadores" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Propiedades de los estimadores<a href="modelo-con-intercepto.html#propiedades-de-los-estimadores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Los estimadores <span class="math inline">\(\hat{\beta_{0}}\)</span> y <span class="math inline">\(\hat{\beta_{1}}\)</span> tienen propiedades estadísticas muy importantes. ya que son estimadores insesgados, además son de mínima varianza. La propiedad de insesgamiento se revisará en el siguiente teorema:</p>
 <p><strong>Teorema 2.4</strong> Sea <span class="math inline">\(\hat{\beta_{0}}\)</span>, <span class="math inline">\(\hat{\beta_{1}}\)</span> los estimadores de mínimos cuadrados de <span class="math inline">\(\beta_{0}\)</span> y <span class="math inline">\(\beta_{1}\)</span>, respectivamente, entonces los estimadores <span class="math inline">\(\hat{\beta_{0}}\)</span>,<span class="math inline">\(\hat{\beta_{1}}\)</span> son insesgados. Es decir:</p>
 <p><strong>a)</strong> <span class="math inline">\(\mathbf{E}\left[\hat{\beta_{1}}\right]=\beta_{1}\)</span></p>
@@ -627,7 +652,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

@@ -1,0 +1,117 @@
+# Ejemplo de regresión lineal simple
+
+A continuación veremos cómo resolver un problema que involucra ajustar un modelo de regresión lineal simple.
+
+## Contexto del problema
+
+Para esta tarea usaremos los datos almacenados [aquí](https://raw.githubusercontent.com/alberto-mateos-mo/seminario-est-fciencias/master/datos/linear_regression_data/mmm_Rexample.csv).
+
+Estos datos contienen información sobre el impacto que han tenido diferentes inversiones de publicidad en las ventas de la compañía.
+
+El objetivo de la empresa es entender si las inversiones en publicidad por TV han beneficiado a las ventas y cuantificar este beneficio.
+
+## Exploración de datos
+
+Para leer los datos directamente de GitHub usaremos la librería `readr`, la cual puede instalarse usando `install.packages("readr")`.
+
+```{r, message=FALSE, warning=FALSE}
+library(readr)
+library(dplyr)
+
+datos <- read_csv("https://raw.githubusercontent.com/alberto-mateos-mo/seminario-est-fciencias/master/datos/linear_regression_data/mmm_Rexample.csv")
+
+head(datos)
+```
+
+Como podemos ver tenemos información de las ventas de la compañía y de los montos que se han destinado para publicidad en televisión (tv), redes sociales (social_networks) y exteriores (ooh).
+
+Seleccionaremos, en este las variables correspondientes a ventas e inversiones en TV
+
+```{r}
+datos <- datos %>% 
+  dplyr::select(sales, tv)
+```
+
+## Visualización de datos
+
+Crearemos un gráfico de dispersión entre las variables seleccionadas buscando evidencia de algun tipo de relación entre las ventas y las inversiones en TV.
+
+A este gráfico le agregaremos el coeficiente de correlación entre las variables.
+
+```{r}
+library(ggplot2)
+
+ggplot(datos, aes(tv, sales))+
+  geom_point()+
+  ggtitle(label = "Relación entre ventas e inversiones en TV",
+          subtitle = paste("Coeficiente de correlación:", 
+                           round(cor(datos$tv, datos$sales), 2)))+
+  theme_minimal()
+```
+
+En este grafico podemos identificar la existencia de una relación directamente proporcional entre los montos invertidos en TV y las ventas, lo cual se confirma con el coeficiente de correlación.
+
+Recordemos que justamente uno de los supuestos del modelo de regresión lineal simple es que debe existir una relación lineal entre las variables independiente y dependiente.
+
+## Ajuste del modelo de regresión lineal simple
+
+Con este modelo encontraremos la ecuación de la recta que mejor describa la relación entre nuestras dos variables de interés.
+
+Recordemos que esta recta estará descrita de la siguiente forma:
+
+$$sales = \beta_0 + \beta_1*tv$$
+
+```{r}
+modelo <- lm(sales ~ tv, data = datos)
+```
+
+
+## Validación del modelo
+
+Mediante el resumen del modelo tendremos acceso a todas las métricas necesarias para evaluar qué tan _bueno_ es.
+
+```{r}
+summary(modelo)
+```
+
+En primer lugar veremos la sección __Call__, en esta sección se describe qué modelo se esta ajustando; esta parte es meramente informativa.
+
+La sección __Residuals__ nos da una idea de la distribución de los residuales.
+
+__Para pensar: ¿por qué el resumen del modelo omite la media de los residuales?, ¿qué deberíamos esperar de la mediana?__
+
+### Coefficients
+
+En la tabla de esta sección se muestran:
+
+- Los estimadores de los coeficientes del modelo i.e. $\beta_0$ (Intercept) y $\beta_1$ (tv)
+
+- Los errores estandar para los coeficientes
+
+- El estadístico t y el p-value correspondiente: estos definen la significancia estadística de los estimadores
+
+De este ejemplo podemos concluir que ambos coeficientes son significativos, es decir, hay una asociación entre las inversiones en TV y las ventas.
+
+## Bondad de ajuste
+
+La última sección nos muestra:
+
+- El error estándar de los residuales: representa las variaciones de los datos reales en torno a la linea de regresión ajustada por el modelo.
+
+- R cuadrada y R cuadrada ajustada: representan la proporción de información de los datos que es explicada por el modelo. La diferencia entre ellas es que la R cuadrada ajustada considera en su cálculo una penalización por la cantidad de parámetros que estima el modelo.
+
+- Estadístico F: evalua si al menos una variable independiente tiene coeficiente distinto de cero; este estadístico será útil cuando apliquemos modelos multivariados.
+
+## Intepretación de resultados
+
+Una vez validado el modelo de regresión lineal simple podemos usar sus resultados para intepretarlos en el contexto del problema.
+
+Recordemos que nuestro objetivo es entender si las inversiones en publicidad por TV han beneficiado a las ventas y cuantificar este beneficio.
+
+En primer lugar podemos determinar que las inversiones en publicidad por televisión sí influyen en el desempeño de las ventas.
+
+El coeficiente $\beta_0$ (Intercept) nos indica las ventas promedio generadas por otros factores no medidos y con inversiones nulas en TV.
+
+El coeficiente $\beta_1$ asociado a las inversiones en TV nos da el incremento (dado que es positivo) promedio en ventas por cada incremento de una unidad monetaria en TV.
+
+Es decir, las inversiones en publicidad por TV benefician a las ventas, generando en promedio ~5 unidades monetarias de venta por cada unidad monetaria invertida en este medio.
